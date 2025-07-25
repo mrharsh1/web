@@ -8,9 +8,15 @@ import { MousePointerClick } from "lucide-react";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [cursorEnabled, setCursorEnabled] = useState(false);
-  const [dragPos, setDragPos] = useState({ x: 24, y: window.innerHeight / 2 });
+  // Avoid using window during SSR
+  const [dragPos, setDragPos] = useState({ x: 24, y: 200 }); // default y
   const [dragging, setDragging] = useState(false);
   const dragOffset = useRef({ x: 0, y: 0 });
+
+  // Set dragPos.y to window.innerHeight/2 on client only
+  React.useEffect(() => {
+    setDragPos((pos) => ({ ...pos, y: window.innerHeight / 2 }));
+  }, []);
 
   // Drag handlers
   const onMouseDown = (e: React.MouseEvent) => {
@@ -51,6 +57,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="en">
+        <head>
+  <title>BhaviyaEnterprises</title>
+</head>
       <body className="bg-neutral-950 text-white">
         {/* Draggable floating toggle button for cursor animation */}
         <button
