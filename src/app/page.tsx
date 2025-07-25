@@ -7,8 +7,10 @@ import { useSpring, animated as a, useSprings } from '@react-spring/web';
 import { useGesture } from '@use-gesture/react';
 import { StaggerTestimonials } from "@/components/ui/testmonals";
 import { EvervaultCard } from "@/components/ui/card";
-import { ThreeDMarquee} from "@/components/lightswind/3d-marquee";
-
+import { ThreeDMarquee } from "@/components/lightswind/3d-marquee";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/lightswind/carousel";
+import { FeaturesSection } from "@/components/ui/Features";
+import GlowingCards, { GlowingCard } from "@/components/lightswind/glowing-cards";
 // 3D ICONS FOR SERVICES
 
 
@@ -265,40 +267,40 @@ function FloatingParticlesBG() {
 
 // Update the images to be visually rich, 1:1 aspect ratio, and abstract/3D style
 
-  const images = [
-    "https://assets.aceternity.com/cloudinary_bkp/3d-card.png",
-    "https://assets.aceternity.com/animated-modal.png",
-    "https://assets.aceternity.com/animated-testimonials.webp",
-    "https://assets.aceternity.com/cloudinary_bkp/Tooltip_luwy44.png",
-    "https://assets.aceternity.com/github-globe.png",
-    "https://assets.aceternity.com/glare-card.png",
-    "https://assets.aceternity.com/layout-grid.png",
-    "https://assets.aceternity.com/flip-text.png",
-    "https://assets.aceternity.com/hero-highlight.png",
-    "https://assets.aceternity.com/carousel.webp",
-    "https://assets.aceternity.com/placeholders-and-vanish-input.png",
-    "https://assets.aceternity.com/shooting-stars-and-stars-background.png",
-    "https://assets.aceternity.com/signup-form.png",
-    "https://assets.aceternity.com/cloudinary_bkp/stars_sxle3d.png",
-    "https://assets.aceternity.com/spotlight-new.webp",
-    "https://assets.aceternity.com/cloudinary_bkp/Spotlight_ar5jpr.png",
-    "https://assets.aceternity.com/cloudinary_bkp/Parallax_Scroll_pzlatw_anfkh7.png",
-    "https://assets.aceternity.com/tabs.png",
-    "https://assets.aceternity.com/cloudinary_bkp/Tracing_Beam_npujte.png",
-    "https://assets.aceternity.com/cloudinary_bkp/typewriter-effect.png",
-    "https://assets.aceternity.com/glowing-effect.webp",
-    "https://assets.aceternity.com/hover-border-gradient.png",
-    "https://assets.aceternity.com/cloudinary_bkp/Infinite_Moving_Cards_evhzur.png",
-    "https://assets.aceternity.com/cloudinary_bkp/Lamp_hlq3ln.png",
-    "https://assets.aceternity.com/macbook-scroll.png",
-    "https://assets.aceternity.com/cloudinary_bkp/Meteors_fye3ys.png",
-    "https://assets.aceternity.com/cloudinary_bkp/Moving_Border_yn78lv.png",
-    "https://assets.aceternity.com/multi-step-loader.png",
-    "https://assets.aceternity.com/vortex.png",
-    "https://assets.aceternity.com/wobble-card.png",
-    "https://assets.aceternity.com/world-map.webp",
-  ];
-  
+const images = [
+  "https://assets.aceternity.com/cloudinary_bkp/3d-card.png",
+  "https://assets.aceternity.com/animated-modal.png",
+  "https://assets.aceternity.com/animated-testimonials.webp",
+  "https://assets.aceternity.com/cloudinary_bkp/Tooltip_luwy44.png",
+  "https://assets.aceternity.com/github-globe.png",
+  "https://assets.aceternity.com/glare-card.png",
+  "https://assets.aceternity.com/layout-grid.png",
+  "https://assets.aceternity.com/flip-text.png",
+  "https://assets.aceternity.com/hero-highlight.png",
+  "https://assets.aceternity.com/carousel.webp",
+  "https://assets.aceternity.com/placeholders-and-vanish-input.png",
+  "https://assets.aceternity.com/shooting-stars-and-stars-background.png",
+  "https://assets.aceternity.com/signup-form.png",
+  "https://assets.aceternity.com/cloudinary_bkp/stars_sxle3d.png",
+  "https://assets.aceternity.com/spotlight-new.webp",
+  "https://assets.aceternity.com/cloudinary_bkp/Spotlight_ar5jpr.png",
+  "https://assets.aceternity.com/cloudinary_bkp/Parallax_Scroll_pzlatw_anfkh7.png",
+  "https://assets.aceternity.com/tabs.png",
+  "https://assets.aceternity.com/cloudinary_bkp/Tracing_Beam_npujte.png",
+  "https://assets.aceternity.com/cloudinary_bkp/typewriter-effect.png",
+  "https://assets.aceternity.com/glowing-effect.webp",
+  "https://assets.aceternity.com/hover-border-gradient.png",
+  "https://assets.aceternity.com/cloudinary_bkp/Infinite_Moving_Cards_evhzur.png",
+  "https://assets.aceternity.com/cloudinary_bkp/Lamp_hlq3ln.png",
+  "https://assets.aceternity.com/macbook-scroll.png",
+  "https://assets.aceternity.com/cloudinary_bkp/Meteors_fye3ys.png",
+  "https://assets.aceternity.com/cloudinary_bkp/Moving_Border_yn78lv.png",
+  "https://assets.aceternity.com/multi-step-loader.png",
+  "https://assets.aceternity.com/vortex.png",
+  "https://assets.aceternity.com/wobble-card.png",
+  "https://assets.aceternity.com/world-map.webp",
+];
+
 
 export default function Home() {
   const serviceData = [
@@ -332,6 +334,22 @@ export default function Home() {
       img: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80",
       desc: "Data-driven insights and SEO strategies to grow your business."
     },
+  ];
+  const serviceImages = [
+    "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80", // Web Development
+    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80", // Mobile Apps
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80", // Cloud Solutions
+    "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80", // UI/UX Design
+    "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=400&q=80", // Cybersecurity
+    "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80", // Analytics & SEO
+  ];
+  const productImages = [
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
   ];
   return (
     <main className="bg-neutral-950 text-white">
@@ -367,10 +385,9 @@ export default function Home() {
       <section className="py-8 px-2 md:px-0">
         <div className="max-w-7xl mx-auto w-full">
 
-
-    <div className="mx-auto my-10 max-w-7xl rounded-3xl bg-gray-950/5 p-2 ring-1 ring-neutral-700/10 dark:bg-neutral-800">
-      <ThreeDMarquee images={images} />
-    </div>
+          <div className="mx-auto my-10 max-w-7xl rounded-3xl bg-gray-950/5 p-2 ring-1 ring-neutral-700/10 dark:bg-neutral-800">
+            <ThreeDMarquee images={images} />
+          </div>
 
         </div>
       </section>
@@ -381,46 +398,55 @@ export default function Home() {
           <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
             We offer a wide range of digital solutions to help your business thrive in the modern world.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 w-full">
-            {serviceData.map((service, idx) => (
-              <div key={service.text} className="relative flex flex-col items-center">
-                {/* Card with transparent bg, border, and shadow */}
-                <div className="relative z-10 w-full border-2 border-gray-700 rounded-3xl bg-transparent shadow-2xl flex flex-col items-center py-8 px-4">
-                  <EvervaultCard  className="!bg-transparent" />
-                  <div className="text-left">
-                  <div className="mt-4 text-white text-left text-2xl font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]" style={{textShadow:'0 2px 8px #000,0 1px 2px #000'}}> 
-                  {service.text}
-                  </div>
-                  <div className="mt-4 text-white text-left text-base font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]" style={{textShadow:'0 2px 8px #000,0 1px 2px #000'}}> 
-                    {service.desc}
-                  </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div className="relative w-full">
+            <Carousel opts={{ align: "start", slidesToScroll: 1, loop: true }} className="w-full">
+              <CarouselPrevious />
+              <CarouselNext />
+              <CarouselContent className="">
+                {serviceData.map((service, idx) => (
+                  <CarouselItem key={service.text} className="sm:basis-1/2 lg:basis-1/3 px-2 py-4">
+                    <div className="relative flex flex-col items-center">
+                      <div className="relative z-10 w-full border-2 border-gray-700 rounded-3xl bg-transparent shadow-2xl flex flex-col items-center py-8 px-4">
+                        <EvervaultCard
+                          className="!bg-transparent"
+                          image={serviceImages[idx]}
+                        />
+                        <div className="text-left">
+                          <div className="mt-4 text-white text-left text-2xl font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]" style={{ textShadow: '0 2px 8px #000,0 1px 2px #000' }}>
+                            {service.text}
+                          </div>
+                          <div className="mt-4 text-white text-left text-base font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]" style={{ textShadow: '0 2px 8px #000,0 1px 2px #000' }}>
+                            {service.desc}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </div>
         </div>
       </section>
+      <FeaturesSection />
       {/* Products Section */}
-      <section className="px-4 py-16">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-extrabold mb-4 text-center">Our Products</h2>
-          <p className="text-neutral-300 text-center mb-12 max-w-xl mx-auto">
-            Explore our suite of innovative products designed to boost your business productivity.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {products.map((product, idx) => (
-              <div key={idx} className="bg-neutral-900 rounded-2xl p-8 flex flex-col items-center shadow hover:shadow-lg transition">
-                <img src={product.image} alt={product.name} className="w-24 h-24 rounded-xl mb-4 object-cover bg-neutral-800" />
-                <h3 className="text-xl font-bold mb-2">{product.name}</h3>
-                <p className="text-neutral-400 text-center">{product.desc}</p>
-              </div>
-            ))}
-          </div>
+      <section className="px-4 py-20">
+        <div className="max-w-4xl mx-auto text-center mb-12">
+          <h2 className="text-4xl font-extrabold mb-4 text-white">Our Products</h2>
+          <p className="text-lg text-neutral-300">Explore our suite of innovative products designed to boost your business productivity.</p>
         </div>
+        <GlowingCards gap="2.5rem" maxWidth="56rem" enableGlow={true}>
+          {products.map((product, idx) => (
+            <GlowingCard key={idx} className="flex flex-col items-center bg-neutral-900/80 border border-blue-700/30 shadow-xl hover:shadow-2xl transition-all duration-300 w-96 h-72">
+              <img src={productImages[idx % productImages.length]} alt={product.name} className="w-28 h-28 rounded-xl mb-6 object-cover bg-neutral-800" />
+              <h3 className="text-xl font-bold mb-2 text-white text-center">{product.name}</h3>
+              <p className="text-neutral-300 text-center">{product.desc}</p>
+            </GlowingCard>
+          ))}
+        </GlowingCards>
       </section>
       <StaggerTestimonials />
       <FloatingParticlesBG />
-      </main>
+    </main>
   );
 }

@@ -19,6 +19,7 @@ import {
   CheckCircle
 } from "lucide-react";
 import { Boxes } from "@/components/ui/bg-box";
+import ProductsHero from "@/components/products-hero";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -109,39 +110,12 @@ export default function AboutPage() {
   return (
     <main className="bg-neutral-950 text-white min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <Boxes />
-        {/* If you have a 3D hero, wrap it like this: */}
-        {/* <div className="absolute inset-0 z-0 pointer-events-none"><About3DHero /></div> */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30  pointer-events-none z-10" />
-        <div className="relative z-20 max-w-7xl mx-auto px-4 py-24 lg:py-32">
-          <motion.div 
-            className="text-center"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <Badge variant="secondary" className="mb-6 bg-blue-500/20 text-blue-300 border-blue-500/30">
-              About Bhaviya
-            </Badge>
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
-              Building the Future
-            </h1>
-            <p className="text-xl lg:text-2xl text-neutral-300 max-w-3xl mx-auto mb-8 leading-relaxed">
-              We're a team of innovators, creators, and problem-solvers dedicated to transforming businesses through cutting-edge technology and exceptional design.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-                Our Story
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-              <Button size="lg" variant="outline" className="border-neutral-600 text-neutral-300 hover:bg-neutral-800">
-                Meet Our Team
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <ProductsHero
+        badge="About Bhaviya"
+        heading="Building the Future"
+        subheading="We're a team of innovators, creators, and problem-solvers dedicated to transforming businesses through cutting-edge technology and exceptional design."
+        buttonText={undefined}
+      />
 
       {/* Stats Section */}
       <section className="py-16 bg-neutral-900/50">

@@ -57,9 +57,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="en">
-        <head>
-  <title>BhaviyaEnterprises</title>
-</head>
       <body className="bg-neutral-950 text-white">
         {/* Draggable floating toggle button for cursor animation */}
         <button

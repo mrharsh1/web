@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Canvas } from "@react-three/fiber";
 import { Float, Icosahedron, TorusKnot, Environment, OrbitControls } from "@react-three/drei";
 import { Boxes } from "@/components/ui/bg-box";
+import ProductsHero from "@/components/products-hero";
 
 const blogs = [
   {
@@ -138,22 +139,14 @@ function Blog3DHero() {
 
 export default function BlogsPage() {
   return (
-    <div className="min-h-screen bg-neutral-950 pb-12 px-4">
-      
+    <div className="bg-neutral-950 text-white min-h-screen">
       {/* Hero Section */}
-      <section className="relative flex flex-col items-center justify-center min-h-[60vh] px-0 md:px-0 overflow-hidden mb-12">
-        <Boxes className="z-0 pointer-events-auto" />
-        {/* <div className="absolute inset-0 z-0 pointer-events-none"><Blog3DHero /></div> */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80 pointer-events-none z-10" />
-        <div className="relative z-20 flex flex-col items-center justify-center w-full h-full min-h-[60vh] text-center">
-          <h1 className="text-5xl lg:text-7xl font-extrabold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent drop-shadow-2xl">
-            Our Blog
-          </h1>
-          <p className="text-xl lg:text-2xl text-neutral-200 max-w-2xl mx-auto mb-8 leading-relaxed drop-shadow-lg">
-            Insights, tutorials, and stories from our team. Stay updated with the latest in tech, design, and development.
-          </p>
-        </div>
-      </section>
+      <ProductsHero
+        badge="Our Blog"
+        heading="Our Blog"
+        subheading="Insights, tutorials, and stories from our team. Stay updated with the latest in tech, design, and development."
+        buttonText={undefined}
+      />
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-10 text-white">Latest Blogs</h2>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

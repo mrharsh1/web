@@ -15,6 +15,7 @@ import * as THREE from "three";
 import { Boxes } from "@/components/ui/bg-box";
 import { GradientCard } from "@/components/ui/gradiant-card";
 import { ContainerScroll, CardSticky } from "@/components/ui/card-stuck";
+import ProductsHero from "@/components/products-hero";
 
 const services = [
   {
@@ -387,37 +388,22 @@ export default function ServicesPage() {
   return (
     <main className="bg-neutral-950 text-white min-h-screen">
       {/* Hero Section */}
-      <section className="relative flex flex-col items-center justify-center min-h-[60vh] px-0 md:px-0 overflow-hidden">
-        <Boxes />
-        {/* If you have a 3D hero, wrap it like this: */}
-        {/* <div className="absolute inset-0 z-0 pointer-events-none"><ServicesFull3DHero /></div> */}
-        {/* Gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30  pointer-events-none z-10" />
-        <div className="relative z-20 flex flex-col items-center justify-center w-full h-full min-h-[60vh] text-center">
-          <Badge variant="secondary" className="mb-6 bg-blue-500/20 text-blue-300 border-blue-500/30 mx-auto">
-            Our Services
-          </Badge>
-          <h1 className="text-5xl lg:text-7xl font-extrabold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent drop-shadow-2xl">
-            Digital Solutions for <br />Modern Businesses
-          </h1>
-          <p className="text-xl lg:text-2xl text-neutral-200 max-w-2xl mx-auto mb-8 leading-relaxed drop-shadow-lg">
-            We help you grow, innovate, and succeed with technology that works for you.
-          </p>
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white mx-auto">
-            Get Started <ArrowRight className="ml-2 w-4 h-4" />
-          </Button>
-        </div>
-      </section>
+      <ProductsHero
+        badge="Our Services"
+        heading={<>Digital Solutions for <br />Modern Businesses</>}
+        subheading="We help you grow, innovate, and succeed with technology that works for you."
+        buttonText="Get Started"
+      />
       {/* How We Work Section */}
       <section className="py-24 bg-black">
         <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-start">
           {/* Left: Heading and description */}
           <div className="left-0 top-0 md:sticky md:h-svh md:py-12">
-            <h5 className=" text-xs uppercase tracking-wide text-neutral-400">our process</h5>
-            <h2 className="mb-6 mt-4 text-4xl font-bold tracking-tight text-white">
+            <h5 className="text-xs md:text-sm uppercase tracking-wide text-neutral-400 mb-2">our process</h5>
+            <h2 className="mb-6 mt-4 text-3xl md:text-5xl font-extrabold tracking-tight text-white">
               Planning your <span className="text-blue-400">project development</span> journey
             </h2>
-            <p className="max-w-prose text-sm text-neutral-300">
+            <p className="max-w-prose text-base md:text-lg text-neutral-300">
               Our journey begins with a deep dive into your vision. In the Discovery phase, we engage in meaningful conversations to grasp your brand identity, goals, and the essence you want to convey. This phase sets the stage for all that follows.
             </p>
           </div>
