@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         {/* Company Info */}
         <div className="flex flex-col gap-6">
-          <h2 className="text-2xl font-extrabold mb-2 tracking-tight">Bhaviya</h2>
+          <h2 className="text-2xl font-extrabold mb-2 tracking-tight"> <img src="/logo.png" alt="Bhaviya" width={100} height={100} /></h2>
           <p className="text-gray-400 text-base mb-2">
             Bhaviya is a creative technology company delivering modern, scalable digital solutions for businesses worldwide. We blend innovation, design, and engineering to help you grow.
           </p>
@@ -17,17 +17,9 @@ export default function Footer() {
           <div className="flex items-start gap-2 text-gray-300">
             <FaMapMarkerAlt className="mt-1 text-gray-400" />
             <div>
-              <span className="font-semibold text-white">India</span><br />
-              123 Tech Park, Bangalore, KA 560001<br />
-              +91 98765 43210
-            </div>
-          </div>
-          <div className="flex items-start gap-2 text-gray-300">
-            <FaMapMarkerAlt className="mt-1 text-gray-400" />
-            <div>
-              <span className="font-semibold text-white">USA</span><br />
-              456 Silicon Ave, San Francisco, CA 94107<br />
-              +1 (415) 555-1234
+              <span className="font-semibold text-white">SCO 393, 2nd floor</span><br />
+               Sector - 37 D, Chandigarh<br />
+B.O. : Plot No. 1025, Rani Sati Nagar,<br /> Nirman Nagar, Jaipur-302019
             </div>
           </div>
         </div>
@@ -40,7 +32,7 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-2 text-gray-300">
             <FaPhoneAlt className="text-gray-400" />
-            <span>+91 98765 43210</span>
+            <span>+91 90268 49414</span>
           </div>
           <div className="flex items-center gap-2 text-gray-300">
             <FaHeadset className="text-gray-400" />

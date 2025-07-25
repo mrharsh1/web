@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import Image from "next/image";
 import { Canvas } from "@react-three/fiber";
 import { Float, Icosahedron, TorusKnot, Environment, OrbitControls } from "@react-three/drei";
+import { Boxes } from "@/components/ui/bg-box";
 
 const blogs = [
   {
@@ -137,10 +138,12 @@ function Blog3DHero() {
 
 export default function BlogsPage() {
   return (
-    <div className="min-h-screen bg-black pb-12 px-4">
+    <div className="min-h-screen bg-neutral-950 pb-12 px-4">
+      
       {/* Hero Section */}
       <section className="relative flex flex-col items-center justify-center min-h-[60vh] px-0 md:px-0 overflow-hidden mb-12">
-        <Blog3DHero />
+        <Boxes className="z-0 pointer-events-auto" />
+        {/* <div className="absolute inset-0 z-0 pointer-events-none"><Blog3DHero /></div> */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80 pointer-events-none z-10" />
         <div className="relative z-20 flex flex-col items-center justify-center w-full h-full min-h-[60vh] text-center">
           <h1 className="text-5xl lg:text-7xl font-extrabold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent drop-shadow-2xl">

@@ -9,6 +9,7 @@ import Image from "next/image";
 import {
   ShoppingCart, BarChart, Users, ShieldCheck, Rocket, ArrowRight, CheckCircle, Star, Zap
 } from "lucide-react";
+import { Boxes } from "@/components/ui/bg-box";
 
 const products = [
   {
@@ -82,8 +83,11 @@ export default function ProductsPage() {
     <main className="bg-neutral-950 text-white min-h-screen">
       {/* Hero Section */}
       <section className="relative overflow-hidden py-24">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-blue-900/20" />
-        <div className="relative max-w-5xl mx-auto px-4 text-center">
+        <Boxes  />
+        {/* If you have a 3D hero, wrap it like this: */}
+        {/* <div className="absolute inset-0 z-0 pointer-events-none"><Products3DHero /></div> */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30  pointer-events-none z-10" />
+        <div className="relative z-20 max-w-5xl mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
             <Badge variant="secondary" className="mb-6 bg-blue-500/20 text-blue-300 border-blue-500/30">
               Our Products

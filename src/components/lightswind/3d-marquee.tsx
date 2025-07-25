@@ -1,100 +1,142 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React from "react";
-
-export interface MarqueeImage {
-  src: string;
-  alt: string;
-  href?: string;
-  target?: "_blank" | "_self" | "_parent" | "_top";
-}
-
-export interface ThreeDMarqueeProps {
-  images: MarqueeImage[];
-  className?: string;
-  cols?: number; // default is 4
-  onImageClick?: (image: MarqueeImage, index: number) => void;
-}
-
-export const ThreeDMarquee: React.FC<ThreeDMarqueeProps> = ({
+import { cn } from "@/lib/utils";
+export const ThreeDMarquee = ({
   images,
-  className = "",
-  cols = 4,
-  onImageClick,
+  className,
+}: {
+  images: string[];
+  className?: string;
 }) => {
-  // Clone the image list twice
-  const duplicatedImages = [...images, ...images];
-
-  const groupSize = Math.ceil(duplicatedImages.length / cols);
-  const imageGroups = Array.from({ length: cols }, (_, index) =>
-    duplicatedImages.slice(index * groupSize, (index + 1) * groupSize)
-  );
-
-  const handleImageClick = (image: MarqueeImage, globalIndex: number) => {
-    if (onImageClick) {
-      onImageClick(image, globalIndex);
-    } else if (image.href) {
-      window.open(image.href, image.target || "_self");
-    }
-  };
-
+  // Split the images array into 4 equal parts
+  const chunkSize = Math.ceil(images.length / 4);
+  const chunks = Array.from({ length: 4 }, (_, colIndex) => {
+    const start = colIndex * chunkSize;
+    return images.slice(start, start + chunkSize);
+  });
   return (
-    <section
-      className={`mx-auto block h-[600px] max-sm:h-[400px] 
-        overflow-hidden rounded-2xl bg-white dark:bg-black ${className}`}
+    <div
+      className={cn(
+        "mx-auto block h-[600px] overflow-hidden rounded-2xl max-sm:h-100",
+        className,
+      )}
     >
-      <div
-        className="flex w-full h-full items-center justify-center"
-        style={{
-          transform: "rotateX(55deg) rotateY(0deg) rotateZ(45deg)",
-        }}
-      >
-        <div className="w-full overflow-hidden scale-90 sm:scale-100">
+      <div className="flex size-full items-center justify-center">
+        <div className="size-[1720px] shrink-0 scale-50 sm:scale-75 lg:scale-100">
           <div
-            className={`relative grid h-full w-full origin-center 
-              grid-cols-2 sm:grid-cols-${cols} gap-4 transform 
-              `}
+            style={{
+              transform: "rotateX(55deg) rotateY(0deg) rotateZ(-45deg)",
+            }}
+            className="relative top-96 right-[50%] grid size-full origin-top-left grid-cols-4 gap-8 transform-3d"
           >
-            {imageGroups.map((imagesInGroup, idx) => (
+            {chunks.map((subarray, colIndex) => (
               <motion.div
-                key={`column-${idx}`}
-                animate={{ y: idx % 2 === 0 ? 100 : -100 }}
+                animate={{ y: colIndex % 2 === 0 ? 100 : -100 }}
                 transition={{
-                  duration: idx % 2 === 0 ? 10 : 15,
+                  duration: colIndex % 2 === 0 ? 10 : 15,
                   repeat: Infinity,
                   repeatType: "reverse",
                 }}
-                className="flex flex-col items-center gap-6 relative"
+                key={colIndex + "marquee"}
+                className="flex flex-col items-start gap-8"
               >
-                <div className="absolute left-0 top-0 h-full w-0.5 bg-gray-200 dark:bg-gray-700" />
-                {imagesInGroup.map((image, imgIdx) => {
-                  const globalIndex = idx * groupSize + imgIdx;
-                  const isClickable = image.href || onImageClick;
-
-                  return (
-                    <div key={`img-${imgIdx}`} className="relative">
-                      <div className="absolute top-0 left-0 w-full h-0.5 bg-gray-200 dark:bg-gray-700" />
-                      <motion.img
-                        whileHover={{ y: -10 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        src={image.src}
-                        alt={image.alt}
-                        width={970}
-                        height={700}
-                        className={`aspect-[970/700] w-full max-w-[200px] rounded-lg object-cover ring ring-gray-300/30 dark:ring-gray-800/50 shadow-xl hover:shadow-2xl transition-shadow duration-300 ${
-                          isClickable ? "cursor-pointer" : ""
-                        }`}
-                        onClick={() => handleImageClick(image, globalIndex)}
-                      />
-                    </div>
-                  );
-                })}
+                <GridLineVertical className="-left-4" offset="80px" />
+                {subarray.map((image, imageIndex) => (
+                  <div className="relative" key={imageIndex + image}>
+                    <GridLineHorizontal className="-top-4" offset="20px" />
+                    <motion.img
+                      whileHover={{
+                        y: -10,
+                      }}
+                      transition={{
+                        duration: 0.3,
+                        ease: "easeInOut",
+                      }}
+                      key={imageIndex + image}
+                      src={image}
+                      alt={`Image ${imageIndex + 1}`}
+                      className="aspect-[970/700] rounded-lg object-cover ring ring-gray-950/5 hover:shadow-2xl"
+                      width={970}
+                      height={700}
+                    />
+                  </div>
+                ))}
               </motion.div>
             ))}
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  );
+};
+
+const GridLineHorizontal = ({
+  className,
+  offset,
+}: {
+  className?: string;
+  offset?: string;
+}) => {
+  return (
+    <div
+      style={
+        {
+          "--background": "#ffffff",
+          "--color": "rgba(0, 0, 0, 0.2)",
+          "--height": "1px",
+          "--width": "5px",
+          "--fade-stop": "90%",
+          "--offset": offset || "200px", //-100px if you want to keep the line inside
+          "--color-dark": "rgba(255, 255, 255, 0.2)",
+          maskComposite: "exclude",
+        } as React.CSSProperties
+      }
+      className={cn(
+        "absolute left-[calc(var(--offset)/2*-1)] h-[var(--height)] w-[calc(100%+var(--offset))]",
+        "bg-[linear-gradient(to_right,var(--color),var(--color)_50%,transparent_0,transparent)]",
+        "[background-size:var(--width)_var(--height)]",
+        "[mask:linear-gradient(to_left,var(--background)_var(--fade-stop),transparent),_linear-gradient(to_right,var(--background)_var(--fade-stop),transparent),_linear-gradient(black,black)]",
+        "[mask-composite:exclude]",
+        "z-30",
+        "dark:bg-[linear-gradient(to_right,var(--color-dark),var(--color-dark)_50%,transparent_0,transparent)]",
+        className,
+      )}
+    ></div>
+  );
+};
+
+const GridLineVertical = ({
+  className,
+  offset,
+}: {
+  className?: string;
+  offset?: string;
+}) => {
+  return (
+    <div
+      style={
+        {
+          "--background": "#ffffff",
+          "--color": "rgba(0, 0, 0, 0.2)",
+          "--height": "5px",
+          "--width": "1px",
+          "--fade-stop": "90%",
+          "--offset": offset || "150px", //-100px if you want to keep the line inside
+          "--color-dark": "rgba(255, 255, 255, 0.2)",
+          maskComposite: "exclude",
+        } as React.CSSProperties
+      }
+      className={cn(
+        "absolute top-[calc(var(--offset)/2*-1)] h-[calc(100%+var(--offset))] w-[var(--width)]",
+        "bg-[linear-gradient(to_bottom,var(--color),var(--color)_50%,transparent_0,transparent)]",
+        "[background-size:var(--width)_var(--height)]",
+        "[mask:linear-gradient(to_top,var(--background)_var(--fade-stop),transparent),_linear-gradient(to_bottom,var(--background)_var(--fade-stop),transparent),_linear-gradient(black,black)]",
+        "[mask-composite:exclude]",
+        "z-30",
+        "dark:bg-[linear-gradient(to_bottom,var(--color-dark),var(--color-dark)_50%,transparent_0,transparent)]",
+        className,
+      )}
+    ></div>
   );
 };

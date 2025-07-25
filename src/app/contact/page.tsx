@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin, Copy, Facebook, Twitter, Linkedin, Instagram, Send
 import { motion } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
 import { Float, Icosahedron, TorusKnot, Environment, OrbitControls } from "@react-three/drei";
+import { Boxes } from "@/components/ui/bg-box";
 
 function copyToClipboard(text: string) {
   navigator.clipboard.writeText(text);
@@ -72,9 +73,10 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-neutral-950 text-white flex flex-col items-center justify-start">
       {/* Hero Section */}
-      <section className="w-full flex flex-col items-center justify-center py-16 md:py-24 bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 relative overflow-hidden">
-        <Contact3DHero />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80 pointer-events-none z-10" />
+      <section className="w-full flex flex-col items-center justify-center py-16 md:py-24  relative overflow-hidden">
+        <Boxes />
+        {/* <Contact3DHero /> */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30  pointer-events-none z-10" />
         <div className="relative z-20 flex flex-col items-center justify-center w-full h-full min-h-[320px] text-center">
           <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="text-4xl md:text-6xl font-extrabold text-center mb-4 bg-gradient-to-r from-white via-blue-200 to-pink-200 bg-clip-text text-transparent drop-shadow-2xl">
             Get in Touch

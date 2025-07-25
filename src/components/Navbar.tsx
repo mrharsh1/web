@@ -3,10 +3,14 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 w-full flex items-center justify-between px-8 py-4 bg-neutral-900/90 border-b border-neutral-800 backdrop-blur-md shadow-md transition-all">
+    <nav className="w-full sticky top-0 z-50 w-full bg-neutral-900/90 border-b border-neutral-800 backdrop-blur-md shadow-md transition-all">
+    <div className="max-w-7xl mx-auto flex items-center justify-between px-8 py-4 ">
       {/* Logo */}
       <div className="flex items-center gap-2">
-        <span className="text-2xl font-serif font-bold text-white">Bhaviya</span>
+        <span className="text-2xl font-serif font-bold text-white">
+          <Link href="/"> <img src="/logo.png" alt="Bhaviya" width={100} height={100} /></Link>
+
+        </span>
       </div>
       {/* Centered Nav Links */}
       <div className="flex-1 flex justify-center">
@@ -24,6 +28,7 @@ export default function Navbar() {
           <span>Get Quote</span>
         </button>
       </div>
+    </div>
     </nav>
   );
 }

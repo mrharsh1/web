@@ -12,6 +12,9 @@ import { Canvas } from "@react-three/fiber";
 import { Float, Icosahedron, TorusKnot, Environment, OrbitControls, Line, Sphere, Text } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { Boxes } from "@/components/ui/bg-box";
+import { GradientCard } from "@/components/ui/gradiant-card";
+import { ContainerScroll, CardSticky } from "@/components/ui/card-stuck";
 
 const services = [
   {
@@ -43,6 +46,39 @@ const services = [
     icon: <BarChart className="w-8 h-8 text-cyan-400" />,
     title: "Analytics & SEO",
     desc: "Data-driven insights and SEO strategies to grow your business."
+  },
+];
+
+const PROCESS_PHASES = [
+  {
+    id: "process-1",
+    title: "Research and Analysis",
+    description:
+      "With your vision in mind, we enter the Research and Analysis phase. Here, we examine your competitors, industry trends, and user preferences. This informed approach ensures your website stands out and provides an excellent user experience.",
+  },
+  {
+    id: "process-2",
+    title: "Wireframing and Prototyping",
+    description:
+      "We move on to Wireframing and Prototyping, where we create skeletal representations of your website's pages. These visual indigoprints allow us to test and refine the user experience before diving into design.",
+  },
+  {
+    id: "process-3",
+    title: "Design Creation",
+    description:
+      "Now, it's time for the Design Creation phase. Our talented designers bring your vision to life. We focus on aesthetics, ensuring your website not only looks stunning but also aligns perfectly with your brand identity.",
+  },
+  {
+    id: "process-4",
+    title: "Development and Testing",
+    description:
+      "In the Development and Testing phase, our skilled developers turn designs into a fully functional website. Rigorous testing ensures everything works seamlessly, providing an exceptional user experience.",
+  },
+  {
+    id: "process-5",
+    title: "Launch and Support",
+    description:
+      "Our commitment continues beyond launch. We offer post-launch support to address questions, provide assistance, and ensure your website remains updated and optimized. The Website Design Process isn't just about creating a website; it's about crafting a digital experience that resonates, engages, and converts.",
   },
 ];
 
@@ -351,11 +387,13 @@ export default function ServicesPage() {
   return (
     <main className="bg-neutral-950 text-white min-h-screen">
       {/* Hero Section */}
-      <section className="relative flex flex-col items-center justify-center min-h-[90vh] px-0 md:px-0 overflow-hidden">
-        <ServicesFull3DHero />
+      <section className="relative flex flex-col items-center justify-center min-h-[60vh] px-0 md:px-0 overflow-hidden">
+        <Boxes />
+        {/* If you have a 3D hero, wrap it like this: */}
+        {/* <div className="absolute inset-0 z-0 pointer-events-none"><ServicesFull3DHero /></div> */}
         {/* Gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80 pointer-events-none z-10" />
-        <div className="relative z-20 flex flex-col items-center justify-center w-full h-full min-h-[90vh] text-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30  pointer-events-none z-10" />
+        <div className="relative z-20 flex flex-col items-center justify-center w-full h-full min-h-[60vh] text-center">
           <Badge variant="secondary" className="mb-6 bg-blue-500/20 text-blue-300 border-blue-500/30 mx-auto">
             Our Services
           </Badge>
@@ -370,32 +408,39 @@ export default function ServicesPage() {
           </Button>
         </div>
       </section>
-      {/* Process Section */}
-      <section className="py-24 bg-neutral-950">
-        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-          {/* Left: Text */}
-          <div className="text-left">
-            <h3 className="text-lg font-semibold mb-4 text-neutral-300">Our Process</h3>
-            <h2 className="text-4xl font-extrabold mb-6 text-white leading-tight">
-              Flexible iterative approach<br />
-              to continuous project improvement.
+      {/* How We Work Section */}
+      <section className="py-24 bg-black">
+        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-start">
+          {/* Left: Heading and description */}
+          <div className="left-0 top-0 md:sticky md:h-svh md:py-12">
+            <h5 className=" text-xs uppercase tracking-wide text-neutral-400">our process</h5>
+            <h2 className="mb-6 mt-4 text-4xl font-bold tracking-tight text-white">
+              Planning your <span className="text-blue-400">project development</span> journey
             </h2>
-            <span className="inline-block mb-4">
-              <span className="animate-pulse bg-gradient-to-r from-red-500 via-pink-500 to-red-500 text-white px-4 py-1 rounded-full font-semibold shadow-lg text-sm tracking-wide">
-                Agile methodology
-              </span>
-            </span>
-            <p className="text-neutral-400 max-w-md">
-              We use a flexible, iterative approach to ensure your project is always improving and adapting to your needs. Our process is transparent, collaborative, and focused on delivering value at every stage.
+            <p className="max-w-prose text-sm text-neutral-300">
+              Our journey begins with a deep dive into your vision. In the Discovery phase, we engage in meaningful conversations to grasp your brand identity, goals, and the essence you want to convey. This phase sets the stage for all that follows.
             </p>
           </div>
-          {/* Right: Animated SVG Process Flow */}
-          <div className="w-full h-[400px] bg-white rounded-2xl flex items-center justify-center shadow-2xl border border-neutral-200/60 relative overflow-hidden" style={{boxShadow: '0 8px 32px 0 rgba(225,29,72,0.10), 0 1.5px 8px 0 rgba(0,0,0,0.04)'}}>
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-50/60 via-white/80 to-blue-50/60 pointer-events-none z-0" />
-            <div className="relative z-10 w-full h-full flex items-center justify-center">
-              <AnimatedProcessFlowSVG />
-            </div>
-          </div>
+          <ContainerScroll className="min-h-[400vh] space-y-8 py-12">
+            {PROCESS_PHASES.map((phase, index) => (
+              <CardSticky
+                key={phase.id}
+                index={index + 2}
+                className="rounded-2xl border border-white/10 p-8 shadow-md backdrop-blur-md bg-white/90"
+                incrementY={64}
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <h2 className="my-6 text-2xl font-bold tracking-tighter text-black">
+                    {phase.title}
+                  </h2>
+                  <h3 className="text-2xl font-bold text-blue-400">
+                    {String(index + 1).padStart(2, "0")}
+                  </h3>
+                </div>
+                <p className="text-neutral-700 text-base md:text-lg leading-relaxed">{phase.description}</p>
+              </CardSticky>
+            ))}
+          </ContainerScroll>
         </div>
       </section>
 
@@ -415,52 +460,15 @@ export default function ServicesPage() {
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
             {services.map((service, idx) => (
-              <motion.div key={service.title} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }}>
-                <Card className="bg-neutral-900/60 border-neutral-700 hover:border-blue-500/30 transition-colors shadow-xl group">
-                  <CardHeader className="flex flex-col items-center">
-                    <div className="mb-4 mt-6 pt-2">{service.icon}</div>
-                    <CardTitle className="text-2xl font-semibold mb-2 text-center group-hover:text-blue-400 transition-colors">{service.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-neutral-300 text-center">
-                      {service.desc}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How We Work Section */}
-      <section className="py-24 bg-neutral-900/30">
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.div initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="text-center mb-16">
-            <Badge variant="secondary" className="mb-4 bg-green-500/20 text-green-300 border-green-500/30">
-              How We Work
-            </Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Our Process
-            </h2>
-            <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
-              We follow a proven process to deliver high-quality results, every time.
-            </p>
-          </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-            {howWeWork.map((step, idx) => (
-              <motion.div key={step.title} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }}>
-                <Card className="bg-neutral-900/60 border-neutral-700 shadow group">
-                  <CardHeader className="flex flex-col items-center">
-                    <div className="mb-4 mt-6 pt-2">{step.icon}</div>
-                    <CardTitle className="text-xl font-semibold mb-2 text-center group-hover:text-blue-400 transition-colors">{step.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-neutral-300 text-center">
-                      {step.desc}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+              >
+                {/* Pass service fields as props, as GradientCard does not accept a 'service' prop */}
+                <GradientCard icon={service.icon} title={service.title} desc={service.desc} />
               </motion.div>
             ))}
           </div>
