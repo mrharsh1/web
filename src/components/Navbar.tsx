@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="w-full flex items-center justify-between px-8 py-4 bg-neutral-900 border-b border-neutral-800">
+    <nav className="sticky top-0 z-50 w-full flex items-center justify-between px-8 py-4 bg-neutral-900/90 border-b border-neutral-800 backdrop-blur-md shadow-md transition-all">
       {/* Logo */}
       <div className="flex items-center gap-2">
         <span className="text-2xl font-serif font-bold text-white">Bhaviya</span>
@@ -21,7 +21,7 @@ export default function Navbar() {
       {/* Right Button */}
       <div>
         <button className="flex items-center gap-2 px-5 py-2 rounded-lg bg-neutral-800 text-white border border-neutral-700 hover:bg-neutral-700 transition font-medium">
-          <span>Get Quote</span>
+          <span>Get Template</span>
         </button>
       </div>
     </nav>
