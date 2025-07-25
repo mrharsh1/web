@@ -21,7 +21,7 @@ export default function Navbar() {
       {/* Right Button */}
       <div>
         <button className="flex items-center gap-2 px-5 py-2 rounded-lg bg-neutral-800 text-white border border-neutral-700 hover:bg-neutral-700 transition font-medium">
-          <span>Get Template</span>
+          <span>Get Quote</span>
         </button>
       </div>
     </nav>
