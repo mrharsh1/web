@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
-
 export default function Navbar() {
   const pathname = usePathname();
   const navLinks = [
