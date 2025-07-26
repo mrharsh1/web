@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/lightswind/badge";
-import { Button } from "@/components/lightswind/button";
+import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { ArrowRight } from "lucide-react";
 import { Boxes } from "@/components/ui/bg-box";
 
@@ -55,9 +55,10 @@ const ProductsHero: React.FC<ProductsHeroProps> = ({
           </p>
         )}
         {buttonText && (
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={onButtonClick}>
-            {buttonText} {buttonIcon}
-          </Button>
+          <MovingBorderButton size="lg" className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 text-white" onClick={onButtonClick}>
+            {buttonIcon && <span className="mr-2">{buttonIcon}</span>}
+            {buttonText}
+          </MovingBorderButton>
         )}
         {children}
       </motion.div>

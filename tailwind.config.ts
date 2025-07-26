@@ -7,7 +7,21 @@ module.exports = {
     "./src/lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        "radar-spin": "radar-spin 10s linear infinite",
+      },
+      keyframes: {
+        "radar-spin": {
+          from: {
+            transform: "rotate(20deg)",
+          },
+          to: {
+            transform: "rotate(380deg)",
+          },
+        },
+      },
+    },
   },
   plugins: [],
   darkMode: "class",

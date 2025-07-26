@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/lightswind/card";
 import { Badge } from "@/components/lightswind/badge";
-import { Button } from "@/components/lightswind/button";
+import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import {
   Code2, Smartphone, Cloud, PenTool, ShieldCheck, BarChart, Users, Rocket, ArrowRight, CheckCircle, Star
 } from "lucide-react";
@@ -394,6 +394,25 @@ export default function ServicesPage() {
         subheading="We help you grow, innovate, and succeed with technology that works for you."
         buttonText="Get Started"
       />
+      {/* Agile Methodology Process Section (new) */}
+      <section className="py-24 bg-neutral-950">
+        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+          {/* Left: Heading and description */}
+          <div className="flex flex-col justify-center h-full">
+            <h5 className="text-base font-semibold mb-2 text-white">Our Process</h5>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+              Flexible iterative approach<br />to continuous project improvement.
+            </h2>
+            <p className="text-xl md:text-2xl font-bold text-red-600 mt-2">
+              - Agile methodology.
+            </p>
+          </div>
+          {/* Right: Animated SVG Process Flow */}
+          <div className="w-full flex justify-center items-center bg-white rounded-xl shadow-lg p-4 min-h-[440px]">
+            <AnimatedProcessFlowSVG />
+          </div>
+        </div>
+      </section>
       {/* How We Work Section */}
       <section className="py-24 bg-black">
         <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-start">
@@ -505,9 +524,9 @@ export default function ServicesPage() {
             <p className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto">
               Let's build something amazing together. Contact us for a free consultation and see how we can help you grow.
             </p>
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
+            <MovingBorderButton size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
               Contact Us <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
+            </MovingBorderButton>
           </motion.div>
         </div>
       </section>

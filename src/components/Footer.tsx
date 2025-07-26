@@ -58,7 +58,7 @@ B.O. : Plot No. 1025, Rani Sati Nagar,<br /> Nirman Nagar, Jaipur-302019
             />
             <button
               type="submit"
-              className="px-5 py-2 rounded bg-white text-black font-semibold hover:bg-gray-200 transition"
+              className="px-5 py-2 rounded bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 text-white font-semibold transition"
             >
               Subscribe
             </button>

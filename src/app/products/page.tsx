@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/lightswind/card";
 import { Badge } from "@/components/lightswind/badge";
-import { Button } from "@/components/lightswind/button";
+import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import Image from "next/image";
 import {
   ShoppingCart, BarChart, Users, ShieldCheck, Rocket, ArrowRight, CheckCircle, Star, Zap
@@ -12,6 +12,7 @@ import {
 import { Boxes } from "@/components/ui/bg-box";
 import ProductsHero from "@/components/products-hero";
 import { useRouter } from "next/navigation";
+import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
 
 const products = [
   {
@@ -108,32 +109,27 @@ export default function ProductsPage() {
               Each product is built for performance, security, and ease of use.
             </p>
           </motion.div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            {products.map((product, idx) => (
-              <motion.div key={product.name} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }}>
-                <Card className="bg-neutral-900/60 border-neutral-700 hover:border-blue-500/30 transition-colors shadow-xl group flex flex-col items-center">
+          <StickyScroll
+            content={products.map((product) => ({
+              title: product.name,
+              description: product.desc,
+              content: (
+                <div className="flex flex-col items-center justify-center h-full p-6">
                   <div className="w-32 h-32 mb-6 relative">
                     <Image src={product.image} alt={product.name} fill className="rounded-xl object-cover bg-neutral-800" />
                   </div>
-                  <CardHeader className="flex flex-col items-center">
-                    <CardTitle className="text-2xl font-semibold mb-2 text-center group-hover:text-blue-400 transition-colors">{product.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-neutral-300 text-center mb-4">
-                      {product.desc}
-                    </CardDescription>
-                    <ul className="flex flex-wrap gap-2 justify-center">
-                      {product.features.map((feature, i) => (
-                        <li key={i} className="px-3 py-1 bg-neutral-800 rounded-full text-xs text-neutral-300 border border-neutral-700">
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+                  <ul className="flex flex-wrap gap-2 justify-center mt-4">
+                    {product.features.map((feature, i) => (
+                      <li key={i} className="px-3 py-1 bg-neutral-800 rounded-full text-xs text-neutral-300 border border-neutral-700">
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ),
+            }))}
+            contentClassName="bg-neutral-900"
+          />
         </div>
       </section>
 
@@ -211,9 +207,9 @@ export default function ProductsPage() {
             <p className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto">
               Contact us for a free demo and see how our products can transform your business.
             </p>
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
+            <MovingBorderButton size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
               Get a Free Demo <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
+            </MovingBorderButton>
           </motion.div>
         </div>
       </section>

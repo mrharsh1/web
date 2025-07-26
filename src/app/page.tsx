@@ -434,7 +434,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center mb-12">
           <h2 className="text-4xl font-extrabold mb-4 text-white">Our Products</h2>
           <p className="text-lg text-neutral-300">Explore our suite of innovative products designed to boost your business productivity.</p>
-        </div>
+    </div>
         <GlowingCards gap="2.5rem" maxWidth="56rem" enableGlow={true}>
           {products.map((product, idx) => (
             <GlowingCard key={idx} className="flex flex-col items-center bg-neutral-900/80 border border-blue-700/30 shadow-xl hover:shadow-2xl transition-all duration-300 w-96 h-72">

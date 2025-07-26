@@ -58,7 +58,7 @@ export const EvervaultCard = ({
                 style={{ objectFit: 'cover' }}
               />
             ) : (
-              <span className="dark:text-white text-black z-20">{text}</span>
+            <span className="dark:text-white text-black z-20">{text}</span>
             )}
           </div>
         </div>
