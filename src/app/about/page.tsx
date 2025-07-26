@@ -47,7 +47,7 @@ const teamMembers = [
   {
     name: "Sarah Chen",
     role: "CTO",
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+    image: "/logo.png", // Use local image for Sarah Chen
     bio: "Technical architect driving digital transformation",
     skills: ["Architecture", "AI/ML", "Cloud"]
   },
@@ -134,7 +134,7 @@ export default function AboutPage() {
                 variants={fadeInUp}
                 className="text-center"
               >
-                <div className="flex items-center justify-center mb-4 text-blue-400">
+                <div className="flex items-center justify-center mb-4 text-blue-400 w-12 h-12 mx-auto bg-blue-900/20 rounded-full">
                   {stat.icon}
                 </div>
                 <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
@@ -209,28 +209,49 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <Card className="bg-neutral-900/50 border-neutral-700">
-                <CardContent className="p-8">
+              <Card className="bg-neutral-900/50 border-neutral-700 shadow-lg hover:border-blue-500/30 transition-colors">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-2xl font-bold text-white mb-2">Our Journey Timeline</CardTitle>
+                  <CardDescription className="text-neutral-400">
+                    Key milestones that shaped our growth
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-6">
                   <div className="space-y-6">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                      <span className="text-sm text-neutral-400">2020 - Founded</span>
+                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                      <div className="w-4 h-4 bg-blue-500 rounded-full shadow-lg"></div>
+                      <div>
+                        <span className="text-sm font-medium text-blue-400">2020</span>
+                        <p className="text-sm text-neutral-300">Founded</p>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                      <span className="text-sm text-neutral-400">2021 - First 100 Clients</span>
+                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                      <div className="w-4 h-4 bg-purple-500 rounded-full shadow-lg"></div>
+                      <div>
+                        <span className="text-sm font-medium text-purple-400">2021</span>
+                        <p className="text-sm text-neutral-300">First 100 Clients</p>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                      <span className="text-sm text-neutral-400">2022 - International Expansion</span>
+                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-green-500/10 border border-green-500/20">
+                      <div className="w-4 h-4 bg-green-500 rounded-full shadow-lg"></div>
+                      <div>
+                        <span className="text-sm font-medium text-green-400">2022</span>
+                        <p className="text-sm text-neutral-300">International Expansion</p>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                      <span className="text-sm text-neutral-400">2023 - AI Innovation Hub</span>
+                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
+                      <div className="w-4 h-4 bg-yellow-500 rounded-full shadow-lg"></div>
+                      <div>
+                        <span className="text-sm font-medium text-yellow-400">2023</span>
+                        <p className="text-sm text-neutral-300">AI Innovation Hub</p>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm text-neutral-400">2024 - Future Forward</span>
+                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
+                      <div className="w-4 h-4 bg-red-500 rounded-full shadow-lg animate-pulse"></div>
+                      <div>
+                        <span className="text-sm font-medium text-red-400">2024</span>
+                        <p className="text-sm text-neutral-300">Future Forward</p>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -272,23 +293,23 @@ export default function AboutPage() {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                whileHover={{ y: -8 }}
+                whileHover={{ y: -8, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.25)' }}
                 transition={{ duration: 0.3 }}
               >
-                <Card className="bg-neutral-900/50 border-neutral-700 overflow-hidden group">
-                  <div className="relative overflow-hidden">
+                <Card className="bg-neutral-900/50 border-neutral-700 overflow-hidden group hover:border-blue-500/40 transition-colors duration-300 shadow-lg">
+                  <div className="relative overflow-hidden flex items-center justify-center h-48 bg-neutral-800">
                     <img
                       src={member.image}
-                      alt={member.name}
-                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                      alt={member.name + ' profile photo'}
+                      className="w-28 h-28 object-cover rounded-full border-4 border-neutral-900 shadow-lg group-hover:scale-105 transition-transform duration-300 mx-auto"
+                      style={{ marginTop: '1.5rem', marginBottom: '1rem' }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   </div>
-                  <CardContent className="p-6">
+                  <CardContent className="p-6 flex flex-col items-center text-center">
                     <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
                     <p className="text-blue-400 text-sm mb-3">{member.role}</p>
                     <p className="text-neutral-300 text-sm mb-4">{member.bio}</p>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 justify-center">
                       {member.skills.map((skill, skillIndex) => (
                         <Badge key={skillIndex} variant="secondary" className="text-xs bg-neutral-800 text-neutral-300">
                           {skill}
@@ -338,12 +359,14 @@ export default function AboutPage() {
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.3 }}
               >
-                <Card className="bg-neutral-900/50 border-neutral-700 h-full group hover:border-blue-500/30 transition-colors">
-                  <CardContent className="p-8">
-                    <div className="text-blue-400 mb-4 group-hover:text-blue-300 transition-colors">
-                      {value.icon}
+                <Card className="bg-neutral-900/50 border-neutral-700 h-full group hover:border-blue-500/30 transition-colors shadow-lg">
+                  <CardContent className="p-8 flex flex-col items-center text-center mt-6">
+                    <div className="flex items-center justify-center w-16 h-16 rounded-full bg-blue-600/20 mb-6 group-hover:bg-blue-500/30 transition-colors border border-blue-500/30">
+                      <div className="text-blue-400 group-hover:text-blue-300 transition-colors">
+                        {value.icon}
+                      </div>
                     </div>
-                    <h3 className="text-xl font-semibold mb-3">{value.title}</h3>
+                    <h3 className="text-xl font-semibold mb-4 text-white">{value.title}</h3>
                     <p className="text-neutral-300 text-sm leading-relaxed">
                       {value.description}
                     </p>
