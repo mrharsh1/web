@@ -1,71 +1,75 @@
 "use client";
+
 import React, { useState } from "react";
-import { Mail, Phone, MapPin, Copy, Facebook, Twitter, Linkedin, Instagram, Send, User, MessageSquare } from "lucide-react";
 import { motion } from "framer-motion";
-import { Canvas } from "@react-three/fiber";
-import { Float, Icosahedron, TorusKnot, Environment, OrbitControls } from "@react-three/drei";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/lightswind/card";
+import { Badge } from "@/components/lightswind/badge";
+import { Button } from "@/components/lightswind/button";
+import { 
+  Quote, 
+  Send, 
+  User, 
+  Phone, 
+  Mail, 
+  MessageSquare, 
+  CheckCircle,
+  ArrowRight,
+  Star,
+  Clock,
+  Shield,
+  Zap
+} from "lucide-react";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import { Boxes } from "@/components/ui/bg-box";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import ProductsHero from "@/components/products-hero";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/lightswind/card";
-import { FaMapMarkerAlt } from "react-icons/fa";
 
-function copyToClipboard(text: string) {
-  navigator.clipboard.writeText(text);
-}
-
-const CONTACT_INFO = [
-  { icon: Mail, label: "Email", value: "support@bhaviya.com" },
-  { icon: Phone, label: "Phone", value: "+91 90268 49414" },
-  { icon: MapPin, label: "Address", value: "SCO 393, 2nd floor, Sector - 37 D, Chandigarh" },
+const services = [
+  { id: "web-development", name: "Web Development", description: "Custom websites and web applications" },
+  { id: "mobile-app", name: "Mobile App Development", description: "iOS and Android applications" },
+  { id: "ui-ux-design", name: "UI/UX Design", description: "User interface and experience design" },
+  { id: "digital-marketing", name: "Digital Marketing", description: "SEO, PPC, and social media marketing" },
+  { id: "ecommerce", name: "E-commerce Solutions", description: "Online store development and optimization" },
+  { id: "cloud-services", name: "Cloud Services", description: "AWS, Azure, and Google Cloud solutions" },
+  { id: "ai-ml", name: "AI & Machine Learning", description: "Artificial intelligence and automation" },
+  { id: "consulting", name: "IT Consulting", description: "Technology strategy and planning" }
 ];
 
-const SOCIALS = [
-  { icon: Facebook, href: "#" },
-  { icon: Twitter, href: "#" },
-  { icon: Linkedin, href: "#" },
-  { icon: Instagram, href: "#" },
+const benefits = [
+  {
+    icon: <Clock className="w-6 h-6" />,
+    title: "Quick Response",
+    description: "Get your quote within 24 hours"
+  },
+  {
+    icon: <Shield className="w-6 h-6" />,
+    title: "Secure Process",
+    description: "Your information is protected"
+  },
+  {
+    icon: <Star className="w-6 h-6" />,
+    title: "Expert Team",
+    description: "Work with industry professionals"
+  },
+  {
+    icon: <Zap className="w-6 h-6" />,
+    title: "Fast Delivery",
+    description: "Quick turnaround times"
+  }
 ];
 
-function Contact3DHero() {
-  return (
-    <div className="absolute inset-0 w-full h-full z-0">
-      <Canvas camera={{ position: [0, 0, 4], fov: 50 }}>
-        <ambientLight intensity={0.7} />
-        <directionalLight position={[5, 5, 5]} intensity={1.2} />
-        <Float speed={2} rotationIntensity={1.2} floatIntensity={1.5}>
-          <Icosahedron args={[1.1, 0]}>
-            <meshStandardMaterial color="#38bdf8" metalness={0.7} roughness={0.2} />
-          </Icosahedron>
-        </Float>
-        <Float speed={1.5} rotationIntensity={0.8} floatIntensity={1.2}>
-          <TorusKnot args={[0.4, 0.13, 64, 16]} position={[-1.7, 0.7, -0.5]}>
-            <meshStandardMaterial color="#a21caf" metalness={0.8} roughness={0.2} />
-          </TorusKnot>
-        </Float>
-        <Float speed={1.2} rotationIntensity={0.6} floatIntensity={1.1}>
-          <Icosahedron args={[0.22, 0]} position={[1.5, -0.8, 0.3]}>
-            <meshStandardMaterial color="#fbbf24" metalness={0.8} roughness={0.2} />
-          </Icosahedron>
-        </Float>
-        <Environment preset="city" />
-        <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={2} />
-      </Canvas>
-    </div>
-  );
-}
-
-export default function ContactPage() {
+export default function QuotePage() {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
+    service: "",
     message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -90,6 +94,7 @@ export default function ContactPage() {
         name: "",
         phone: "",
         email: "",
+        service: "",
         message: ""
       });
     }, 3000);
@@ -99,10 +104,10 @@ export default function ContactPage() {
     <main className="bg-neutral-950 text-white min-h-screen">
       {/* Hero Section */}
       <ProductsHero
-        badge="Contact Us"
-        heading="Get in Touch"
-        subheading="We'd love to hear from you. Fill out the form or reach us directly!"
-        buttonText={undefined}
+        badge="Get Your Quote"
+        heading="Request a Quote"
+        subheading="Tell us about your project and we'll provide you with a detailed quote tailored to your needs. Our team of experts is ready to bring your vision to life."
+        buttonText="Get Started"
       />
 
       {/* Form Section */}
@@ -114,11 +119,11 @@ export default function ContactPage() {
               <Card className="bg-neutral-900/50 border-neutral-700">
                 <CardHeader className="text-center pb-8">
                   <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <MessageSquare className="w-8 h-8 text-white" />
+                    <Quote className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-2xl font-bold">Send us a Message</CardTitle>
+                  <CardTitle className="text-2xl font-bold">Project Details</CardTitle>
                   <CardDescription className="text-neutral-400">
-                    Fill out the form below and we'll get back to you as soon as possible
+                    Fill out the form below and we'll get back to you with a custom quote
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-8">
@@ -175,11 +180,32 @@ export default function ContactPage() {
                         </div>
                       </div>
 
+                      {/* Service Dropdown */}
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-neutral-300">
+                          Service Required *
+                        </label>
+                        <select
+                          name="service"
+                          value={formData.service}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full px-4 py-3 bg-neutral-800/50 border-2 border-neutral-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
+                        >
+                          <option value="">Select a service</option>
+                          {services.map((service) => (
+                            <option key={service.id} value={service.id}>
+                              {service.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
                       {/* Message Field */}
                       <div className="space-y-2">
                         <label className="text-sm font-medium text-neutral-300 flex items-center gap-2">
                           <MessageSquare className="w-4 h-4" />
-                          Message *
+                          Project Details *
                         </label>
                         <textarea
                           name="message"
@@ -188,7 +214,7 @@ export default function ContactPage() {
                           required
                           rows={5}
                           className="w-full px-4 py-3 bg-neutral-800/50 border-2 border-neutral-600 rounded-xl text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all resize-none"
-                          placeholder="Tell us how we can help you..."
+                          placeholder="Tell us about your project requirements, timeline, and any specific features you need..."
                         />
                       </div>
 
@@ -201,12 +227,12 @@ export default function ContactPage() {
                         {isSubmitting ? (
                           <div className="flex items-center justify-center gap-2">
                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                            Sending Message...
+                            Sending Request...
                           </div>
                         ) : (
                           <div className="flex items-center justify-center gap-2 min-w-0">
                             <Send className="w-5 h-5 flex-shrink-0" />
-                            <span className="truncate">Send Message</span>
+                            <span className="truncate">Send Quote Request</span>
                           </div>
                         )}
                       </button>
@@ -218,15 +244,15 @@ export default function ContactPage() {
                       className="text-center py-12"
                     >
                       <div className="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <Send className="w-10 h-10 text-white" />
+                        <CheckCircle className="w-10 h-10 text-white" />
                       </div>
-                      <h3 className="text-2xl font-bold mb-4 text-green-400">Message Sent Successfully!</h3>
+                      <h3 className="text-2xl font-bold mb-4 text-green-400">Request Sent Successfully!</h3>
                       <p className="text-neutral-300 mb-6">
-                        Thank you for your message. Our team will get back to you within 24 hours.
+                        Thank you for your quote request. Our team will review your project details and get back to you within 24 hours with a custom quote.
                       </p>
                       <div className="bg-neutral-800/50 rounded-lg p-4 border border-neutral-600">
                         <p className="text-sm text-neutral-400">
-                          <strong>What's next?</strong> You'll receive an email confirmation and our team will contact you soon.
+                          <strong>What's next?</strong> You'll receive an email confirmation and our team will contact you to discuss your project in detail.
                         </p>
                       </div>
                     </motion.div>
@@ -237,10 +263,35 @@ export default function ContactPage() {
 
             {/* Sidebar */}
             <div className="space-y-4">
+              {/* Benefits */}
+              <Card className="bg-neutral-900/50 border-neutral-700">
+                <CardHeader>
+                  <CardTitle className="text-xl">Why Choose Us?</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {benefits.map((benefit, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-start gap-3"
+                    >
+                      <div className="w-10 h-10 bg-blue-600/20 rounded-lg flex items-center justify-center text-blue-400 flex-shrink-0">
+                        {benefit.icon}
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white">{benefit.title}</h4>
+                        <p className="text-sm text-neutral-400">{benefit.description}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </CardContent>
+              </Card>
               {/* Contact Info */}
               <Card className="bg-neutral-900/50 border-neutral-700">
                 <CardHeader>
-                  <CardTitle className="text-xl text-white font-bold">Contact Information</CardTitle>
+                  <CardTitle className="text-xl text-white font-bold">Need Immediate Help?</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center gap-2 p-3 bg-neutral-800/30 rounded-lg">
@@ -265,28 +316,9 @@ export default function ContactPage() {
                     <br /> Chandigarh, B.O. : Plot No. 1025, Rani Sati Nagar, Nirman Nagar, Jaipur-302019</p>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-
-              {/* Social Media */}
-              <Card className="bg-neutral-900/50 border-neutral-700">
-                <CardHeader>
-                  <CardTitle className="text-xl text-white font-bold">Follow Us</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex gap-4 justify-center">
-                    {SOCIALS.map((s, i) => (
-                      <a
-                        key={i}
-                        href={s.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-12 h-12 flex items-center justify-center rounded-full bg-neutral-800/50 hover:bg-blue-600/30 transition-all duration-300 border border-neutral-600 hover:border-blue-500/50"
-                      >
-                        <s.icon className="w-6 h-6 text-blue-400 hover:text-blue-300 transition-colors" />
-                      </a>
-                    ))}
-                  </div>
+                  <button className="w-full bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white font-semibold py-3 px-4 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
+                    Schedule a Call
+                  </button>
                 </CardContent>
               </Card>
             </div>
@@ -294,27 +326,25 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4">
-          <Card className="bg-neutral-900/50 border-neutral-700 overflow-hidden">
-            <CardHeader>
-              <CardTitle className="text-xl text-white font-bold">Our Location</CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-              <iframe
-                title="Google Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d224345.83919893408!2d77.0688999!3d28.5272803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce3a1b6b7b7b7%3A0x7b7b7b7b7b7b7b7b!2sNew%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin"
-                width="100%"
-                height="400"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-[400px]"
-              ></iframe>
-            </CardContent>
-          </Card>
+      {/* CTA Section */}
+      <section className="py-24 bg-gradient-to-r from-blue-900/20 via-purple-900/20 to-blue-900/20">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Ready to Start Your Project?
+            </h2>
+            <p className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto">
+              Don't wait! Get your custom quote today and take the first step towards bringing your vision to life.
+            </p>
+            <MovingBorderButton size="lg" className="bg-gradient-to-br from-blue-600/40 via-purple-600/40 to-pink-600/40 hover:from-blue-500/50 hover:via-purple-500/50 hover:to-pink-500/50 text-white font-bold shadow-xl hover:shadow-blue-500/20 border border-white/10 hover:border-white/20">
+              Get Started Now
+            </MovingBorderButton>
+          </motion.div>
         </div>
       </section>
     </main>

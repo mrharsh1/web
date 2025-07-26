@@ -21,32 +21,32 @@ const services = [
   {
     icon: <Code2 className="w-8 h-8 text-blue-400" />,
     title: "Web Development",
-    desc: "Modern, scalable websites and web apps tailored to your business needs."
+    desc: "We specialize in creating modern, responsive websites and web applications that drive business growth. Our development team uses cutting-edge technologies like React, Next.js, Node.js, and Python to build scalable solutions. From e-commerce platforms to custom business applications, we deliver high-performance websites with seamless user experiences, optimized for speed, security, and search engine visibility."
   },
   {
     icon: <Smartphone className="w-8 h-8 text-green-400" />,
     title: "Mobile Apps",
-    desc: "Cross-platform mobile applications for iOS and Android."
+    desc: "Transform your business with powerful mobile applications for iOS and Android platforms. We develop native and cross-platform apps using React Native, Flutter, and Swift/Kotlin. Our mobile solutions include user authentication, real-time data synchronization, push notifications, offline functionality, and seamless integration with backend services. We ensure your app stands out in the competitive app marketplace."
   },
   {
     icon: <Cloud className="w-8 h-8 text-purple-400" />,
     title: "Cloud Solutions",
-    desc: "Cloud migration, hosting, and scalable infrastructure setup."
+    desc: "Leverage the power of cloud computing to scale your business operations efficiently. We provide comprehensive cloud services including AWS, Azure, and Google Cloud Platform solutions. Our expertise covers cloud migration, serverless architecture, containerization with Docker and Kubernetes, automated deployment pipelines, and cloud security implementation. We help you reduce costs while improving performance and reliability."
   },
   {
     icon: <PenTool className="w-8 h-8 text-pink-400" />,
     title: "UI/UX Design",
-    desc: "Beautiful, user-centric designs for web and mobile platforms."
+    desc: "Create exceptional user experiences with our comprehensive UI/UX design services. We follow user-centered design principles, conducting thorough research, creating detailed wireframes, and developing interactive prototypes. Our design process includes user journey mapping, information architecture, visual design systems, and usability testing. We ensure your digital products are not only beautiful but also intuitive and accessible to all users."
   },
   {
     icon: <ShieldCheck className="w-8 h-8 text-yellow-400" />,
     title: "Cybersecurity",
-    desc: "Protect your business with robust security solutions."
+    desc: "Protect your digital assets with our comprehensive cybersecurity solutions. We implement multi-layered security measures including SSL/TLS encryption, two-factor authentication, regular security audits, penetration testing, and compliance with industry standards like GDPR and SOC 2. Our security services cover web application security, API protection, data encryption, secure hosting environments, and ongoing security monitoring to safeguard your business from evolving cyber threats."
   },
   {
     icon: <BarChart className="w-8 h-8 text-cyan-400" />,
     title: "Analytics & SEO",
-    desc: "Data-driven insights and SEO strategies to grow your business."
+    desc: "Drive sustainable growth with data-driven insights and search engine optimization strategies. Our analytics services include Google Analytics setup, custom reporting, conversion tracking, and performance optimization. We provide comprehensive SEO services including keyword research, on-page optimization, technical SEO audits, content strategy, link building, and local SEO. We help you understand your audience, improve search rankings, and increase organic traffic to achieve your business goals."
   },
 ];
 
@@ -237,152 +237,7 @@ function Process3DFlow() {
   );
 }
 
-function AnimatedProcessFlowSVG() {
-  const nodes = [
-    { label: "Set Requirements", x: 80, y: 60 },
-    { label: "Design", x: 300, y: 100 },
-    { label: "Development", x: 520, y: 100 },
-    { label: "Testing", x: 700, y: 160 },
-    { label: "FeedBack", x: 520, y: 260 },
-    { label: "Delivery", x: 180, y: 260 },
-    { label: "Review", x: 350, y: 370 },
-    { label: "Deployment", x: 600, y: 370 },
-  ];
-  const edges = [
-    [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7]
-  ];
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [dashOffset, setDashOffset] = useState(400);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIdx((idx) => (idx + 1) % nodes.length);
-      setDashOffset(400);
-    }, 1400);
-    return () => clearInterval(interval);
-  }, [nodes.length]);
-  // Animate the line drawing
-  useEffect(() => {
-    if (activeIdx < edges.length) {
-      let raf: number;
-      let offset = 400;
-      function animate() {
-        offset -= 16;
-        if (offset < 0) offset = 0;
-        setDashOffset(offset);
-        if (offset > 0) raf = requestAnimationFrame(animate);
-      }
-      animate();
-      return () => {
-        if (raf) cancelAnimationFrame(raf);
-      };
-    }
-  }, [activeIdx]);
-  function getPath(i1: number, i2: number) {
-    const n1 = nodes[i1], n2 = nodes[i2];
-    const dx = n2.x - n1.x, dy = n2.y - n1.y;
-    const mx = n1.x + dx / 2, my = n1.y + dy / 2;
-    return `M${n1.x},${n1.y} Q${mx},${my - 60} ${n2.x},${n2.y}`;
-  }
-  return (
-    <svg viewBox="0 0 760 440" className="w-full h-full max-w-full max-h-full">
-      <defs>
-        <radialGradient id="node-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#e11d48" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="#e11d48" stopOpacity="0" />
-        </radialGradient>
-        <linearGradient id="line-gradient" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#e11d48" />
-          <stop offset="100%" stopColor="#f43f5e" />
-        </linearGradient>
-      </defs>
-      {/* Subtle background gradient */}
-      <rect x="0" y="0" width="760" height="440" fill="url(#node-glow)" opacity="0.08" />
-      {/* Edges */}
-      {edges.map(([from, to], i) => (
-        <path
-          key={i}
-          d={getPath(from, to)}
-          stroke="url(#line-gradient)"
-          strokeWidth={3}
-          fill="none"
-          opacity={i < activeIdx ? 0.5 : 0.18}
-          style={{ filter: i < activeIdx ? "drop-shadow(0 0 6px #e11d48)" : undefined, transition: 'opacity 0.5s' }}
-        />
-      ))}
-      {/* Animated active edge */}
-      {activeIdx < edges.length && (
-        <path
-          d={getPath(edges[activeIdx][0], edges[activeIdx][1])}
-          stroke="url(#line-gradient)"
-          strokeWidth={4}
-          fill="none"
-          opacity={1}
-          style={{
-            filter: "drop-shadow(0 0 10px #e11d48)",
-            strokeDasharray: 400,
-            strokeDashoffset: dashOffset,
-            transition: 'stroke-dashoffset 0.3s',
-          }}
-        />
-      )}
-      {/* Nodes */}
-      {nodes.map((node, i) => (
-        <g key={i}>
-          {/* Glow pulse for active node */}
-          {i === activeIdx && (
-            <circle
-              cx={node.x}
-              cy={node.y}
-              r={32}
-              fill="url(#node-glow)"
-              opacity={0.5}
-            >
-              <animate attributeName="r" values="32;38;32" dur="1.2s" repeatCount="indefinite" />
-            </circle>
-          )}
-          <circle
-            cx={node.x}
-            cy={node.y}
-            r={i === activeIdx ? 20 : 14}
-            fill={i === activeIdx ? "#e11d48" : "#fff"}
-            stroke="#e11d48"
-            strokeWidth={i === activeIdx ? 5 : 3}
-            style={{ filter: i === activeIdx ? "drop-shadow(0 0 16px #e11d48)" : undefined, transition: 'all 0.3s' }}
-          />
-          {/* Step number */}
-          <text
-            x={node.x}
-            y={node.y + 6}
-            textAnchor="middle"
-            fontSize={i === activeIdx ? 18 : 15}
-            fontWeight={700}
-            fill={i === activeIdx ? "#fff" : "#e11d48"}
-            style={{ pointerEvents: 'none', transition: 'all 0.3s' }}
-          >
-            {i + 1}
-          </text>
-          {/* Label */}
-          <text
-            x={node.x}
-            y={node.y - 32}
-            textAnchor="middle"
-            fontSize={i === 0 || i === nodes.length - 1 ? 18 : 17}
-            fontWeight={i === activeIdx ? 800 : 500}
-            fill={i === activeIdx ? "#e11d48" : (i === 0 || i === nodes.length - 1 ? "#e11d48" : "#111827")}
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              letterSpacing: 0.2,
-              filter: i === activeIdx ? "drop-shadow(0 0 8px #e11d48)" : undefined,
-              transition: 'all 0.3s',
-            }}
-          >
-            {node.label}
-          </text>
-        </g>
-      ))}
-    </svg>
-  );
-}
+
 
 export default function ServicesPage() {
   return (
@@ -395,24 +250,7 @@ export default function ServicesPage() {
         buttonText="Get Started"
       />
       {/* Agile Methodology Process Section (new) */}
-      <section className="py-24 bg-neutral-950">
-        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-          {/* Left: Heading and description */}
-          <div className="flex flex-col justify-center h-full">
-            <h5 className="text-base font-semibold mb-2 text-white">Our Process</h5>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
-              Flexible iterative approach<br />to continuous project improvement.
-            </h2>
-            <p className="text-xl md:text-2xl font-bold text-red-600 mt-2">
-              - Agile methodology.
-            </p>
-          </div>
-          {/* Right: Animated SVG Process Flow */}
-          <div className="w-full flex justify-center items-center bg-white rounded-xl shadow-lg p-4 min-h-[440px]">
-            <AnimatedProcessFlowSVG />
-          </div>
-        </div>
-      </section>
+
       {/* How We Work Section */}
       <section className="py-24 bg-black">
         <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-start">
@@ -431,18 +269,18 @@ export default function ServicesPage() {
               <CardSticky
                 key={phase.id}
                 index={index + 2}
-                className="rounded-2xl border border-white/10 p-8 shadow-md backdrop-blur-md bg-white/90"
+                className="rounded-2xl border border-white/10 p-8 shadow-md backdrop-blur-md bg-black/90"
                 incrementY={64}
               >
                 <div className="flex items-center justify-between gap-4">
-                  <h2 className="my-6 text-2xl font-bold tracking-tighter text-black">
+                  <h2 className="my-6 text-2xl font-bold tracking-tighter text-white">
                     {phase.title}
                   </h2>
                   <h3 className="text-2xl font-bold text-blue-400">
                     {String(index + 1).padStart(2, "0")}
                   </h3>
                 </div>
-                <p className="text-neutral-700 text-base md:text-lg leading-relaxed">{phase.description}</p>
+                <p className="text-white/90 text-base md:text-lg leading-relaxed">{phase.description}</p>
               </CardSticky>
             ))}
           </ContainerScroll>
@@ -487,23 +325,29 @@ export default function ServicesPage() {
             <Badge variant="secondary" className="mb-4 bg-orange-500/20 text-orange-300 border-orange-500/30">
               Why Choose Us
             </Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
               The Bhaviya Advantage
             </h2>
             <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
               Discover what sets us apart from the competition.
             </p>
           </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {reasons.map((reason, idx) => (
               <motion.div key={reason.title} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }}>
-                <Card className="bg-neutral-900/60 border-neutral-700 shadow group">
-                  <CardHeader className="flex flex-col items-center">
-                    <div className="mb-4 mt-6 pt-2">{reason.icon}</div>
-                    <CardTitle className="text-xl font-semibold mb-2 text-center group-hover:text-blue-400 transition-colors">{reason.title}</CardTitle>
+                <Card className="bg-neutral-900/60 border-neutral-700 shadow-xl group h-full flex flex-col hover:shadow-2xl hover:border-blue-500/30 transition-all duration-300">
+                  <CardHeader className="flex flex-col items-center pb-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center mb-6 mt-8 border border-blue-500/30 group-hover:border-blue-400/50 transition-colors">
+                      <div className="text-blue-400 group-hover:text-blue-300 transition-colors">
+                        {reason.icon}
+                      </div>
+                    </div>
+                    <CardTitle className="text-xl font-semibold mb-3 text-center text-white group-hover:text-blue-400 transition-colors">
+                      {reason.title}
+                    </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-neutral-300 text-center">
+                  <CardContent className="flex-1 flex items-center">
+                    <CardDescription className="text-neutral-300 text-center leading-relaxed">
                       {reason.desc}
                     </CardDescription>
                   </CardContent>
@@ -524,8 +368,8 @@ export default function ServicesPage() {
             <p className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto">
               Let's build something amazing together. Contact us for a free consultation and see how we can help you grow.
             </p>
-            <MovingBorderButton size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-              Contact Us <ArrowRight className="ml-2 w-4 h-4" />
+            <MovingBorderButton size="lg" className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white">
+              Get Demo
             </MovingBorderButton>
           </motion.div>
         </div>

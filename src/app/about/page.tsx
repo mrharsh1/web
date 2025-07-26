@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { Boxes } from "@/components/ui/bg-box";
 import ProductsHero from "@/components/products-hero";
+import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -370,13 +371,12 @@ export default function AboutPage() {
               Join hundreds of companies that have already revolutionized their digital presence with our innovative solutions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-                Start Your Journey
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-              <Button size="lg" variant="outline" className="border-neutral-600 text-neutral-300 hover:bg-neutral-800">
-                Schedule a Demo
-              </Button>
+              <MovingBorderButton size="lg" className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white">
+                Get Started
+              </MovingBorderButton>
+              <MovingBorderButton size="lg" className="bg-neutral-900/60 border-neutral-600 text-neutral-300 hover:bg-neutral-800 hover:border-neutral-500">
+                Learn More
+              </MovingBorderButton>
             </div>
           </motion.div>
         </div>

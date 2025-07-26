@@ -16,19 +16,19 @@ import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
 
 const products = [
   {
-    image: "https://via.placeholder.com/240x240?text=Marketingpro",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop&crop=center",
     name: "Marketingpro",
     desc: "A comprehensive marketing automation suite to streamline campaigns, track analytics, and boost ROI.",
     features: ["Campaign Automation", "Real-Time Analytics", "Multi-Channel Management"]
   },
   {
-    image: "https://via.placeholder.com/240x240?text=Aimindflow",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=400&fit=crop&crop=center",
     name: "Aimindflow",
     desc: "AI-powered workflow automation for smarter, faster business processes and decision-making.",
     features: ["AI Workflow Engine", "Smart Integrations", "Process Optimization"]
   },
   {
-    image: "https://via.placeholder.com/240x240?text=Samvaani",
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=400&fit=crop&crop=center",
     name: "Samvaani",
     desc: "A secure, real-time communication platform for seamless team collaboration and messaging.",
     features: ["Real-Time Chat", "Voice & Video Calls", "End-to-End Encryption"]
@@ -109,27 +109,27 @@ export default function ProductsPage() {
               Each product is built for performance, security, and ease of use.
             </p>
           </motion.div>
-          <StickyScroll
-            content={products.map((product) => ({
-              title: product.name,
-              description: product.desc,
-              content: (
-                <div className="flex flex-col items-center justify-center h-full p-6">
-                  <div className="w-32 h-32 mb-6 relative">
-                    <Image src={product.image} alt={product.name} fill className="rounded-xl object-cover bg-neutral-800" />
-                  </div>
-                  <ul className="flex flex-wrap gap-2 justify-center mt-4">
-                    {product.features.map((feature, i) => (
-                      <li key={i} className="px-3 py-1 bg-neutral-800 rounded-full text-xs text-neutral-300 border border-neutral-700">
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ),
-            }))}
-            contentClassName="bg-neutral-900"
-          />
+                     <StickyScroll
+             content={products.map((product) => ({
+               title: product.name,
+               description: product.desc,
+               content: (
+                 <div className="flex flex-col items-center justify-center h-full p-8">
+                   <div className="w-48 h-48 mb-8 relative">
+                     <Image src={product.image} alt={product.name} fill className="rounded-2xl object-cover bg-neutral-800" />
+                   </div>
+                   <ul className="flex flex-wrap gap-3 justify-center mt-6">
+                     {product.features.map((feature, i) => (
+                       <li key={i} className="px-4 py-2 bg-neutral-800 rounded-full text-sm text-white border border-neutral-700">
+                         {feature}
+                       </li>
+                     ))}
+                   </ul>
+                 </div>
+               ),
+             }))}
+             contentClassName="bg-neutral-900"
+           />
         </div>
       </section>
 
@@ -147,14 +147,16 @@ export default function ProductsPage() {
               Our products are designed to give you a competitive edge.
             </p>
           </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, idx) => (
               <motion.div key={benefit.title} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }}>
-                <Card className="bg-neutral-900/60 border-neutral-700 shadow group flex flex-col items-center">
-                  <div className="mb-4">{benefit.icon}</div>
-                  <CardContent className="flex-1 flex flex-col items-center">
-                    <CardTitle className="text-xl font-semibold mb-2 text-center group-hover:text-blue-400 transition-colors">{benefit.title}</CardTitle>
-                    <CardDescription className="text-neutral-300 text-center">
+                <Card className="bg-neutral-900/60 border-neutral-700 shadow group h-full flex flex-col items-center p-6">
+                  <div className="w-16 h-16 bg-blue-600/20 rounded-full flex items-center justify-center mb-6 border border-blue-500/30">
+                    {benefit.icon}
+                  </div>
+                  <CardContent className="flex-1 flex flex-col items-center text-center">
+                    <CardTitle className="text-xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors">{benefit.title}</CardTitle>
+                    <CardDescription className="text-neutral-300 text-base leading-relaxed">
                       {benefit.desc}
                     </CardDescription>
                   </CardContent>
@@ -179,14 +181,16 @@ export default function ProductsPage() {
               Simple onboarding and fast results.
             </p>
           </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {howItWorks.map((step, idx) => (
               <motion.div key={step.title} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }}>
-                <Card className="bg-neutral-900/60 border-neutral-700 shadow group flex flex-col items-center">
-                  <div className="mb-4">{step.icon}</div>
-                  <CardContent className="flex-1 flex flex-col items-center">
-                    <CardTitle className="text-xl font-semibold mb-2 text-center group-hover:text-blue-400 transition-colors">{step.title}</CardTitle>
-                    <CardDescription className="text-neutral-300 text-center">
+                <Card className="bg-neutral-900/60 border-neutral-700 shadow group h-full flex flex-col items-center p-6">
+                  <div className="w-16 h-16 bg-blue-600/20 rounded-full flex items-center justify-center mb-6 border border-blue-500/30">
+                    {step.icon}
+                  </div>
+                  <CardContent className="flex-1 flex flex-col items-center text-center">
+                    <CardTitle className="text-xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors">{step.title}</CardTitle>
+                    <CardDescription className="text-neutral-300 text-base leading-relaxed">
                       {step.desc}
                     </CardDescription>
                   </CardContent>
@@ -207,8 +211,8 @@ export default function ProductsPage() {
             <p className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto">
               Contact us for a free demo and see how our products can transform your business.
             </p>
-            <MovingBorderButton size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-              Get a Free Demo <ArrowRight className="ml-2 w-4 h-4" />
+            <MovingBorderButton size="lg" className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white">
+              Get Demo
             </MovingBorderButton>
           </motion.div>
         </div>

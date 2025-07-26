@@ -43,19 +43,19 @@ const services = [
 
 const products = [
   {
-    image: "https://via.placeholder.com/120x120?text=Product+1",
-    name: "Smart CRM",
-    desc: "A powerful CRM platform to manage your customers and sales pipeline efficiently.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop&crop=center",
+    name: "Marketingpro",
+    desc: "A comprehensive marketing automation suite to streamline campaigns, track analytics, and boost ROI.",
   },
   {
-    image: "https://via.placeholder.com/120x120?text=Product+2",
-    name: "Analytics Suite",
-    desc: "Advanced analytics dashboard for actionable business insights.",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=400&fit=crop&crop=center",
+    name: "Aimindflow",
+    desc: "AI-powered workflow automation for smarter, faster business processes and decision-making.",
   },
   {
-    image: "https://via.placeholder.com/120x120?text=Product+3",
-    name: "Team Chat",
-    desc: "A secure, real-time messaging app for seamless team collaboration.",
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=400&fit=crop&crop=center",
+    name: "Samvaani",
+    desc: "A secure, real-time communication platform for seamless team collaboration and messaging.",
   },
 ];
 
@@ -300,9 +300,156 @@ const images = [
   "https://assets.aceternity.com/wobble-card.png",
   "https://assets.aceternity.com/world-map.webp",
 ];
-
+function AnimatedProcessFlowSVG() {
+  const nodes = [
+    { label: "Set Requirements", x: 80, y: 60 },
+    { label: "Design", x: 300, y: 100 },
+    { label: "Development", x: 520, y: 100 },
+    { label: "Testing", x: 700, y: 160 },
+    { label: "FeedBack", x: 520, y: 260 },
+    { label: "Delivery", x: 180, y: 260 },
+    { label: "Review", x: 350, y: 370 },
+    { label: "Deployment", x: 600, y: 370 },
+  ];
+  const edges = [
+    [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7]
+  ];
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [dashOffset, setDashOffset] = useState(400);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIdx((idx) => (idx + 1) % nodes.length);
+      setDashOffset(400);
+    }, 1400);
+    return () => clearInterval(interval);
+  }, [nodes.length]);
+  // Animate the line drawing
+  useEffect(() => {
+    if (activeIdx < edges.length) {
+      let raf: number;
+      let offset = 400;
+      function animate() {
+        offset -= 16;
+        if (offset < 0) offset = 0;
+        setDashOffset(offset);
+        if (offset > 0) raf = requestAnimationFrame(animate);
+      }
+      animate();
+      return () => {
+        if (raf) cancelAnimationFrame(raf);
+      };
+    }
+  }, [activeIdx]);
+  function getPath(i1: number, i2: number) {
+    const n1 = nodes[i1], n2 = nodes[i2];
+    const dx = n2.x - n1.x, dy = n2.y - n1.y;
+    const mx = n1.x + dx / 2, my = n1.y + dy / 2;
+    return `M${n1.x},${n1.y} Q${mx},${my - 60} ${n2.x},${n2.y}`;
+  }
+  return (
+    <svg viewBox="0 0 760 440" className="w-full h-full max-w-full max-h-full">
+      <defs>
+        <radialGradient id="node-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#e11d48" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#e11d48" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="line-gradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#e11d48" />
+          <stop offset="100%" stopColor="#f43f5e" />
+        </linearGradient>
+      </defs>
+      {/* Subtle background gradient */}
+      <rect x="0" y="0" width="760" height="440" fill="url(#node-glow)" opacity="0.08" />
+      {/* Edges */}
+      {edges.map(([from, to], i) => (
+        <path
+          key={i}
+          d={getPath(from, to)}
+          stroke="url(#line-gradient)"
+          strokeWidth={3}
+          fill="none"
+          opacity={i < activeIdx ? 0.5 : 0.18}
+          style={{ filter: i < activeIdx ? "drop-shadow(0 0 6px #e11d48)" : undefined, transition: 'opacity 0.5s' }}
+        />
+      ))}
+      {/* Animated active edge */}
+      {activeIdx < edges.length && (
+        <path
+          d={getPath(edges[activeIdx][0], edges[activeIdx][1])}
+          stroke="url(#line-gradient)"
+          strokeWidth={4}
+          fill="none"
+          opacity={1}
+          style={{
+            filter: "drop-shadow(0 0 10px #e11d48)",
+            strokeDasharray: 400,
+            strokeDashoffset: dashOffset,
+            transition: 'stroke-dashoffset 0.3s',
+          }}
+        />
+      )}
+      {/* Nodes */}
+      {nodes.map((node, i) => (
+        <g key={i}>
+          {/* Glow pulse for active node */}
+          {i === activeIdx && (
+            <circle
+              cx={node.x}
+              cy={node.y}
+              r={32}
+              fill="url(#node-glow)"
+              opacity={0.5}
+            >
+              <animate attributeName="r" values="32;38;32" dur="1.2s" repeatCount="indefinite" />
+            </circle>
+          )}
+          <circle
+            cx={node.x}
+            cy={node.y}
+            r={i === activeIdx ? 20 : 14}
+            fill={i === activeIdx ? "#e11d48" : "#fff"}
+            stroke="#e11d48"
+            strokeWidth={i === activeIdx ? 5 : 3}
+            style={{ filter: i === activeIdx ? "drop-shadow(0 0 16px #e11d48)" : undefined, transition: 'all 0.3s' }}
+          />
+          {/* Step number */}
+          <text
+            x={node.x}
+            y={node.y + 6}
+            textAnchor="middle"
+            fontSize={i === activeIdx ? 18 : 15}
+            fontWeight={700}
+            fill={i === activeIdx ? "#fff" : "#e11d48"}
+            style={{ pointerEvents: 'none', transition: 'all 0.3s' }}
+          >
+            {i + 1}
+          </text>
+          {/* Label */}
+          <text
+            x={node.x}
+            y={node.y - 32}
+            textAnchor="middle"
+            fontSize={i === 0 || i === nodes.length - 1 ? 18 : 17}
+            fontWeight={i === activeIdx ? 800 : 500}
+            fill={i === activeIdx ? "#e11d48" : (i === 0 || i === nodes.length - 1 ? "#e11d48" : "#FFF")}
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              letterSpacing: 0.2,
+              filter: i === activeIdx ? "drop-shadow(0 0 8px #e11d48)" : undefined,
+              transition: 'all 0.3s',
+            }}
+          >
+            {node.label}
+          </text>
+        </g>
+      ))}
+    </svg>
+  );
+}
 
 export default function Home() {
+
+
   const serviceData = [
     {
       text: "Web Development",
@@ -344,9 +491,9 @@ export default function Home() {
     "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80", // Analytics & SEO
   ];
   const productImages = [
-    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
@@ -391,6 +538,25 @@ export default function Home() {
 
         </div>
       </section>
+      <section className="py-24 bg-neutral-950">
+        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+          {/* Left: Heading and description */}
+          <div className="flex flex-col justify-center h-full">
+            <h5 className="text-base font-semibold mb-2 text-white">Our Process</h5>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+              Flexible iterative approach<br />to continuous project improvement.
+            </h2>
+            <p className="text-xl md:text-2xl font-bold text-red-600 mt-2">
+              - Agile methodology.
+            </p>
+          </div>
+          {/* Right: Animated SVG Process Flow */}
+          <div className="w-full flex justify-center items-center bg-black/80 rounded-xl shadow-lg p-4 min-h-[440px]">
+            <AnimatedProcessFlowSVG />
+          </div>
+        </div>
+      </section>
+
       {/* Services Section */}
       <section className="px-4 py-16">
         <div className="max-w-6xl mx-auto flex flex-col items-center">
@@ -434,16 +600,22 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center mb-12">
           <h2 className="text-4xl font-extrabold mb-4 text-white">Our Products</h2>
           <p className="text-lg text-neutral-300">Explore our suite of innovative products designed to boost your business productivity.</p>
-    </div>
-        <GlowingCards gap="2.5rem" maxWidth="56rem" enableGlow={true}>
-          {products.map((product, idx) => (
-            <GlowingCard key={idx} className="flex flex-col items-center bg-neutral-900/80 border border-blue-700/30 shadow-xl hover:shadow-2xl transition-all duration-300 w-96 h-72">
-              <img src={productImages[idx % productImages.length]} alt={product.name} className="w-28 h-28 rounded-xl mb-6 object-cover bg-neutral-800" />
-              <h3 className="text-xl font-bold mb-2 text-white text-center">{product.name}</h3>
-              <p className="text-neutral-300 text-center">{product.desc}</p>
-            </GlowingCard>
-          ))}
-        </GlowingCards>
+        </div>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products.map((product, idx) => (
+              <div key={product.name} className="flex flex-col items-center bg-neutral-900/80 border border-blue-700/30 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-2xl p-8 hover:border-blue-500/50 group">
+                <img 
+                  src={product.image} 
+                  alt={product.name} 
+                  className="w-48 h-48 rounded-2xl mb-6 object-cover bg-neutral-800 group-hover:scale-105 transition-transform duration-300" 
+                />
+                <h3 className="text-2xl font-bold mb-4 text-white text-center group-hover:text-blue-400 transition-colors">{product.name}</h3>
+                <p className="text-neutral-300 text-center text-lg leading-relaxed">{product.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
       <StaggerTestimonials />
       <FloatingParticlesBG />
