@@ -116,74 +116,8 @@ const blogs = [
     trending: false,
     views: 6780
   },
-  {
-    id: 7,
-    title: "Building Accessible Web Apps",
-    image: "https://cdn.pixabay.com/photo/2019/12/21/06/52/programmer-4709802_1280.jpg",
-    description: "Accessibility is essential. Learn how to make your web apps usable for everyone.",
-    content: "Web accessibility is not just a legal requirement—it's the right thing to do. Learn how to build applications that work for users with disabilities, including proper ARIA labels and keyboard navigation.",
-    author: {
-      name: "Grace Wang",
-      avatar: "https://randomuser.me/api/portraits/women/26.jpg",
-    },
-    date: "2024-05-01",
-    category: "Accessibility",
-    readTime: "9 min read",
-    featured: false,
-    trending: true,
-    views: 4450
-  },
-  {
-    id: 8,
-    title: "Next.js App Router: A Complete Guide",
-    image: "https://cdn.pixabay.com/photo/2024/04/09/03/04/ai-generated-8684869_1280.jpg",
-    description: "Master the new App Router in Next.js for scalable, maintainable apps.",
-    content: "The App Router revolutionizes how we build Next.js applications. This comprehensive guide covers everything from basic routing to advanced patterns like parallel routes and intercepting routes.",
-    author: {
-      name: "Reyansh Uchil",
-      avatar: "https://randomuser.me/api/portraits/men/19.jpg",
-    },
-    date: "2024-04-28",
-    category: "Next.js",
-    readTime: "15 min read",
-    featured: true,
-    trending: true,
-    views: 15670
-  },
-  {
-    id: 9,
-    title: "State Management in 2024",
-    image: "https://cdn.pixabay.com/photo/2024/12/03/08/08/ai-generated-9241538_1280.jpg",
-    description: "Redux, Zustand, Jotai, or Context? Find out which state management tool is right for you.",
-    content: "State management is crucial for React applications. Compare the most popular solutions and learn when to use each one. From simple Context API to complex Redux setups, find your perfect match.",
-    author: {
-      name: "Ava Patel",
-      avatar: "https://randomuser.me/api/portraits/women/65.jpg",
-    },
-    date: "2024-04-20",
-    category: "React",
-    readTime: "11 min read",
-    featured: false,
-    trending: false,
-    views: 8230
-  },
-  {
-    id: 10,
-    title: "Deploying Next.js Apps Effortlessly",
-    image: "https://cdn.pixabay.com/photo/2021/08/04/13/06/software-developer-6521720_1280.jpg",
-    description: "From Vercel to Netlify, learn the easiest ways to deploy your Next.js projects.",
-    content: "Deployment doesn't have to be complicated. Learn the best practices for deploying Next.js applications to various platforms, including environment variables, build optimization, and monitoring.",
-    author: {
-      name: "Liam Smith",
-      avatar: "https://randomuser.me/api/portraits/men/44.jpg",
-    },
-    date: "2024-04-15",
-    category: "Deployment",
-    readTime: "6 min read",
-    featured: false,
-    trending: false,
-    views: 5670
-  },
+
+ 
   {
     id: 11,
     title: "Advanced React Hooks Patterns",
@@ -306,6 +240,7 @@ export default function BlogsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [showFeatured, setShowFeatured] = useState(false);
   const [visiblePosts, setVisiblePosts] = useState(9);
+  const [scrollContainer, setScrollContainer] = useState<HTMLDivElement | null>(null);
 
   const filteredBlogs = useMemo(() => {
     return blogs.filter(blog => {
@@ -335,6 +270,8 @@ export default function BlogsPage() {
     setVisiblePosts(prev => prev + 9);
   };
 
+
+
   const currentCategoryBlogs = getCategoryBlogs(selectedCategory);
   const displayedBlogs = currentCategoryBlogs.slice(0, visiblePosts);
   const hasMorePosts = displayedBlogs.length < currentCategoryBlogs.length;
@@ -351,7 +288,7 @@ export default function BlogsPage() {
       
       {/* Featured Posts Section */}
       <section className="py-16 px-4 bg-gradient-to-b from-neutral-900/50 to-neutral-950">
-        <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Star className="w-6 h-6 text-yellow-500" />
@@ -360,7 +297,7 @@ export default function BlogsPage() {
             <p className="text-lg text-neutral-300">Handpicked articles you shouldn't miss</p>
           </div>
           
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
             {featuredBlogs.slice(0, 2).map((blog) => (
               <Card key={blog.id} className="group bg-neutral-900/50 border border-neutral-700 hover:border-yellow-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-500/10 overflow-hidden">
                 <div className="relative w-full h-80 overflow-hidden">
@@ -402,16 +339,16 @@ export default function BlogsPage() {
                     <span className="mx-2">•</span>
                     <BookOpen className="w-4 h-4" />
                     <span>{blog.views.toLocaleString()} views</span>
-                  </div>
+              </div>
                   
                   <CardTitle className="text-2xl font-bold text-white group-hover:text-yellow-400 transition-colors line-clamp-2">
-                    {blog.title}
-                  </CardTitle>
+                  {blog.title}
+                </CardTitle>
                   
                   <CardDescription className="text-neutral-300 line-clamp-3 text-lg">
-                    {blog.description}
-                  </CardDescription>
-                </CardHeader>
+                  {blog.description}
+                </CardDescription>
+              </CardHeader>
                 
                 <CardContent className="pt-0">
                   <div className="flex items-center justify-between">
@@ -428,37 +365,37 @@ export default function BlogsPage() {
                         <p className="text-xs text-neutral-400">Featured Author</p>
                       </div>
                     </div>
-                  </div>
+                </div>
                 </CardContent>
                 
                 <CardFooter className="pt-4">
                   <Link href={`/blog/${blog.id}`} className="w-full">
                     <Button 
-                      className="w-full bg-gradient-to-br from-yellow-600/40 via-neutral-950 to-orange-600/30 hover:from-yellow-500/50 hover:to-orange-500/40 text-white border border-yellow-500/20 hover:border-yellow-400/40 transition-all duration-300 group/btn"
+                      className="w-full cursor-pointer bg-gradient-to-br from-yellow-600/40 via-neutral-950 to-orange-600/30 hover:from-yellow-500/50 hover:to-orange-500/40 text-white border border-yellow-500/20 hover:border-yellow-400/40 transition-all duration-300 group/btn"
                     >
                       <span>Read Featured Article</span>
                       <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                     </Button>
                   </Link>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
+              </CardFooter>
+            </Card>
+          ))}
         </div>
+      </div>
       </section>
       
       {/* Search and Filter Section */}
       <section className="py-12 px-4 border-b border-neutral-800">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-            <div className="relative flex-1 max-w-md">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-stretch sm:items-center justify-between">
+            <div className="relative flex-1 max-w-md w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5" />
               <Input
                 type="text"
                 placeholder="Search articles..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-neutral-900/50 border-neutral-700 text-white placeholder-neutral-400 focus:border-blue-500"
+                className="pl-10 bg-neutral-900/50 border-neutral-700 text-white placeholder-neutral-400 focus:border-blue-500 w-full"
               />
             </div>
             
@@ -466,13 +403,15 @@ export default function BlogsPage() {
               variant={showFeatured ? "default" : "outline"}
               size="sm"
               onClick={() => setShowFeatured(!showFeatured)}
-              className={showFeatured 
-                ? "bg-yellow-600 hover:bg-yellow-700 text-white border-yellow-600" 
-                : "bg-neutral-900/50 border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white"
-              }
+              className={`w-full sm:w-auto cursor-pointer ${
+                showFeatured 
+                  ? "bg-yellow-600 hover:bg-yellow-700 text-white border-yellow-600" 
+                  : "bg-neutral-900/50 border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white"
+              }`}
             >
               <Star className="w-4 h-4 mr-2" />
-              Featured Only
+              <span className="hidden sm:inline">Featured Only</span>
+              <span className="sm:hidden">Featured</span>
             </Button>
           </div>
         </div>
@@ -495,17 +434,26 @@ export default function BlogsPage() {
             setSelectedCategory(value);
             setVisiblePosts(9); // Reset to 9 posts when category changes
           }}>
-            <TabsList className="grid w-full grid-cols-5 lg:grid-cols-9 bg-neutral-900/50 border border-neutral-700">
-              {categories.map((category) => (
-                <TabsTrigger 
-                  key={category} 
-                  value={category}
-                  className="data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=inactive]:text-neutral-300 hover:text-white transition-all"
-                >
-                  {category}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+            <div className="relative">
+              {/* Scrollable container with better spacing */}
+              <div 
+                ref={setScrollContainer}
+                className="overflow-x-auto scrollbar-hide scroll-smooth px-2 sm:px-4 py-10" 
+                style={{ scrollBehavior: 'smooth' }}
+              >
+                <TabsList className="grid w-max min-w-full grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-9 bg-neutral-950 gap-2 p-2">
+                  {categories.map((category) => (
+                    <TabsTrigger 
+                      key={category} 
+                      value={category}
+                      className="data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=inactive]:text-neutral-300 hover:text-white transition-all whitespace-nowrap text-sm sm:text-base px-4 py-3 sm:px-6 sm:py-4 min-w-max rounded-lg cursor-pointer"
+                    >
+                      {category}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </div>
+            </div>
             
             {categories.map((category) => (
               <TabsContent key={category} value={category} className="mt-8">
@@ -517,7 +465,7 @@ export default function BlogsPage() {
                   </div>
                 ) : (
                   <>
-                    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                       {displayedBlogs.map((blog) => (
                         <Card key={blog.id} className="group bg-neutral-900/50 border border-neutral-700 hover:border-blue-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 overflow-hidden">
                           <div className="relative w-full h-64 overflow-hidden">
@@ -587,7 +535,7 @@ export default function BlogsPage() {
                           <CardFooter className="pt-4">
                             <Link href={`/blog/${blog.id}`} className="w-full">
                               <Button 
-                                className="w-full bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white border border-white/10 hover:border-white/20 transition-all duration-300 group/btn"
+                                className="w-full cursor-pointer bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white border border-white/10 hover:border-white/20 transition-all duration-300 group/btn"
                               >
                                 <span>Read Article</span>
                                 <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
@@ -604,7 +552,7 @@ export default function BlogsPage() {
                         <Button 
                           size="lg"
                           onClick={handleLoadMore}
-                          className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white border border-white/10 hover:border-white/20 px-8 py-4 text-lg font-semibold transition-all duration-300"
+                          className="cursor-pointer bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white border border-white/10 hover:border-white/20 px-8 py-4 text-lg font-semibold transition-all duration-300"
                         >
                           Load More Articles ({currentCategoryBlogs.length - displayedBlogs.length} remaining)
                           <ArrowRight className="w-5 h-5 ml-2" />

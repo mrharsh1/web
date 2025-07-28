@@ -326,7 +326,7 @@ export default function ServicesPage() {
               Why Choose Us
             </Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
-              The Bhaviya Advantage
+              The Bavya Entrprises Advantage
             </h2>
             <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
               Discover what sets us apart from the competition.

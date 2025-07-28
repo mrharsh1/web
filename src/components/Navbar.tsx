@@ -3,8 +3,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
+import { Menu, X } from "lucide-react";
+
 export default function Navbar() {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
   const navLinks = [
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
@@ -12,17 +16,29 @@ export default function Navbar() {
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ];
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <nav className="w-full sticky top-0 z-50 w-full bg-neutral-900/90 border-b border-neutral-800 backdrop-blur-md shadow-md transition-all">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-8 py-4 ">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-8 py-4">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <span className="text-2xl font-serif font-bold text-white">
-            <Link href="/"> <img src="/logo.png" alt="Bhaviya" width={60} height={60} /></Link>
+            <Link href="/"> 
+              <img src="/logo.png" alt="Bavya Entrprises" width={60} height={60} className="w-12 h-12 sm:w-[60px] sm:h-[60px]" />
+            </Link>
           </span>
         </div>
-        {/* Centered Nav Links */}
-        <div className="flex-1 flex justify-center">
+
+        {/* Desktop Navigation - Hidden on mobile */}
+        <div className="hidden lg:flex flex-1 justify-center">
           <div className="relative flex gap-6 rounded-full bg-neutral-800 px-8 py-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -48,16 +64,111 @@ export default function Navbar() {
             })}
           </div>
         </div>
-        {/* Right Button */}
-        <div>
+
+        {/* Desktop Right Button - Hidden on mobile */}
+        <div className="hidden lg:block">
           <Link href="/quote">
             <MovingBorderButton className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white border border-white/10 hover:border-white/20">
               Get Quote
             </MovingBorderButton>
           </Link>
         </div>
+
+        {/* Mobile Menu Button */}
+        <div className="lg:hidden">
+          <button
+            onClick={toggleMobileMenu}
+            className="p-2 text-white hover:text-blue-300 transition-colors duration-200"
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm">
+          <div className="flex flex-col h-full">
+            {/* Mobile Menu Header */}
+            <div className="flex items-center justify-between p-4 border-b border-neutral-700">
+              <div className="flex items-center gap-2">
+                <img src="/logo.png" alt="Bavya Entrprises" width={40} height={40} />
+                <span className="text-xl font-serif font-bold text-white">Bavya Entrprises</span>
+              </div>
+              <button
+                onClick={closeMobileMenu}
+                className="p-2 text-white hover:text-blue-300 transition-colors duration-200"
+                aria-label="Close mobile menu"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Mobile Navigation Links */}
+            <div className="flex-1 flex flex-col justify-center px-6 py-8">
+              <div className="space-y-6">
+                {navLinks.map((link, index) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={closeMobileMenu}
+                      className={`block text-2xl font-medium transition-all duration-300 py-4 px-6 rounded-xl group
+                        ${isActive 
+                          ? "text-blue-300 bg-blue-600/20 border border-blue-500/30" 
+                          : "text-white hover:text-blue-300 hover:bg-neutral-800/50"
+                        }
+                      `}
+                      style={{
+                        animationDelay: `${index * 100}ms`,
+                        animation: 'slideInFromRight 0.3s ease-out forwards'
+                      }}
+                    >
+                      <span className="flex items-center justify-between">
+                        {link.label}
+                        {isActive && (
+                          <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                        )}
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Mobile CTA Button */}
+            <div className="p-6 border-t border-neutral-700">
+              <Link href="/quote" onClick={closeMobileMenu}>
+                <MovingBorderButton className="w-full bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white border border-white/10 hover:border-white/20 py-4 text-lg font-medium cursor-pointer">
+                  Get Quote
+                </MovingBorderButton>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CSS for mobile menu animations */}
+      <style jsx>{`
+        @keyframes slideInFromRight {
+          from {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+      `}</style>
     </nav>
   );
 }
 
+ 

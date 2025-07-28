@@ -1,136 +1,130 @@
 "use client"
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaHeadset } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import confetti from 'canvas-confetti';
 
 export default function Footer() {
-  const [showConfetti, setShowConfetti] = useState(false);
   const [email, setEmail] = useState("");
 
+  
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    setShowConfetti(true);
+    
+    // Multiple confetti effects for spectacular celebration
+    
+    // 1. Main confetti blast with random directions
+    confetti({
+      particleCount: 150,
+      spread: 90,
+      origin: { y: 0.6 },
+      angle: 90,
+      startVelocity: 45,
+      gravity: 0.8,
+      ticks: 200,
+      colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500', '#800080']
+    });
+
+    // 2. Realistic confetti with different shapes
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.7 },
+      angle: 60,
+      startVelocity: 35,
+      gravity: 1,
+      ticks: 150,
+      colors: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff', '#5f27cd'],
+      shapes: ['circle', 'square']
+    });
+
+    // 3. Stars confetti effect
+    confetti({
+      particleCount: 50,
+      spread: 60,
+      origin: { y: 0.5 },
+      angle: 120,
+      startVelocity: 40,
+      gravity: 0.6,
+      ticks: 250,
+      colors: ['#ffd700', '#ffed4e', '#fff200', '#ffeb3b', '#fdd835'],
+      shapes: ['star']
+    });
+
+    // 4. Snow effect
+    confetti({
+      particleCount: 80,
+      spread: 100,
+      origin: { y: 0.8 },
+      angle: 90,
+      startVelocity: 30,
+      gravity: 0.5,
+      ticks: 300,
+      colors: ['#ffffff', '#f0f8ff', '#e6f3ff', '#f5f5f5'],
+      shapes: ['circle']
+    });
+
+    // 5. School pride colors (blue and white)
+    confetti({
+      particleCount: 60,
+      spread: 80,
+      origin: { y: 0.6 },
+      angle: 90,
+      startVelocity: 50,
+      gravity: 0.9,
+      ticks: 180,
+      colors: ['#1e3a8a', '#3b82f6', '#60a5fa', '#93c5fd', '#dbeafe', '#ffffff', '#f8fafc'],
+      shapes: ['circle', 'square']
+    });
+
+    // 6. Random direction burst
+    setTimeout(() => {
+      confetti({
+        particleCount: 120,
+        spread: 360,
+        origin: { y: 0.5, x: 0.5 },
+        angle: 0,
+        startVelocity: 60,
+        gravity: 0.7,
+        ticks: 200,
+        colors: ['#ef4444', '#f97316', '#eab308', '#22c55e', '#06b6d4', '#8b5cf6', '#ec4899']
+      });
+    }, 200);
+
+    // 7. Diagonal burst
+    setTimeout(() => {
+      confetti({
+        particleCount: 80,
+        spread: 45,
+        origin: { y: 0.6 },
+        angle: 45,
+        startVelocity: 55,
+        gravity: 0.8,
+        ticks: 220,
+        colors: ['#dc2626', '#ea580c', '#d97706', '#16a34a', '#0891b2', '#7c3aed', '#be185d']
+      });
+    }, 400);
+
+    // Scroll to top of page
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+
     setEmail(""); // Clear the email input
-    setTimeout(() => setShowConfetti(false), 4000);
   };
 
   // Custom blast confetti effect
-  const ConfettiBlast = () => {
-    const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff', '#5f27cd', '#ff9f43', '#00d2d3'];
-    
-    // Create confetti strips
-    const strips = Array.from({ length: 80 }, (_, i) => ({
-      id: i,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      x: 50, // Start from center
-      y: 50,
-      angle: (i * 360) / 80, // Distribute evenly in a circle
-      speed: Math.random() * 8 + 4,
-      size: Math.random() * 20 + 10,
-      rotation: Math.random() * 360,
-      delay: Math.random() * 0.5
-    }));
 
-    return (
-      <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-50">
-        <div className="relative w-full h-full">
-          {/* Center blast point */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-yellow-400 rounded-full animate-ping" />
-          
-          {/* Confetti strips */}
-          {strips.map((strip) => (
-            <div
-              key={strip.id}
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-              style={{
-                width: `${strip.size}px`,
-                height: '4px',
-                backgroundColor: strip.color,
-                transform: `rotate(${strip.angle}deg) translateX(${strip.speed * 20}px)`,
-                animation: `blastOut 2s ease-out ${strip.delay}s forwards`,
-                transformOrigin: 'center'
-              }}
-            />
-          ))}
-          
-          {/* 3D rotating elements */}
-          {Array.from({ length: 20 }, (_, i) => (
-            <div
-              key={`3d-${i}`}
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-              style={{
-                width: '8px',
-                height: '8px',
-                backgroundColor: colors[Math.floor(Math.random() * colors.length)],
-                borderRadius: '50%',
-                transform: `rotate(${i * 18}deg) translateX(${Math.random() * 100 + 50}px)`,
-                animation: `blastOut 2.5s ease-out ${Math.random() * 0.3}s forwards`,
-                boxShadow: '0 0 10px currentColor'
-              }}
-            />
-          ))}
-          
-          {/* Sparkle effects */}
-          {Array.from({ length: 30 }, (_, i) => (
-            <div
-              key={`sparkle-${i}`}
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-              style={{
-                width: '3px',
-                height: '3px',
-                backgroundColor: '#ffffff',
-                borderRadius: '50%',
-                transform: `rotate(${i * 12}deg) translateX(${Math.random() * 80 + 30}px)`,
-                animation: `sparkle 1.5s ease-out ${Math.random() * 0.5}s forwards`,
-                boxShadow: '0 0 8px #ffffff'
-              }}
-            />
-          ))}
-        </div>
-        
-        {/* CSS Animations */}
-        <style jsx>{`
-          @keyframes blastOut {
-            0% {
-              transform: rotate(var(--angle, 0deg)) translateX(0px) scale(0);
-              opacity: 1;
-            }
-            50% {
-              opacity: 1;
-            }
-            100% {
-              transform: rotate(var(--angle, 0deg)) translateX(var(--distance, 100px)) scale(1);
-              opacity: 0;
-            }
-          }
-          
-          @keyframes sparkle {
-            0% {
-              transform: rotate(var(--angle, 0deg)) translateX(0px) scale(0);
-              opacity: 1;
-            }
-            50% {
-              opacity: 1;
-              transform: rotate(var(--angle, 0deg)) translateX(var(--distance, 50px)) scale(1.5);
-            }
-            100% {
-              transform: rotate(var(--angle, 0deg)) translateX(var(--distance, 80px)) scale(0);
-              opacity: 0;
-            }
-          }
-        `}</style>
-      </div>
-    );
-  };
 
   return (
     <footer className="w-full bg-black border-t border-neutral-800 px-6 md:px-12 pt-16 pb-8 text-white">
-      {showConfetti && <ConfettiBlast />}
+
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         {/* Company Info */}
         <div className="flex flex-col gap-6">
           <h2 className="text-2xl font-extrabold mb-2 tracking-tight"> <img src="/logo.png" alt="Bhaviya" width={100} height={100} /></h2>
           <p className="text-gray-400 text-base mb-2">
-            Bhaviya is a creative technology company delivering modern, scalable digital solutions for businesses worldwide. We blend innovation, design, and engineering to help you grow.
+           Bhavya Entrprises  is a creative technology company delivering modern, scalable digital solutions for businesses worldwide. We blend innovation, design, and engineering to help you grow.
           </p>
         </div>
         {/* Addresses */}
@@ -150,7 +144,7 @@ B.O. : Plot No. 1025, Rani Sati Nagar,<br /> Nirman Nagar, Jaipur-302019
           <h3 className="font-semibold text-lg mb-2">Contact & Support</h3>
           <div className="flex items-center gap-2 text-gray-300">
             <FaEnvelope className="text-gray-400" />
-            <a href="mailto:support@bhaviya.com" className="hover:text-white transition">support@bhaviya.com</a>
+            <a href="mailto:support@bhaviya.com" className="hover:text-white transition">support@bhavyaentrprises.com</a>
           </div>
           <div className="flex items-center gap-2 text-gray-300">
             <FaPhoneAlt className="text-gray-400" />

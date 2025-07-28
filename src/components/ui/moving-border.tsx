@@ -86,20 +86,45 @@ export const MovingBorder = ({
   const progress = useMotionValue(0);
 
   useAnimationFrame((time: number) => {
-    const length = pathRef.current?.getTotalLength();
-    if (length) {
-      const pxPerMillisecond = length / duration;
-      progress.set((time * pxPerMillisecond) % length);
+    try {
+      const length = pathRef.current?.getTotalLength();
+      if (length && length > 0) {
+        const pxPerMillisecond = length / duration;
+        progress.set((time * pxPerMillisecond) % length);
+      }
+    } catch (error) {
+      // Fallback: use a simple circular animation if path is invalid
+      const fallbackProgress = (time % duration) / duration;
+      progress.set(fallbackProgress * 100);
     }
   });
 
   const x = useTransform(
     progress,
-    (val) => pathRef.current?.getPointAtLength(val).x,
+    (val) => {
+      try {
+        const point = pathRef.current?.getPointAtLength(val);
+        return point?.x || 0;
+      } catch (error) {
+        // Fallback: use circular motion
+        const angle = (val / 100) * 2 * Math.PI;
+        return Math.cos(angle) * 50 + 50;
+      }
+    },
   );
+  
   const y = useTransform(
     progress,
-    (val) => pathRef.current?.getPointAtLength(val).y,
+    (val) => {
+      try {
+        const point = pathRef.current?.getPointAtLength(val);
+        return point?.y || 0;
+      } catch (error) {
+        // Fallback: use circular motion
+        const angle = (val / 100) * 2 * Math.PI;
+        return Math.sin(angle) * 50 + 50;
+      }
+    },
   );
 
   const transform = useMotionTemplate`translateX(${x}px) translateY(${y}px) translateX(-50%) translateY(-50%)`;

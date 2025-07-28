@@ -112,7 +112,7 @@ export default function AboutPage() {
     <main className="bg-neutral-950 text-white min-h-screen">
       {/* Hero Section */}
       <ProductsHero
-        badge="About Bhaviya"
+        badge="About Bavya Entrprises"
         heading="Building the Future"
         subheading="We're a team of innovators, creators, and problem-solvers dedicated to transforming businesses through cutting-edge technology and exceptional design."
         buttonText={undefined}
@@ -166,7 +166,7 @@ export default function AboutPage() {
               From Vision to Reality
             </h2>
             <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
-              Founded in 2020, Bhaviya started as a small team with big dreams. Today, we're proud to be at the forefront of digital innovation.
+              Founded in 2020, Bavya Entrprises started as a small team with big dreams. Today, we're proud to be at the forefront of digital innovation.
             </p>
           </motion.div>
 

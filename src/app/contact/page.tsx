@@ -15,7 +15,7 @@ function copyToClipboard(text: string) {
 }
 
 const CONTACT_INFO = [
-  { icon: Mail, label: "Email", value: "support@bhaviya.com" },
+  { icon: Mail, label: "Email", value: "support@bavyaentrprises.com" },
   { icon: Phone, label: "Phone", value: "+91 90268 49414" },
   { icon: MapPin, label: "Address", value: "SCO 393, 2nd floor, Sector - 37 D, Chandigarh" },
 ];
@@ -116,7 +116,7 @@ export default function ContactPage() {
                   <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <MessageSquare className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-2xl font-bold">Send us a Message</CardTitle>
+                  <CardTitle className="text-2xl text-white font-bold">Send us a Message</CardTitle>
                   <CardDescription className="text-neutral-400">
                     Fill out the form below and we'll get back to you as soon as possible
                   </CardDescription>
@@ -254,7 +254,7 @@ export default function ContactPage() {
                     <Mail className="w-5 h-5 text-blue-400" />
                     <div>
                       <p className="font-medium text-white">Email Us</p>
-                      <p className="text-sm text-neutral-300">support@bhaviya.com</p>
+                      <p className="text-sm text-neutral-300">support@bavyaentrprises.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-2 p-3 bg-neutral-800/30 rounded-lg">

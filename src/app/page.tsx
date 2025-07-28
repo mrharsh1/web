@@ -564,7 +564,7 @@ export default function Home() {
           <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
             We offer a wide range of digital solutions to help your business thrive in the modern world.
           </p>
-          <div className="relative w-full">
+          <div className="relative w-full md:mx-0 mx-4">
             <Carousel opts={{ align: "start", slidesToScroll: 1, loop: true }} className="w-full">
               <CarouselPrevious />
               <CarouselNext />
@@ -615,7 +615,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
+    </div>
       </section>
       <StaggerTestimonials />
       <FloatingParticlesBG />

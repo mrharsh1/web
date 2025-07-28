@@ -121,7 +121,7 @@ export default function QuotePage() {
                   <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Quote className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-2xl font-bold">Project Details</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-white">Project Details</CardTitle>
                   <CardDescription className="text-neutral-400">
                     Fill out the form below and we'll get back to you with a custom quote
                   </CardDescription>
@@ -203,7 +203,7 @@ export default function QuotePage() {
 
                       {/* Message Field */}
                       <div className="space-y-2">
-                        <label className="text-sm font-medium text-neutral-300 flex items-center gap-2">
+                        <label className="text-sm  font-medium text-neutral-300 flex items-center gap-2">
                           <MessageSquare className="w-4 h-4" />
                           Project Details *
                         </label>
@@ -266,7 +266,7 @@ export default function QuotePage() {
               {/* Benefits */}
               <Card className="bg-neutral-900/50 border-neutral-700">
                 <CardHeader>
-                  <CardTitle className="text-xl">Why Choose Us?</CardTitle>
+                  <CardTitle className="text-xl text-white">Why Choose Us?</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {benefits.map((benefit, index) => (
@@ -305,7 +305,7 @@ export default function QuotePage() {
                     <Mail className="w-5 h-5 text-blue-400" />
                     <div>
                       <p className="font-medium text-white">Email Us</p>
-                      <p className="text-sm text-neutral-300">support@bhaviya.com</p>
+                      <p className="text-sm text-neutral-300">support@bavyaentrprises.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-2 p-3 bg-neutral-800/30 rounded-lg">
