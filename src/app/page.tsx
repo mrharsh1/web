@@ -580,7 +580,7 @@ export default function Home() {
             We offer a wide range of digital solutions to help your business thrive in the modern world.
           </p>
           <div className="relative w-full md:mx-0 mx-4">
-            <Carousel opts={{ align: "start", slidesToScroll: 1, loop: true }} className="w-full" autoPlay={3000}>
+            <Carousel opts={{ align: "start", slidesToScroll: 1, loop: true }} className="w-full">
               <CarouselContent className="">
                 {serviceData.map((service, idx) => (
                   <CarouselItem key={service.text} className="sm:basis-1/2 lg:basis-1/3 px-2 py-4">
