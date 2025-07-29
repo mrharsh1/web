@@ -8,7 +8,7 @@ import { useGesture } from '@use-gesture/react';
 import { StaggerTestimonials } from "@/components/ui/testmonals";
 import { EvervaultCard } from "@/components/ui/card";
 import { ThreeDMarquee } from "@/components/lightswind/3d-marquee";
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/lightswind/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/lightswind/carousel";
 import { FeaturesSection } from "@/components/ui/Features";
 import GlowingCards, { GlowingCard } from "@/components/lightswind/glowing-cards";
 // 3D ICONS FOR SERVICES
@@ -448,6 +448,20 @@ function AnimatedProcessFlowSVG() {
 }
 
 export default function Home() {
+  // Auto-scroll to process section after 5 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const processSection = document.getElementById('process-section');
+      if (processSection) {
+        processSection.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
 
   const serviceData = [
@@ -538,7 +552,8 @@ export default function Home() {
 
         </div>
       </section>
-      <section className="py-24 bg-neutral-950">
+      
+      <section className="py-24 bg-neutral-950" id="process-section">
         <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
           {/* Left: Heading and description */}
           <div className="flex flex-col justify-center h-full">
@@ -565,9 +580,7 @@ export default function Home() {
             We offer a wide range of digital solutions to help your business thrive in the modern world.
           </p>
           <div className="relative w-full md:mx-0 mx-4">
-            <Carousel opts={{ align: "start", slidesToScroll: 1, loop: true }} className="w-full">
-              <CarouselPrevious />
-              <CarouselNext />
+            <Carousel opts={{ align: "start", slidesToScroll: 1, loop: true }} className="w-full" autoPlay={3000}>
               <CarouselContent className="">
                 {serviceData.map((service, idx) => (
                   <CarouselItem key={service.text} className="sm:basis-1/2 lg:basis-1/3 px-2 py-4">

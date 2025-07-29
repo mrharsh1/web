@@ -104,13 +104,16 @@ export default function Footer() {
       });
     }, 400);
 
-    // Scroll to top of page
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-
-    setEmail(""); // Clear the email input
+    // Clear the email input
+    setEmail("");
+    
+    // Smooth scroll to top after a short delay to show confetti first
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 1000);
   };
 
   // Custom blast confetti effect

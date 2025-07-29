@@ -252,10 +252,10 @@ export default function ServicesPage() {
       {/* Agile Methodology Process Section (new) */}
 
       {/* How We Work Section */}
-      <section className="py-24 bg-black">
+      <section className="py-24 bg-black ">
         <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-start">
           {/* Left: Heading and description */}
-          <div className="left-0 top-0 md:sticky md:h-svh md:py-12">
+          <div className="left-0 top-20 md:sticky md:h-svh md:py-12">
             <h5 className="text-xs md:text-sm uppercase tracking-wide text-neutral-400 mb-2">our process</h5>
             <h2 className="mb-6 mt-4 text-3xl md:text-5xl font-extrabold tracking-tight text-white">
               Planning your <span className="text-blue-400">project development</span> journey
@@ -335,23 +335,31 @@ export default function ServicesPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {reasons.map((reason, idx) => (
               <motion.div key={reason.title} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }}>
-                <Card className="bg-neutral-900/60 border-neutral-700 shadow-xl group h-full flex flex-col hover:shadow-2xl hover:border-blue-500/30 transition-all duration-300">
-                  <CardHeader className="flex flex-col items-center pb-4">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center mb-6 mt-8 border border-blue-500/30 group-hover:border-blue-400/50 transition-colors">
-                      <div className="text-blue-400 group-hover:text-blue-300 transition-colors">
-                        {reason.icon}
+                <div className="relative group">
+                  {/* Moving Border Effect */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt-reverse"></div>
+                  
+                  <Card className="relative bg-neutral-900/80 border-neutral-700 shadow-xl h-80 w-full flex flex-col hover:shadow-2xl hover:border-blue-500/30 transition-all duration-300 backdrop-blur-sm">
+                    <CardHeader className="flex flex-col items-center pb-4 flex-shrink-0">
+                      <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center mb-6 mt-8 border border-blue-500/30 group-hover:border-blue-400/50 transition-colors">
+                        {/* Animated border around icon */}
+                        <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-0 group-hover:opacity-20 blur transition-opacity duration-500"></div>
+                        <div className="text-blue-400 group-hover:text-blue-300 transition-colors relative z-10">
+                          {reason.icon}
+                        </div>
                       </div>
-                    </div>
-                    <CardTitle className="text-xl font-semibold mb-3 text-center text-white group-hover:text-blue-400 transition-colors">
-                      {reason.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex-1 flex items-center">
-                    <CardDescription className="text-neutral-300 text-center leading-relaxed">
-                      {reason.desc}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
+                      <CardTitle className="text-xl font-semibold mb-3 text-center text-white group-hover:text-blue-400 transition-colors">
+                        {reason.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-1 flex items-center justify-center px-4">
+                      <CardDescription className="text-neutral-300 text-center leading-relaxed">
+                        {reason.desc}
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -374,6 +382,41 @@ export default function ServicesPage() {
           </motion.div>
         </div>
       </section>
+      
+      {/* CSS Animations for Moving Borders */}
+      <style jsx global>{`
+        @keyframes tilt {
+          0%, 50%, 100% {
+            transform: rotate(0deg);
+          }
+          25% {
+            transform: rotate(0.5deg);
+          }
+          75% {
+            transform: rotate(-0.5deg);
+          }
+        }
+        
+        @keyframes tilt-reverse {
+          0%, 50%, 100% {
+            transform: rotate(0deg);
+          }
+          25% {
+            transform: rotate(-0.5deg);
+          }
+          75% {
+            transform: rotate(0.5deg);
+          }
+        }
+        
+        .animate-tilt {
+          animation: tilt 10s infinite linear;
+        }
+        
+        .animate-tilt-reverse {
+          animation: tilt-reverse 8s infinite linear;
+        }
+      `}</style>
     </main>
   );
 } 

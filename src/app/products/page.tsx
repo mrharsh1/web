@@ -150,17 +150,27 @@ export default function ProductsPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, idx) => (
               <motion.div key={benefit.title} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }}>
-                <Card className="bg-neutral-900/60 border-neutral-700 shadow group h-full flex flex-col items-center p-6">
-                  <div className="w-16 h-16 bg-blue-600/20 rounded-full flex items-center justify-center mb-6 border border-blue-500/30">
-                    {benefit.icon}
-                  </div>
-                  <CardContent className="flex-1 flex flex-col items-center text-center">
-                    <CardTitle className="text-xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors">{benefit.title}</CardTitle>
-                    <CardDescription className="text-neutral-300 text-base leading-relaxed">
-                      {benefit.desc}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
+                <div className="relative group">
+                  {/* Moving Border Effect */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-600 via-green-600 to-blue-600 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt-reverse"></div>
+                  
+                  <Card className="relative bg-neutral-900/80 border-neutral-700 shadow-xl h-80 w-full flex flex-col items-center p-6 hover:shadow-2xl hover:border-green-500/30 transition-all duration-300 backdrop-blur-sm">
+                    <div className="relative w-16 h-16 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-full flex items-center justify-center mb-6 border border-green-500/30 group-hover:border-green-400/50 transition-colors">
+                      {/* Animated border around icon */}
+                      <div className="absolute -inset-1 bg-gradient-to-r from-green-400 to-blue-400 rounded-full opacity-0 group-hover:opacity-20 blur transition-opacity duration-500"></div>
+                      <div className="relative z-10">
+                        {benefit.icon}
+                      </div>
+                    </div>
+                    <CardContent className="flex-1 flex flex-col items-center text-center justify-center px-4">
+                      <CardTitle className="text-xl font-bold mb-3 text-white group-hover:text-green-400 transition-colors">{benefit.title}</CardTitle>
+                      <CardDescription className="text-neutral-300 text-base leading-relaxed">
+                        {benefit.desc}
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -181,22 +191,61 @@ export default function ProductsPage() {
               Simple onboarding and fast results.
             </p>
           </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {howItWorks.map((step, idx) => (
-              <motion.div key={step.title} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }}>
-                <Card className="bg-neutral-900/60 border-neutral-700 shadow group h-full flex flex-col items-center p-6">
-                  <div className="w-16 h-16 bg-blue-600/20 rounded-full flex items-center justify-center mb-6 border border-blue-500/30">
-                    {step.icon}
+          <div className="relative">
+            {/* Connecting Lines */}
+            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-orange-500/30 via-yellow-500/30 to-red-500/30 transform -translate-y-1/2 z-0"></div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+              {howItWorks.map((step, idx) => (
+                <motion.div key={step.title} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }}>
+                  <div className="relative group">
+                    {/* Moving Border Effect */}
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-600 via-yellow-600 to-red-600 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 via-orange-600 to-yellow-600 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt-reverse"></div>
+                    
+                    <Card className="relative bg-neutral-900/80 border-neutral-700 shadow-xl h-80 w-full flex flex-col items-center p-6 hover:shadow-2xl hover:border-orange-500/30 transition-all duration-300 backdrop-blur-sm">
+                      {/* Step Number Badge with Progress Line */}
+                      <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg border-2 border-white/20">
+                        {idx + 1}
+                      </div>
+                      
+                      {/* Progress Indicator */}
+                      <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-orange-500/50 to-red-500/50 rounded-full opacity-60"></div>
+                      
+                      <div className="relative w-16 h-16 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-full flex items-center justify-center mb-6 border border-orange-500/30 group-hover:border-orange-400/50 transition-colors mt-8">
+                        {/* Animated border around icon */}
+                        <div className="absolute -inset-1 bg-gradient-to-r from-orange-400 to-red-400 rounded-full opacity-0 group-hover:opacity-20 blur transition-opacity duration-500"></div>
+                        <div className="relative z-10">
+                          {step.icon}
+                        </div>
+                      </div>
+                      <CardContent className="flex-1 flex flex-col items-center text-center justify-center px-4">
+                        <CardTitle className="text-xl font-bold mb-3 text-white group-hover:text-orange-400 transition-colors">{step.title}</CardTitle>
+                        <CardDescription className="text-neutral-300 text-base leading-relaxed">
+                          {step.desc}
+                        </CardDescription>
+                      </CardContent>
+                    </Card>
                   </div>
-                  <CardContent className="flex-1 flex flex-col items-center text-center">
-                    <CardTitle className="text-xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors">{step.title}</CardTitle>
-                    <CardDescription className="text-neutral-300 text-base leading-relaxed">
-                      {step.desc}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Mobile Progress Bar */}
+            <div className="lg:hidden mt-8 mb-4">
+              <div className="flex justify-between items-center px-4">
+                {howItWorks.map((_, idx) => (
+                  <div key={idx} className="flex items-center">
+                    <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white font-bold text-xs">
+                      {idx + 1}
+                    </div>
+                    {idx < howItWorks.length - 1 && (
+                      <div className="w-12 h-0.5 bg-gradient-to-r from-orange-500/50 to-red-500/50 mx-2"></div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -217,6 +266,41 @@ export default function ProductsPage() {
           </motion.div>
         </div>
       </section>
+      
+      {/* CSS Animations for Moving Borders */}
+      <style jsx global>{`
+        @keyframes tilt {
+          0%, 50%, 100% {
+            transform: rotate(0deg);
+          }
+          25% {
+            transform: rotate(0.5deg);
+          }
+          75% {
+            transform: rotate(-0.5deg);
+          }
+        }
+        
+        @keyframes tilt-reverse {
+          0%, 50%, 100% {
+            transform: rotate(0deg);
+          }
+          25% {
+            transform: rotate(-0.5deg);
+          }
+          75% {
+            transform: rotate(0.5deg);
+          }
+        }
+        
+        .animate-tilt {
+          animation: tilt 10s infinite linear;
+        }
+        
+        .animate-tilt-reverse {
+          animation: tilt-reverse 8s infinite linear;
+        }
+      `}</style>
     </main>
   );
 } 

@@ -242,13 +242,50 @@ export default function BlogsPage() {
   const [visiblePosts, setVisiblePosts] = useState(9);
   const [scrollContainer, setScrollContainer] = useState<HTMLDivElement | null>(null);
 
+  // Reset visible posts when search or filters change
+  const resetPagination = () => {
+    setVisiblePosts(9);
+  };
+
+  // Handle search change
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    resetPagination();
+  };
+
+  // Handle category change
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    resetPagination();
+  };
+
+  // Handle featured filter toggle
+  const handleFeaturedToggle = () => {
+    setShowFeatured(!showFeatured);
+    resetPagination();
+  };
+
+  // Clear search
+  const clearSearch = () => {
+    setSearchTerm("");
+    resetPagination();
+  };
+
   const filteredBlogs = useMemo(() => {
     return blogs.filter(blog => {
-      const matchesSearch = blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           blog.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           blog.author.name.toLowerCase().includes(searchTerm.toLowerCase());
+      // Search functionality
+      const searchLower = searchTerm.toLowerCase();
+      const matchesSearch = searchTerm === "" || 
+                           blog.title.toLowerCase().includes(searchLower) ||
+                           blog.description.toLowerCase().includes(searchLower) ||
+                           blog.author.name.toLowerCase().includes(searchLower) ||
+                           blog.category.toLowerCase().includes(searchLower) ||
+                           blog.content.toLowerCase().includes(searchLower);
       
+      // Category filter
       const matchesCategory = selectedCategory === "All" || blog.category === selectedCategory;
+      
+      // Featured filter
       const matchesFeatured = !showFeatured || blog.featured;
       
       return matchesSearch && matchesCategory && matchesFeatured;
@@ -260,17 +297,15 @@ export default function BlogsPage() {
 
   const getCategoryBlogs = (category: string) => {
     if (category === "All") {
-      // Filter out featured posts from "All" category since they're shown separately
-      return blogs.filter(blog => !blog.featured);
+      // Use filtered blogs and exclude featured posts from "All" category
+      return filteredBlogs.filter(blog => !blog.featured);
     }
-    return blogs.filter(blog => blog.category === category && !blog.featured);
+    return filteredBlogs.filter(blog => blog.category === category && !blog.featured);
   };
 
   const handleLoadMore = () => {
     setVisiblePosts(prev => prev + 9);
   };
-
-
 
   const currentCategoryBlogs = getCategoryBlogs(selectedCategory);
   const displayedBlogs = currentCategoryBlogs.slice(0, visiblePosts);
@@ -286,9 +321,103 @@ export default function BlogsPage() {
         buttonText={undefined}
       />
       
+      {/* Search Bar Section - Right below Hero */}
+      <section className="py-8 px-4 bg-gradient-to-b from-neutral-900/50 to-neutral-950 border-b border-neutral-800">
+        <div className="max-w-4xl mx-auto">
+          <div className="relative">
+            {/* Moving Border Effect for Search Container */}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-2xl blur opacity-25 animate-tilt"></div>
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 rounded-2xl blur opacity-25 animate-tilt-reverse"></div>
+            
+            <div className="relative bg-neutral-900/80 border border-neutral-700 rounded-2xl p-6 backdrop-blur-sm">
+              <div className="flex flex-col lg:flex-row gap-4 items-center">
+                {/* Search Input */}
+                <div className="relative flex-1 w-full">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5" />
+                  <Input
+                    type="text"
+                    placeholder="Search articles, authors, or topics..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    className="pl-12 pr-12 py-3 bg-neutral-800/50 border-neutral-600 text-white placeholder-neutral-400 focus:border-blue-500 focus:ring-blue-500/20 w-full rounded-xl text-lg"
+                  />
+                  {searchTerm && (
+                    <button
+                      onClick={clearSearch}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-white transition-colors"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+                
+                {/* Filter Buttons */}
+                <div className="flex gap-3 w-full lg:w-auto">
+                  <Button
+                    variant={showFeatured ? "default" : "outline"}
+                    size="sm"
+                    onClick={handleFeaturedToggle}
+                    className={`cursor-pointer transition-all duration-300 ${
+                      showFeatured 
+                        ? "bg-yellow-600 hover:bg-yellow-700 text-white border-yellow-600 shadow-lg" 
+                        : "bg-neutral-800/50 border-neutral-600 text-neutral-300 hover:bg-neutral-700 hover:text-white"
+                    }`}
+                  >
+                    <Star className="w-4 h-4 mr-2" />
+                    <span className="hidden sm:inline">Featured Only</span>
+                    <span className="sm:hidden">Featured</span>
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="cursor-pointer bg-neutral-800/50 border-neutral-600 text-neutral-300 hover:bg-neutral-700 hover:text-white transition-all duration-300"
+                  >
+                    <Filter className="w-4 h-4 mr-2" />
+                    <span className="hidden sm:inline">Filters</span>
+                    <span className="sm:hidden">Filter</span>
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Quick Stats */}
+              <div className="flex items-center justify-between mt-4 pt-4 border-t border-neutral-700">
+                <div className="flex items-center gap-4 text-sm text-neutral-400">
+                  <span className="flex items-center gap-1">
+                    <BookOpen className="w-4 h-4" />
+                    {blogs.length} Articles
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <TrendingUp className="w-4 h-4" />
+                    {trendingBlogs.length} Trending
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Star className="w-4 h-4" />
+                    {featuredBlogs.length} Featured
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  {searchTerm && (
+                    <span className="text-blue-400 flex items-center gap-1">
+                      <Search className="w-4 h-4" />
+                      "{searchTerm}"
+                    </span>
+                  )}
+                  <span className="text-neutral-400">
+                    {filteredBlogs.length} results
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       {/* Featured Posts Section */}
       <section className="py-16 px-4 bg-gradient-to-b from-neutral-900/50 to-neutral-950">
-      <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Star className="w-6 h-6 text-yellow-500" />
@@ -299,120 +428,93 @@ export default function BlogsPage() {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
             {featuredBlogs.slice(0, 2).map((blog) => (
-              <Card key={blog.id} className="group bg-neutral-900/50 border border-neutral-700 hover:border-yellow-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-500/10 overflow-hidden">
-                <div className="relative w-full h-80 overflow-hidden">
-                  <Image 
-                    src={blog.image} 
-                    alt={blog.title} 
-                    fill 
-                    className="object-cover group-hover:scale-110 transition-transform duration-500" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    <Badge className="bg-yellow-600/80 text-white border-0">
-                      <Star className="w-3 h-3 mr-1" />
-                      Featured
-                    </Badge>
-                    <Badge className="bg-blue-600/80 text-white border-0">
-                      {blog.category}
-                    </Badge>
+              <div key={blog.id} className="relative group">
+                {/* Moving Border Effect */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-600 via-orange-600 to-red-600 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-600 via-yellow-600 to-red-600 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt-reverse"></div>
+                
+                <Card className="relative bg-neutral-900/80 border-neutral-700 shadow-xl hover:shadow-2xl hover:border-yellow-500/30 transition-all duration-300 backdrop-blur-sm overflow-hidden">
+                  <div className="relative w-full h-80 overflow-hidden">
+                    <Image 
+                      src={blog.image} 
+                      alt={blog.title} 
+                      fill 
+                      className="object-cover group-hover:scale-110 transition-transform duration-500" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute top-4 left-4 flex gap-2">
+                      <Badge className="bg-yellow-600/80 text-white border-0">
+                        <Star className="w-3 h-3 mr-1" />
+                        Featured
+                      </Badge>
+                      <Badge className="bg-blue-600/80 text-white border-0">
+                        {blog.category}
+                      </Badge>
+                    </div>
+                    {blog.trending && (
+                      <Badge className="absolute top-4 right-4 bg-red-600/80 text-white border-0">
+                        <TrendingUp className="w-3 h-3 mr-1" />
+                        Trending
+                      </Badge>
+                    )}
                   </div>
-                  {blog.trending && (
-                    <Badge className="absolute top-4 right-4 bg-red-600/80 text-white border-0">
-                      <TrendingUp className="w-3 h-3 mr-1" />
-                      Trending
-                    </Badge>
-                  )}
-                </div>
-                
-                <CardHeader className="pb-4">
-                  <div className="flex items-center gap-2 text-sm text-neutral-400 mb-3">
-                    <Calendar className="w-4 h-4" />
-                    <span>{new Date(blog.date).toLocaleDateString('en-US', { 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    })}</span>
-                    <span className="mx-2">•</span>
-                    <Clock className="w-4 h-4" />
-                    <span>{blog.readTime}</span>
-                    <span className="mx-2">•</span>
-                    <BookOpen className="w-4 h-4" />
-                    <span>{blog.views.toLocaleString()} views</span>
-              </div>
                   
-                  <CardTitle className="text-2xl font-bold text-white group-hover:text-yellow-400 transition-colors line-clamp-2">
-                  {blog.title}
-                </CardTitle>
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center gap-2 text-sm text-neutral-400 mb-3">
+                      <Calendar className="w-4 h-4" />
+                      <span>{new Date(blog.date).toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                      })}</span>
+                      <span className="mx-2">•</span>
+                      <Clock className="w-4 h-4" />
+                      <span>{blog.readTime}</span>
+                      <span className="mx-2">•</span>
+                      <BookOpen className="w-4 h-4" />
+                      <span>{blog.views.toLocaleString()} views</span>
+                    </div>
+                    
+                    <CardTitle className="text-2xl font-bold text-white group-hover:text-yellow-400 transition-colors line-clamp-2">
+                      {blog.title}
+                    </CardTitle>
+                    
+                    <CardDescription className="text-neutral-300 line-clamp-3 text-lg">
+                      {blog.description}
+                    </CardDescription>
+                  </CardHeader>
                   
-                  <CardDescription className="text-neutral-300 line-clamp-3 text-lg">
-                  {blog.description}
-                </CardDescription>
-              </CardHeader>
-                
-                <CardContent className="pt-0">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Image 
-                        src={blog.author.avatar} 
-                        alt={blog.author.name} 
-                        width={48} 
-                        height={48} 
-                        className="rounded-full border-2 border-neutral-600" 
-                      />
-                      <div>
-                        <p className="text-sm font-medium text-white">{blog.author.name}</p>
-                        <p className="text-xs text-neutral-400">Featured Author</p>
+                  <CardContent className="pt-0">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <Image 
+                          src={blog.author.avatar} 
+                          alt={blog.author.name} 
+                          width={48} 
+                          height={48} 
+                          className="rounded-full border-2 border-neutral-600" 
+                        />
+                        <div>
+                          <p className="text-sm font-medium text-white">{blog.author.name}</p>
+                          <p className="text-xs text-neutral-400">Featured Author</p>
+                        </div>
                       </div>
                     </div>
-                </div>
-                </CardContent>
-                
-                <CardFooter className="pt-4">
-                  <Link href={`/blog/${blog.id}`} className="w-full">
-                    <Button 
-                      className="w-full cursor-pointer bg-gradient-to-br from-yellow-600/40 via-neutral-950 to-orange-600/30 hover:from-yellow-500/50 hover:to-orange-500/40 text-white border border-yellow-500/20 hover:border-yellow-400/40 transition-all duration-300 group/btn"
-                    >
-                      <span>Read Featured Article</span>
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-      </div>
-      </section>
-      
-      {/* Search and Filter Section */}
-      <section className="py-12 px-4 border-b border-neutral-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-stretch sm:items-center justify-between">
-            <div className="relative flex-1 max-w-md w-full">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5" />
-              <Input
-                type="text"
-                placeholder="Search articles..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-neutral-900/50 border-neutral-700 text-white placeholder-neutral-400 focus:border-blue-500 w-full"
-              />
-            </div>
-            
-            <Button
-              variant={showFeatured ? "default" : "outline"}
-              size="sm"
-              onClick={() => setShowFeatured(!showFeatured)}
-              className={`w-full sm:w-auto cursor-pointer ${
-                showFeatured 
-                  ? "bg-yellow-600 hover:bg-yellow-700 text-white border-yellow-600" 
-                  : "bg-neutral-900/50 border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white"
-              }`}
-            >
-              <Star className="w-4 h-4 mr-2" />
-              <span className="hidden sm:inline">Featured Only</span>
-              <span className="sm:hidden">Featured</span>
-            </Button>
+                  </CardContent>
+                  
+                  <CardFooter className="pt-4">
+                    <Link href={`/blog/${blog.id}`} className="w-full">
+                      <Button 
+                        className="w-full cursor-pointer bg-gradient-to-br from-yellow-600/40 via-neutral-950 to-orange-600/30 hover:from-yellow-500/50 hover:to-orange-500/40 text-white border border-yellow-500/20 hover:border-yellow-400/40 transition-all duration-300 group/btn"
+                      >
+                        <span>Read Featured Article</span>
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  </CardFooter>
+                </Card>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -430,10 +532,7 @@ export default function BlogsPage() {
             </p>
           </div>
           
-          <Tabs defaultValue="All" className="w-full" onValueChange={(value) => {
-            setSelectedCategory(value);
-            setVisiblePosts(9); // Reset to 9 posts when category changes
-          }}>
+          <Tabs defaultValue="All" className="w-full" onValueChange={handleCategoryChange}>
             <div className="relative">
               {/* Scrollable container with better spacing */}
               <div 
@@ -460,89 +559,110 @@ export default function BlogsPage() {
                 {displayedBlogs.length === 0 ? (
                   <div className="text-center py-20">
                     <BookOpen className="w-16 h-16 text-neutral-600 mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold text-neutral-400 mb-2">No articles found</h3>
-                    <p className="text-neutral-500">Try selecting a different category</p>
+                    <h3 className="text-2xl font-bold text-neutral-400 mb-2">
+                      {searchTerm ? `No results for "${searchTerm}"` : "No articles found"}
+                    </h3>
+                    <p className="text-neutral-500">
+                      {searchTerm 
+                        ? "Try adjusting your search terms or filters" 
+                        : "Try selecting a different category"
+                      }
+                    </p>
+                    {searchTerm && (
+                      <Button 
+                        onClick={clearSearch}
+                        className="mt-4 cursor-pointer bg-neutral-800 hover:bg-neutral-700 text-white border-neutral-600"
+                      >
+                        Clear Search
+                      </Button>
+                    )}
                   </div>
                 ) : (
                   <>
                     <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                       {displayedBlogs.map((blog) => (
-                        <Card key={blog.id} className="group bg-neutral-900/50 border border-neutral-700 hover:border-blue-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 overflow-hidden">
-                          <div className="relative w-full h-64 overflow-hidden">
-                            <Image 
-                              src={blog.image} 
-                              alt={blog.title} 
-                              fill 
-                              className="object-cover group-hover:scale-110 transition-transform duration-500" 
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                            <div className="absolute top-4 left-4 flex gap-2">
-                              <Badge className="bg-blue-600/80 text-white border-0">
-                                {blog.category}
-                              </Badge>
-                              {blog.trending && (
-                                <Badge className="bg-red-600/80 text-white border-0">
-                                  <TrendingUp className="w-3 h-3 mr-1" />
-                                  Trending
+                        <div key={blog.id} className="relative group">
+                          {/* Moving Border Effect */}
+                          <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                          <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt-reverse"></div>
+                          
+                          <Card className="relative bg-neutral-900/80 border-neutral-700 shadow-xl hover:shadow-2xl hover:border-blue-500/30 transition-all duration-300 backdrop-blur-sm overflow-hidden h-full">
+                            <div className="relative w-full h-64 overflow-hidden">
+                              <Image 
+                                src={blog.image} 
+                                alt={blog.title} 
+                                fill 
+                                className="object-cover group-hover:scale-110 transition-transform duration-500" 
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                              <div className="absolute top-4 left-4 flex gap-2">
+                                <Badge className="bg-blue-600/80 text-white border-0">
+                                  {blog.category}
                                 </Badge>
-                              )}
-                            </div>
-                          </div>
-                          
-                          <CardHeader className="pb-4">
-                            <div className="flex items-center gap-2 text-sm text-neutral-400 mb-3">
-                              <Calendar className="w-4 h-4" />
-                              <span>{new Date(blog.date).toLocaleDateString('en-US', { 
-                                year: 'numeric', 
-                                month: 'long', 
-                                day: 'numeric' 
-                              })}</span>
-                              <span className="mx-2">•</span>
-                              <Clock className="w-4 h-4" />
-                              <span>{blog.readTime}</span>
+                                {blog.trending && (
+                                  <Badge className="bg-red-600/80 text-white border-0">
+                                    <TrendingUp className="w-3 h-3 mr-1" />
+                                    Trending
+                                  </Badge>
+                                )}
+                              </div>
                             </div>
                             
-                            <CardTitle className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-2">
-                              {blog.title}
-                            </CardTitle>
+                            <CardHeader className="pb-4">
+                              <div className="flex items-center gap-2 text-sm text-neutral-400 mb-3">
+                                <Calendar className="w-4 h-4" />
+                                <span>{new Date(blog.date).toLocaleDateString('en-US', { 
+                                  year: 'numeric', 
+                                  month: 'long', 
+                                  day: 'numeric' 
+                                })}</span>
+                                <span className="mx-2">•</span>
+                                <Clock className="w-4 h-4" />
+                                <span>{blog.readTime}</span>
+                              </div>
+                              
+                              <CardTitle className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-2">
+                                {blog.title}
+                              </CardTitle>
+                              
+                              <CardDescription className="text-neutral-300 line-clamp-3">
+                                {blog.description}
+                              </CardDescription>
+                            </CardHeader>
                             
-                            <CardDescription className="text-neutral-300 line-clamp-3">
-                              {blog.description}
-                            </CardDescription>
-                          </CardHeader>
-                          
-                          <CardContent className="pt-0">
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-3">
-                                <Image 
-                                  src={blog.author.avatar} 
-                                  alt={blog.author.name} 
-                                  width={40} 
-                                  height={40} 
-                                  className="rounded-full border-2 border-neutral-600" 
-                                />
-                                <div>
-                                  <p className="text-sm font-medium text-white">{blog.author.name}</p>
-                                  <p className="text-xs text-neutral-400">Author</p>
+                            <CardContent className="pt-0 flex-1">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                  <Image 
+                                    src={blog.author.avatar} 
+                                    alt={blog.author.name} 
+                                    width={40} 
+                                    height={40} 
+                                    className="rounded-full border-2 border-neutral-600" 
+                                  />
+                                  <div>
+                                    <p className="text-sm font-medium text-white">{blog.author.name}</p>
+                                    <p className="text-xs text-neutral-400">Author</p>
+                                  </div>
+                                </div>
+                                <div className="text-right">
+                                  <p className="text-xs text-neutral-400">{blog.views.toLocaleString()} views</p>
                                 </div>
                               </div>
-                              <div className="text-right">
-                                <p className="text-xs text-neutral-400">{blog.views.toLocaleString()} views</p>
-                              </div>
-                            </div>
-                          </CardContent>
-                          
-                          <CardFooter className="pt-4">
-                            <Link href={`/blog/${blog.id}`} className="w-full">
-                              <Button 
-                                className="w-full cursor-pointer bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white border border-white/10 hover:border-white/20 transition-all duration-300 group/btn"
-                              >
-                                <span>Read Article</span>
-                                <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                              </Button>
-                            </Link>
-                          </CardFooter>
-                        </Card>
+                            </CardContent>
+                            
+                            <CardFooter className="pt-4">
+                              <Link href={`/blog/${blog.id}`} className="w-full">
+                                <Button 
+                                  className="w-full cursor-pointer bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white border border-white/10 hover:border-white/20 transition-all duration-300 group/btn"
+                                >
+                                  <span>Read Article</span>
+                                  <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                                </Button>
+                              </Link>
+                            </CardFooter>
+                          </Card>
+                        </div>
                       ))}
                     </div>
                     
@@ -566,6 +686,41 @@ export default function BlogsPage() {
           </Tabs>
         </div>
       </section>
+      
+      {/* CSS Animations for Moving Borders */}
+      <style jsx global>{`
+        @keyframes tilt {
+          0%, 50%, 100% {
+            transform: rotate(0deg);
+          }
+          25% {
+            transform: rotate(0.5deg);
+          }
+          75% {
+            transform: rotate(-0.5deg);
+          }
+        }
+        
+        @keyframes tilt-reverse {
+          0%, 50%, 100% {
+            transform: rotate(0deg);
+          }
+          25% {
+            transform: rotate(-0.5deg);
+          }
+          75% {
+            transform: rotate(0.5deg);
+          }
+        }
+        
+        .animate-tilt {
+          animation: tilt 10s infinite linear;
+        }
+        
+        .animate-tilt-reverse {
+          animation: tilt-reverse 8s infinite linear;
+        }
+      `}</style>
     </div>
   );
 } 
