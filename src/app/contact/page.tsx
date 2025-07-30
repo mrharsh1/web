@@ -16,7 +16,7 @@ function copyToClipboard(text: string) {
 
 const CONTACT_INFO = [
   { icon: Mail, label: "Email", value: "support@bavyaentrprises.com" },
-  { icon: Phone, label: "Phone", value: "+91 90268 49414" },
+  { icon: Phone, label: "Phone", value: "‪+91 90262 23490‬" },
   { icon: MapPin, label: "Address", value: "6th Floor, Suncity Success Tower, Golf Course Extension Road, Sector 65, Gurgaon, Haryana 122102" },
 ];
 
@@ -265,7 +265,7 @@ export default function ContactPage() {
                     <Phone className="w-5 h-5 text-blue-400" />
                     <div>
                       <p className="font-medium text-white">Call Us</p>
-                      <p className="text-sm text-neutral-300">+91 90268 49414</p>
+                      <p className="text-sm text-neutral-300">‪+91 90262 23490‬</p>
                     </div>
                   </div>
           
@@ -280,10 +280,10 @@ export default function ContactPage() {
                     <FaMapMarkerAlt className="w-5 h-5 text-blue-400 mt-1" />
                     <div>
                       <p className="font-medium text-white">Visit Us</p>
-                      <p className="text-sm text-neutral-300">6th Floor, Suncity Success Tower, 
+                      <p className="text-sm text-neutral-300">P703Anant Raj Maceo, 
 
-                        <br /> Golf Course Extension Road,<br />
-Sector 65, Gurgaon, Haryana 122102</p>
+                        <br /> Maceo Troyce, Sector 91, <br />
+Gurugram, Haryana 122505</p>
                     </div>
                   </div>
                 </CardContent>

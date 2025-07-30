@@ -136,13 +136,11 @@ export default function Footer() {
           <div className="flex items-start gap-2 text-gray-300">
             <FaMapMarkerAlt className="mt-1 text-gray-400" />
             <div>
-              <span className="font-semibold text-white">6th Floor, Suncity Success Tower,</span><br />
+              <span className="font-semibold text-white">P703, Anant Raj Maceo,</span><br />
                  
 
-                        
+                        <br />  Maceo Troyce, Sector 91, <br/>Gurugram, Haryana 122505
 
-                        <br />  Golf Course Extension Road, <br/>
-Sector 65, Gurgaon, Haryana 122102
             </div>
           </div>
         </div>
@@ -155,7 +153,7 @@ Sector 65, Gurgaon, Haryana 122102
           </div>
           <div className="flex items-center gap-2 text-gray-300">
             <FaPhoneAlt className="text-gray-400" />
-            <span>+91 90268 49414</span>
+            <span>+91 90262 23490</span>
           </div>
           <div className="flex items-center gap-2 text-gray-300">
             <FaHeadset className="text-gray-400" />

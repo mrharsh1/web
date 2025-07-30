@@ -33,6 +33,18 @@ const products = [
     desc: "Create original, high-quality music instantly with AI. Samvaani turns your ideas into professional soundtracks in just a few clicks.",
     features: ["Real-Time Chat", "Voice & Video Calls", "End-to-End Encryption"]
   },
+    {
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=center",
+    name: "School CRM",
+    desc: "Comprehensive school management system for student records, attendance, grades, and administrative tasks.",
+    features: ["Student Management", "Attendance Tracking", "Grade Management"]
+  },
+  {
+    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=400&fit=crop&crop=center",
+    name: "Ludo Game",
+    desc: "Multiplayer online Ludo game with real-time gameplay, chat features, and tournament modes.",
+    features: ["Multiplayer Mode", "Real-Time Chat", "Tournament System"]
+  },
 ];
 
 const benefits = [

@@ -346,7 +346,7 @@ export default function QuotePage() {
                     <Phone className="w-5 h-5 text-blue-400" />
                     <div>
                       <p className="font-medium text-white">Call Us</p>
-                      <p className="text-sm text-neutral-300">+91 90268 49414</p>
+                      <p className="text-sm text-neutral-300">‪+91 90262 23490‬</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 p-3 bg-neutral-800/30 rounded-lg">
@@ -360,10 +360,10 @@ export default function QuotePage() {
                     <FaMapMarkerAlt className="w-5 h-5 text-blue-400 mt-1" />
                     <div>
                       <p className="font-medium text-white">Visit Us</p>
-                        <p className="text-sm text-neutral-300">6th Floor, Suncity Success Tower,
+                       <p className="text-sm text-neutral-300">P703Anant Raj Maceo, 
 
-                        <br />  Golf Course Extension Road, <br></br>
-Sector 65, Gurgaon, Haryana 122102</p>
+                        <br /> Maceo Troyce, Sector 91, <br />
+Gurugram, Haryana 122505</p>
                     </div>
                   </div>
                   <button className="w-full bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white font-semibold py-3 px-4 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">

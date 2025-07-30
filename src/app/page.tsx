@@ -549,7 +549,7 @@ export default function Home() {
         </div>
       </section>
       {/* 3D Marquee Section */}
-      <section className="py-8 px-2 md:px-0">
+      {/* <section className="py-8 px-2 md:px-0">
         <div className="max-w-7xl mx-auto w-full">
 
           <div className="mx-auto my-10 max-w-7xl rounded-3xl bg-gray-950/5 p-2 ring-1 ring-neutral-700/10 dark:bg-neutral-800">
@@ -557,7 +557,7 @@ export default function Home() {
           </div>
 
         </div>
-      </section>
+      </section> */}
 
       <section className="py-24 bg-neutral-950" id="process-section">
         <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
