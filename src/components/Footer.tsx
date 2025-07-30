@@ -136,11 +136,11 @@ export default function Footer() {
           <div className="flex items-start gap-2 text-gray-300">
             <FaMapMarkerAlt className="mt-1 text-gray-400" />
             <div>
-              <span className="font-semibold text-white">P703, Anant Raj Maceo,</span><br />
+              <span className="font-semibold text-white">P703, Anant Raj Maceo,<br />
                  
 
-                        <br />  Maceo Troyce, Sector 91, <br/>Gurugram, Haryana 122505
-
+                        <br />  Maceo Troyce, Sector 91, Gurugram, Haryana 122505
+</span>
             </div>
           </div>
         </div>
