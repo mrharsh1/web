@@ -360,9 +360,10 @@ export default function QuotePage() {
                     <FaMapMarkerAlt className="w-5 h-5 text-blue-400 mt-1" />
                     <div>
                       <p className="font-medium text-white">Visit Us</p>
-                        <p className="text-sm text-neutral-300">SCO 393, 2nd floor 
+                        <p className="text-sm text-neutral-300">6th Floor, Suncity Success Tower,
 
-                        <br /> sector - 37 D Chandigarh</p>
+                        <br />  Golf Course Extension Road, <br></br>
+Sector 65, Gurgaon, Haryana 122102</p>
                     </div>
                   </div>
                   <button className="w-full bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white font-semibold py-3 px-4 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">

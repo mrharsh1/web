@@ -17,7 +17,7 @@ function copyToClipboard(text: string) {
 const CONTACT_INFO = [
   { icon: Mail, label: "Email", value: "support@bavyaentrprises.com" },
   { icon: Phone, label: "Phone", value: "+91 90268 49414" },
-  { icon: MapPin, label: "Address", value: "SCO 393, 2nd floor, Sector - 37 D, Chandigarh" },
+  { icon: MapPin, label: "Address", value: "6th Floor, Suncity Success Tower, Golf Course Extension Road, Sector 65, Gurgaon, Haryana 122102" },
 ];
 
 const SOCIALS = [
@@ -268,13 +268,7 @@ export default function ContactPage() {
                       <p className="text-sm text-neutral-300">+91 90268 49414</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 p-3 bg-neutral-800/30 rounded-lg">
-                    <Phone className="w-5 h-5 text-blue-400" />
-                    <div>
-                      <p className="font-medium text-white">Call Us</p>
-                      <p className="text-sm text-neutral-300">+91 84229761056</p>
-                    </div>
-                  </div>
+          
                   <div className="flex items-center gap-2 p-3 bg-neutral-800/30 rounded-lg">
                     <Mail className="w-5 h-5 text-blue-400" />
                     <div>
@@ -286,9 +280,10 @@ export default function ContactPage() {
                     <FaMapMarkerAlt className="w-5 h-5 text-blue-400 mt-1" />
                     <div>
                       <p className="font-medium text-white">Visit Us</p>
-                      <p className="text-sm text-neutral-300">SCO 393, 2nd floor 
+                      <p className="text-sm text-neutral-300">6th Floor, Suncity Success Tower, 
 
-                        <br /> sector - 37 D Chandigarh</p>
+                        <br /> Golf Course Extension Road,<br />
+Sector 65, Gurgaon, Haryana 122102</p>
                     </div>
                   </div>
                 </CardContent>

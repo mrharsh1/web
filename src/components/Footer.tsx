@@ -136,10 +136,13 @@ export default function Footer() {
           <div className="flex items-start gap-2 text-gray-300">
             <FaMapMarkerAlt className="mt-1 text-gray-400" />
             <div>
-              <span className="font-semibold text-white">SCO 393, 2nd floor </span><br />
+              <span className="font-semibold text-white">6th Floor, Suncity Success Tower,</span><br />
                  
 
-                         sector - 37 D Chandigarh
+                        
+
+                        <br />  Golf Course Extension Road, <br/>
+Sector 65, Gurgaon, Haryana 122102
             </div>
           </div>
         </div>
