@@ -32,7 +32,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <span className="text-2xl font-serif font-bold text-white">
             <Link href="/"> 
-              <img src="/logo.png" alt="Bhavya Entrprises" width={80} height={60} className="w-12 h-12 sm:w-[60px] sm:h-[60px]" />
+              <img src="/logo.png" alt="Bhavya Entrprises" width={80} height={60} className="w-16 h-12 sm:w-[70px] sm:h-[60px]" />
             </Link>
           </span>
         </div>
