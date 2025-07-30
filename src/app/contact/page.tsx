@@ -76,23 +76,41 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: "",
-        phone: "",
-        email: "",
-        message: ""
+
+    // Debug: Log the form data being sent
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-    }, 3000);
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to submit form');
+      }
+
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          message: ""
+        });
+      }, 3000);
+    } catch (error) {
+      setIsSubmitting(false);
+      alert('Failed to submit form. Please try again.');
+    }
   };
 
   return (
@@ -251,18 +269,26 @@ export default function ContactPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2 p-3 bg-neutral-800/30 rounded-lg">
+                    <Phone className="w-5 h-5 text-blue-400" />
+                    <div>
+                      <p className="font-medium text-white">Call Us</p>
+                      <p className="text-sm text-neutral-300">+91 84229761056</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 p-3 bg-neutral-800/30 rounded-lg">
                     <Mail className="w-5 h-5 text-blue-400" />
                     <div>
                       <p className="font-medium text-white">Email Us</p>
-                      <p className="text-sm text-neutral-300">support@bavyaentrprises.com</p>
+                      <p className="text-sm text-neutral-300">support@bhavyaentrprises.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-2 p-3 bg-neutral-800/30 rounded-lg">
                     <FaMapMarkerAlt className="w-5 h-5 text-blue-400 mt-1" />
                     <div>
                       <p className="font-medium text-white">Visit Us</p>
-                      <p className="text-sm text-neutral-300">SCO 393, 2nd floor Sector - 37 D,
-                    <br /> Chandigarh, B.O. : Plot No. 1025, Rani Sati Nagar, Nirman Nagar, Jaipur-302019</p>
+                      <p className="text-sm text-neutral-300">III/12 Tikait Rai LDA Calony
+
+                        <br /> Rajajipuram, Lucknow 226017</p>
                     </div>
                   </div>
                 </CardContent>
@@ -302,17 +328,17 @@ export default function ContactPage() {
               <CardTitle className="text-xl text-white font-bold">Our Location</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-              <iframe
-                title="Google Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d224345.83919893408!2d77.0688999!3d28.5272803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce3a1b6b7b7b7%3A0x7b7b7b7b7b7b7b7b!2sNew%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin"
-                width="100%"
-                height="400"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-[400px]"
-              ></iframe>
+             
+              <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14239.299777528286!2d80.85939567147102!3d26.845519626994335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bff1ea169cc9f%3A0x6cae4b17a27fe16d!2sTikait%20Rai%20talab!5e0!3m2!1sen!2sin!4v1753892032451!5m2!1sen!2sin" 
+            
+               width="100%"
+               height="400"
+               style={{ border: 0 }}
+               allowFullScreen
+               loading="lazy"
+               referrerPolicy="no-referrer-when-downgrade"
+               className="w-full h-[400px]"></iframe>
             </CardContent>
           </Card>
         </div>

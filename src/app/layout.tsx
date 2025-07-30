@@ -13,9 +13,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const [dragging, setDragging] = useState(false);
   const dragOffset = useRef({ x: 0, y: 0 });
 
-  // Set dragPos.y to window.innerHeight/2 on client only
+  // Set dragPos to bottom left corner on client only
   React.useEffect(() => {
-    setDragPos((pos) => ({ ...pos, y: window.innerHeight / 2 }));
+    setDragPos((pos) => ({ 
+      x: 24, 
+      y: window.innerHeight - 100 
+    }));
   }, []);
 
   // Drag handlers

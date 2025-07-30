@@ -125,9 +125,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         {/* Company Info */}
         <div className="flex flex-col gap-6">
-          <h2 className="text-2xl font-extrabold mb-2 tracking-tight"> <img src="/logo.png" alt="Bhaviya" width={100} height={100} /></h2>
+          <h2 className="text-2xl font-extrabold mb-2 tracking-tight"> <img src="/logo.png" alt="Bhavya Entrprises " width={100} height={100} /></h2>
           <p className="text-gray-400 text-base mb-2">
-           Bhavya Entrprises  is a creative technology company delivering modern, scalable digital solutions for businesses worldwide. We blend innovation, design, and engineering to help you grow.
+           Bhavya Entrprises   is a creative technology company delivering modern, scalable digital solutions for businesses worldwide. We blend innovation, design, and engineering to help you grow.
           </p>
         </div>
         {/* Addresses */}
@@ -136,9 +136,8 @@ export default function Footer() {
           <div className="flex items-start gap-2 text-gray-300">
             <FaMapMarkerAlt className="mt-1 text-gray-400" />
             <div>
-              <span className="font-semibold text-white">SCO 393, 2nd floor</span><br />
-               Sector - 37 D, Chandigarh<br />
-B.O. : Plot No. 1025, Rani Sati Nagar,<br /> Nirman Nagar, Jaipur-302019
+              <span className="font-semibold text-white">III/12 Tikait Rai LDA Calony </span><br />
+               Rajajipuram, Lucknow 226017
             </div>
           </div>
         </div>
@@ -147,7 +146,7 @@ B.O. : Plot No. 1025, Rani Sati Nagar,<br /> Nirman Nagar, Jaipur-302019
           <h3 className="font-semibold text-lg mb-2">Contact & Support</h3>
           <div className="flex items-center gap-2 text-gray-300">
             <FaEnvelope className="text-gray-400" />
-            <a href="mailto:support@bhaviya.com" className="hover:text-white transition">support@bhavyaentrprises.com</a>
+            <a href="mailto:support@Bhavya Entrprises .com" className="hover:text-white transition">support@bhavyaentrprises .com</a>
           </div>
           <div className="flex items-center gap-2 text-gray-300">
             <FaPhoneAlt className="text-gray-400" />
@@ -167,7 +166,7 @@ B.O. : Plot No. 1025, Rani Sati Nagar,<br /> Nirman Nagar, Jaipur-302019
         {/* Newsletter */}
         <div className="flex flex-col gap-6">
           <h3 className="font-semibold text-lg mb-2">Newsletter</h3>
-          <p className="text-gray-400 text-base">Get the latest updates, tips, and offers from Bhaviya in your inbox.</p>
+          <p className="text-gray-400 text-base">Get the latest updates, tips, and offers from Bhavya Entrprises  in your inbox.</p>
           <form className="flex flex-col sm:flex-row gap-2 mt-2" onSubmit={handleSubscribe}>
             <input
               type="email"
@@ -187,7 +186,7 @@ B.O. : Plot No. 1025, Rani Sati Nagar,<br /> Nirman Nagar, Jaipur-302019
         </div>
       </div>
       <div className="mt-12 border-t border-neutral-800 pt-6 text-center text-gray-500 text-sm">
-        &copy; {new Date().getFullYear()} Bhaviya. All rights reserved.
+        &copy; {new Date().getFullYear()} Bhavya Entrprises . All rights reserved.
       </div>
     </footer>
   );

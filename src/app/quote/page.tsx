@@ -81,23 +81,42 @@ export default function QuotePage() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: "",
-        phone: "",
-        email: "",
-        service: "",
-        message: ""
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          type: 'quote'
+        }),
       });
-    }, 3000);
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to submit quote request');
+      }
+
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          service: "",
+          message: ""
+        });
+      }, 3000);
+    } catch (error) {
+      setIsSubmitting(false);
+      alert('Failed to submit quote request. Please try again.');
+    }
   };
 
   return (
@@ -182,23 +201,52 @@ export default function QuotePage() {
 
                       {/* Service Dropdown */}
                       <div className="space-y-2">
-                        <label className="text-sm font-medium text-neutral-300">
+                        <label className="text-sm font-medium text-neutral-300 flex items-center gap-2">
+                          <Zap className="w-4 h-4" />
                           Service Required *
                         </label>
-                        <select
-                          name="service"
-                          value={formData.service}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-neutral-800/50 border-2 border-neutral-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
-                        >
-                          <option value="">Select a service</option>
-                          {services.map((service) => (
-                            <option key={service.id} value={service.id}>
-                              {service.name}
-                            </option>
-                          ))}
-                        </select>
+                        <div className="relative">
+                          <select
+                            name="service"
+                            value={formData.service}
+                            onChange={handleInputChange}
+                            required
+                            className="w-full px-4 py-3 pr-12 bg-neutral-800/50 border-2 border-neutral-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all appearance-none cursor-pointer hover:border-neutral-500"
+                            style={{ backgroundImage: 'none' }}
+                          >
+                            <option value="" className="text-neutral-400 bg-neutral-800">Select a service</option>
+                            {services.map((service) => (
+                              <option key={service.id} value={service.id} className="text-white bg-neutral-800">
+                                {service.name}
+                              </option>
+                            ))}
+                            <option value="custom" className="text-white bg-neutral-800">Custom Solution</option>
+                          </select>
+                          
+                          {/* Custom Dropdown Arrow */}
+                          <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none z-10">
+                            <svg className="w-5 h-5 text-neutral-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                          </div>
+                          
+                          {/* Selected Service Display
+                          {formData.service && (
+                            <div className="mt-3 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                              <div className="flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4 text-blue-400" />
+                                <span className="text-sm text-blue-300 font-medium">
+                                  Selected: {services.find(s => s.id === formData.service)?.name || 'Custom Solution'}
+                                </span>
+                              </div>
+                              {formData.service !== 'custom' && (
+                                <p className="text-xs text-neutral-400 mt-1 ml-6">
+                                  {services.find(s => s.id === formData.service)?.description}
+                                </p>
+                              )}
+                            </div>
+                          )} */}
+                        </div>
                       </div>
 
                       {/* Message Field */}
@@ -305,15 +353,16 @@ export default function QuotePage() {
                     <Mail className="w-5 h-5 text-blue-400" />
                     <div>
                       <p className="font-medium text-white">Email Us</p>
-                      <p className="text-sm text-neutral-300">support@bavyaentrprises.com</p>
+                      <p className="text-sm text-neutral-300">support@bhavyaentrprises.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-2 p-3 bg-neutral-800/30 rounded-lg">
                     <FaMapMarkerAlt className="w-5 h-5 text-blue-400 mt-1" />
                     <div>
                       <p className="font-medium text-white">Visit Us</p>
-                      <p className="text-sm text-neutral-300">SCO 393, 2nd floor Sector - 37 D,
-                    <br /> Chandigarh, B.O. : Plot No. 1025, Rani Sati Nagar, Nirman Nagar, Jaipur-302019</p>
+                       <p className="text-sm text-neutral-300">III/12 Tikait Rai LDA Calony
+                      
+                      <br /> Rajajipuram, Lucknow 226017</p>
                     </div>
                   </div>
                   <button className="w-full bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white font-semibold py-3 px-4 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">

@@ -40,13 +40,13 @@ const services = [
   },
   {
     icon: <ShieldCheck className="w-8 h-8 text-yellow-400" />,
-    title: "Cybersecurity",
-    desc: "Protect your digital assets with our comprehensive cybersecurity solutions. We implement multi-layered security measures including SSL/TLS encryption, two-factor authentication, regular security audits, penetration testing, and compliance with industry standards like GDPR and SOC 2. Our security services cover web application security, API protection, data encryption, secure hosting environments, and ongoing security monitoring to safeguard your business from evolving cyber threats."
+    title: "Digital Marketing",
+    desc: "Boost your online presence with targeted digital marketing strategies, including SEO, social media, and performance-driven campaigns that generate real results. We help you attract, engage, and convert your target audience while building a strong, sustainable brand presence in the digital space."
   },
   {
     icon: <BarChart className="w-8 h-8 text-cyan-400" />,
-    title: "Analytics & SEO",
-    desc: "Drive sustainable growth with data-driven insights and search engine optimization strategies. Our analytics services include Google Analytics setup, custom reporting, conversion tracking, and performance optimization. We provide comprehensive SEO services including keyword research, on-page optimization, technical SEO audits, content strategy, link building, and local SEO. We help you understand your audience, improve search rankings, and increase organic traffic to achieve your business goals."
+    title: "Maintenance & Support",
+    desc: "Stay worry-free with ongoing website and app maintenance, updates, and technical support to keep your business running smoothly. Our dedicated support ensures your platforms remain secure, up-to-date, and fully optimized, allowing you to focus on growing your business."
   },
 ];
 
@@ -326,7 +326,7 @@ export default function ServicesPage() {
               Why Choose Us
             </Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
-              The Bavya Entrprises Advantage
+              The Bhavya Entrprises Advantage
             </h2>
             <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
               Discover what sets us apart from the competition.

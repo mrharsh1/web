@@ -11,8 +11,9 @@ import { ThreeDMarquee } from "@/components/lightswind/3d-marquee";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/lightswind/carousel";
 import { FeaturesSection } from "@/components/ui/Features";
 import GlowingCards, { GlowingCard } from "@/components/lightswind/glowing-cards";
+import { CometCard } from "@/components/ui/comet-card";
 // 3D ICONS FOR SERVICES
-
+import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 
 const services = [
   {
@@ -55,7 +56,12 @@ const products = [
   {
     image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=400&fit=crop&crop=center",
     name: "Samvaani",
-    desc: "A secure, real-time communication platform for seamless team collaboration and messaging.",
+    desc: "Create original, high-quality music instantly with AI. Samvaani turns your ideas into professional soundtracks in just a few clicks.",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=400&fit=crop&crop=center",
+    name: "CRM",
+    desc: "An intuitive customer relationship management platform designed to help businesses track leads, manage clients, and automate workflows. Simplify your sales process and build stronger customer relationships effortlessly.",
   },
 ];
 
@@ -453,7 +459,7 @@ export default function Home() {
     const timer = setTimeout(() => {
       const processSection = document.getElementById('process-section');
       if (processSection) {
-        processSection.scrollIntoView({ 
+        processSection.scrollIntoView({
           behavior: 'smooth',
           block: 'center'
         });
@@ -531,15 +537,15 @@ export default function Home() {
           <div className="text-neutral-400 text-base md:text-lg mb-8 mt-2 text-center">
             AI Automation for Modern Businesses Made Simple
           </div>
-          <a href="#" className="inline-block px-8 py-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-white font-semibold text-lg shadow transition border border-neutral-700 mb-8">
+          <a href="/contact" className="inline-block px-8 py-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-white font-semibold text-lg shadow transition border border-neutral-700 mb-8">
             Book A Free Call <span className="ml-2">↗</span>
           </a>
-          <div className="flex gap-6 justify-center text-2xl text-neutral-500 mt-2">
+          {/* <div className="flex gap-6 justify-center text-2xl text-neutral-500 mt-2">
             <span className="hover:text-white transition cursor-pointer">✕</span>
             <span className="hover:text-white transition cursor-pointer">⦿</span>
             <span className="hover:text-white transition cursor-pointer">◎</span>
             <span className="hover:text-white transition cursor-pointer">⚙️</span>
-          </div>
+          </div> */}
         </div>
       </section>
       {/* 3D Marquee Section */}
@@ -552,17 +558,18 @@ export default function Home() {
 
         </div>
       </section>
-      
+
       <section className="py-24 bg-neutral-950" id="process-section">
         <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
           {/* Left: Heading and description */}
           <div className="flex flex-col justify-center h-full">
-            <h5 className="text-base font-semibold mb-2 text-white">Our Process</h5>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+          <h2 className="text-4xl font-extrabold mb-4 ">Our Process</h2>
+            {/* <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
               Flexible iterative approach<br />to continuous project improvement.
-            </h2>
-            <p className="text-xl md:text-2xl font-bold text-red-600 mt-2">
-              - Agile methodology.
+            </h2> */}
+
+            <p className="text-xl md:text-2xl font-normal text-white mt-2">
+              Our <span className="text-red-700">Agile methodology</span> ensures every project is handled with precision and adaptability. By working in iterative cycles, we focus on continuous improvement, seamless collaboration, and timely delivery. This approach helps us minimize risks, address changes quickly, and deliver solutions that exceed expectations while keeping the process transparent at every stage.
             </p>
           </div>
           {/* Right: Animated SVG Process Flow */}
@@ -579,31 +586,56 @@ export default function Home() {
           <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
             We offer a wide range of digital solutions to help your business thrive in the modern world.
           </p>
-          <div className="relative w-full md:mx-0 mx-4">
-            <Carousel opts={{ align: "start", slidesToScroll: 1, loop: true }} className="w-full">
-              <CarouselContent className="">
-                {serviceData.map((service, idx) => (
-                  <CarouselItem key={service.text} className="sm:basis-1/2 lg:basis-1/3 px-2 py-4">
-                    <div className="relative flex flex-col items-center">
-                      <div className="relative z-10 w-full border-2 border-gray-700 rounded-3xl bg-transparent shadow-2xl flex flex-col items-center py-8 px-4">
-                        <EvervaultCard
-                          className="!bg-transparent"
-                          image={serviceImages[idx]}
-                        />
-                        <div className="text-left">
-                          <div className="mt-4 text-white text-left text-2xl font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]" style={{ textShadow: '0 2px 8px #000,0 1px 2px #000' }}>
-                            {service.text}
-                          </div>
-                          <div className="mt-4 text-white text-left text-base font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]" style={{ textShadow: '0 2px 8px #000,0 1px 2px #000' }}>
-                            {service.desc}
-                          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-12">
+            {serviceData.slice(0, 3).map((service, idx) => (
+              <CometCard key={service.text} className="w-full">
+                <div className="relative w-full h-80 bg-gradient-to-br from-neutral-900/80 to-neutral-800/80 border border-neutral-700 rounded-2xl p-6 backdrop-blur-sm overflow-hidden">
+                  {/* Background Image */}
+                  <div className="absolute inset-0 opacity-20">
+                    <img 
+                      src={serviceImages[idx]} 
+                      alt={service.text}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="relative z-10 h-full flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-2xl font-bold text-white mb-4">
+                        {service.text}
+                      </h3>
+                      <p className="text-neutral-300 text-base leading-relaxed">
+                        {service.desc}
+                      </p>
+                    </div>
+                    
+                    {/* Service Icon */}
+                    <div className="flex justify-center mt-6">
+                      <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center border border-blue-500/30">
+                        <div className="text-2xl">
+                          {idx === 0 && "🌐"}
+                          {idx === 1 && "📱"}
+                          {idx === 2 && "☁️"}
                         </div>
                       </div>
                     </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
+                  </div>
+                </div>
+              </CometCard>
+            ))}
+          </div>
+          <div className="text-center">
+            <MovingBorderButton 
+              href="/services"
+              size="lg"
+              className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white"
+            >
+              View All Services
+              <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </MovingBorderButton>
           </div>
         </div>
       </section>
@@ -615,20 +647,51 @@ export default function Home() {
           <p className="text-lg text-neutral-300">Explore our suite of innovative products designed to boost your business productivity.</p>
         </div>
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {products.map((product, idx) => (
-              <div key={product.name} className="flex flex-col items-center bg-neutral-900/80 border border-blue-700/30 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-2xl p-8 hover:border-blue-500/50 group">
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
-                  className="w-48 h-48 rounded-2xl mb-6 object-cover bg-neutral-800 group-hover:scale-105 transition-transform duration-300" 
-                />
-                <h3 className="text-2xl font-bold mb-4 text-white text-center group-hover:text-blue-400 transition-colors">{product.name}</h3>
-                <p className="text-neutral-300 text-center text-lg leading-relaxed">{product.desc}</p>
+              <div key={product.name} className="relative group">
+                {/* Moving Border Effect */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt-reverse"></div>
+                
+                <div className="relative bg-neutral-900/90 border border-neutral-700 rounded-2xl p-6 h-full backdrop-blur-sm hover:border-blue-500/30 transition-all duration-300 hover:shadow-2xl">
+                  {/* Product Image */}
+                  <div className="relative mb-6 overflow-hidden rounded-xl">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    {/* Overlay Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  </div>
+                  
+                  {/* Product Info */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                        {product.name}
+                      </h3>
+                      {/* Product Icon */}
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center border border-blue-500/30">
+                        <div className="text-lg">
+                          {idx === 0 && "📊"}
+                          {idx === 1 && "🤖"}
+                          {idx === 2 && "🎵"}
+                          {idx === 3 && "👥"}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <p className="text-neutral-300 text-sm leading-relaxed">
+                      {product.desc}
+                    </p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
-    </div>
+        </div>
       </section>
       <StaggerTestimonials />
       <FloatingParticlesBG />

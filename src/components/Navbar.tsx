@@ -32,7 +32,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <span className="text-2xl font-serif font-bold text-white">
             <Link href="/"> 
-              <img src="/logo.png" alt="Bavya Entrprises" width={60} height={60} className="w-12 h-12 sm:w-[60px] sm:h-[60px]" />
+              <img src="/logo.png" alt="Bhavya Entrprises" width={60} height={60} className="w-12 h-12 sm:w-[60px] sm:h-[60px]" />
             </Link>
           </span>
         </div>
@@ -97,8 +97,8 @@ export default function Navbar() {
             {/* Mobile Menu Header */}
             <div className="flex items-center justify-between p-4 border-b border-neutral-700 bg-neutral-900 backdrop-blur-sm">
               <div className="flex items-center gap-2">
-                <img src="/logo.png" alt="Bavya Entrprises" width={40} height={40} />
-                <span className="text-xl font-serif font-bold text-white">Bavya Entrprises</span>
+                <img src="/logo.png" alt="Bhavya Entrprises" width={40} height={40} />
+                <span className="text-xl font-serif font-bold text-white">Bhavya Entrprises</span>
               </div>
               <button
                 onClick={closeMobileMenu}
@@ -110,7 +110,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Navigation Links */}
-            <div className="flex-1 flex flex-col justify-center px-6 py-8 border-neutral-700 bg-neutral-900 backdrop-blur-sm">
+            <div className="flex-1 flex flex-col justify-center px-6 py-4 border-neutral-700 bg-neutral-900 backdrop-blur-sm">
               <div className="space-y-6">
                 {navLinks.map((link, index) => {
                   const isActive = pathname === link.href;
@@ -119,7 +119,7 @@ export default function Navbar() {
                       key={link.href}
                       href={link.href}
                       onClick={closeMobileMenu}
-                      className={`block text-2xl font-medium transition-all duration-300 py-4 px-6 rounded-xl group
+                      className={`block text-2xl font-medium transition-all duration-300 py-2 px-6 rounded-xl group
                         ${isActive 
                           ? "text-blue-300 bg-blue-600/20 border border-blue-500/30" 
                           : "text-white hover:text-blue-300 hover:bg-neutral-800/50"

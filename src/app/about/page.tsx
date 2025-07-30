@@ -103,7 +103,7 @@ const values = [
 const stats = [
   { number: "500+", label: "Projects Completed", icon: <CheckCircle className="w-6 h-6" /> },
   { number: "50+", label: "Team Members", icon: <Users className="w-6 h-6" /> },
-  { number: "98%", label: "Client Satisfaction", icon: <Star className="w-6 h-6" /> },
+  { number: "99%", label: "Client Satisfaction", icon: <Star className="w-6 h-6" /> },
   { number: "24/7", label: "Support Available", icon: <Zap className="w-6 h-6" /> }
 ];
 
@@ -112,7 +112,7 @@ export default function AboutPage() {
     <main className="bg-neutral-950 text-white min-h-screen">
       {/* Hero Section */}
       <ProductsHero
-        badge="About Bavya Entrprises"
+        badge="About Bhavya Entrprises"
         heading="Building the Future"
         subheading="We're a team of innovators, creators, and problem-solvers dedicated to transforming businesses through cutting-edge technology and exceptional design."
         buttonText={undefined}
@@ -166,7 +166,7 @@ export default function AboutPage() {
               From Vision to Reality
             </h2>
             <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
-              Founded in 2020, Bavya Entrprises started as a small team with big dreams. Today, we're proud to be at the forefront of digital innovation.
+              Founded in 2020, Bhavya Entrprises started as a small team with big dreams. Today, we're proud to be at the forefront of digital innovation.
             </p>
           </motion.div>
 
@@ -261,9 +261,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-24 bg-neutral-900/30">
-        <div className="max-w-7xl mx-auto px-4">
+      {/* The Minds Behind the Magic Section */}
+      {/* <section className="py-24 bg-neutral-950 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-neutral-900/50 to-neutral-800/30"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -271,58 +273,115 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <Badge variant="secondary" className="mb-4 bg-green-500/20 text-green-300 border-green-500/30">
-              Meet Our Team
-            </Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 bg-neutral-700 rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-bold">✨</span>
+              </div>
+              <span className="text-neutral-400 text-sm font-semibold tracking-wider">OUR TEAM</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
               The Minds Behind the Magic
             </h2>
             <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
-              Our diverse team brings together expertise from around the world, united by a shared passion for innovation and excellence.
+              Meet the brilliant minds who turn your ideas into reality. Our team combines creativity, technical expertise, and innovation to deliver exceptional results.
             </p>
           </motion.div>
 
           <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             variants={staggerContainer}
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
           >
-            {teamMembers.map((member, index) => (
+            {[
+              {
+                name: "Shashank Sharma",
+                role: "Lead Developer",
+                expertise: "Full-Stack Development",
+                description: "Passionate about creating scalable solutions and pushing the boundaries of web technology.",
+                icon: "💻",
+                accent: "text-blue-400"
+              },
+              {
+                name: "Vaisnavi ",
+                role: "UX/UI Designer",
+                expertise: "User Experience Design",
+                description: "Crafting beautiful, intuitive interfaces that users love to interact with.",
+                icon: "🎨",
+                accent: "text-purple-400"
+              },
+              {
+                name: "Harshit",
+                role: "DevOps Engineer",
+                expertise: "Cloud Infrastructure",
+                description: "Building robust, scalable infrastructure that powers our applications seamlessly.",
+                icon: "☁️",
+                accent: "text-green-400"
+              },
+              {
+                name: "Suraj Kumar",
+                role: "Product Manager",
+                expertise: "Strategic Planning",
+                description: "Translating business needs into technical solutions that drive growth and success.",
+                icon: "📊",
+                accent: "text-orange-400"
+              },
+              {
+                name: "Arpita Karki",
+                role: "Security Specialist",
+                expertise: "Cybersecurity",
+                description: "Ensuring your data and applications are protected with industry-leading security practices.",
+                icon: "🔒",
+                accent: "text-yellow-400"
+              },
+              {
+                name: "Kumar Patel",
+                role: "AI/ML Engineer",
+                expertise: "Machine Learning",
+                description: "Leveraging artificial intelligence to create smarter, more efficient solutions.",
+                icon: "🤖",
+                accent: "text-indigo-400"
+              }
+            ].map((member, idx) => (
               <motion.div
-                key={index}
+                key={member.name}
                 variants={fadeInUp}
-                whileHover={{ y: -8, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.25)' }}
+                whileHover={{ y: -8 }}
                 transition={{ duration: 0.3 }}
+                className="group"
               >
-                <Card className="bg-neutral-900/50 border-neutral-700 overflow-hidden group hover:border-blue-500/40 transition-colors duration-300 shadow-lg">
-                  <div className="relative overflow-hidden flex items-center justify-center h-48 bg-neutral-800">
-                    <img
-                      src={member.image}
-                      alt={member.name + ' profile photo'}
-                      className="w-28 h-28 object-cover rounded-full border-4 border-neutral-900 shadow-lg group-hover:scale-105 transition-transform duration-300 mx-auto"
-                      style={{ marginTop: '1.5rem', marginBottom: '1rem' }}
-                    />
-                  </div>
-                  <CardContent className="p-6 flex flex-col items-center text-center">
-                    <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-                    <p className="text-blue-400 text-sm mb-3">{member.role}</p>
-                    <p className="text-neutral-300 text-sm mb-4">{member.bio}</p>
-                    <div className="flex flex-wrap gap-2 justify-center">
-                      {member.skills.map((skill, skillIndex) => (
-                        <Badge key={skillIndex} variant="secondary" className="text-xs bg-neutral-800 text-neutral-300">
-                          {skill}
-                        </Badge>
-                      ))}
+                <div className="relative bg-neutral-900/80 border border-neutral-700 rounded-xl p-8 h-full hover:border-neutral-600 transition-all duration-300 hover:shadow-xl">
+                  <div className="flex justify-center mb-6">
+                    <div className="w-20 h-20 bg-neutral-800 rounded-full flex items-center justify-center text-3xl shadow-lg group-hover:scale-110 transition-transform duration-300 border border-neutral-700">
+                      {member.icon}
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                  
+                  <div className="text-center">
+                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-neutral-200 transition-colors">
+                      {member.name}
+                    </h3>
+                    <p className={`font-semibold mb-1 ${member.accent}`}>{member.role}</p>
+                    <p className="text-neutral-400 text-sm mb-4">{member.expertise}</p>
+                    <p className="text-neutral-300 text-base leading-relaxed">
+                      {member.description}
+                    </p>
+                  </div>
+                  
+                  <div className="mt-6 flex justify-center">
+                    <span className="inline-block px-4 py-2 bg-neutral-800 text-neutral-300 text-sm font-semibold rounded-full border border-neutral-700">
+                      {member.expertise}
+                    </span>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </motion.div>
+
+
         </div>
-      </section>
+      </section> */}
 
       {/* Values Section */}
       <section className="py-24">
@@ -391,9 +450,9 @@ export default function AboutPage() {
               Ready to Transform Your Business?
             </h2>
             <p className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto">
-              Join hundreds of companies that have already revolutionized their digital presence with our innovative solutions.
+            Take the first step toward building your digital presence with our proven solutions.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col gap-4 justify-center">
               <MovingBorderButton size="lg" className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white">
                 Get Started
               </MovingBorderButton>

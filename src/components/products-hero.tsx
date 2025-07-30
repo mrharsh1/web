@@ -45,7 +45,7 @@ const ProductsHero: React.FC<ProductsHeroProps> = ({
           </Badge>
         )}
         {heading && (
-          <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
+          <h1 className="text-5xl leading-tight lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
             {heading}
           </h1>
         )}
