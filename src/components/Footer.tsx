@@ -139,7 +139,7 @@ export default function Footer() {
               <span className="font-semibold text-white">SCO 393, 2nd floor </span><br />
                  
 
-                         sector - 37 D Chandigarh<
+                         sector - 37 D Chandigarh
             </div>
           </div>
         </div>
