@@ -3,8 +3,10 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SmokeyCursor from "@/components/lightswind/smokey-cursor";
-import React,{ useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { MousePointerClick } from "lucide-react";
+import { ReactNode } from 'react'
+import Script from 'next/script'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [cursorEnabled, setCursorEnabled] = useState(false);
@@ -15,9 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   // Set dragPos to bottom left corner on client only
   React.useEffect(() => {
-    setDragPos((pos) => ({ 
-      x: 24, 
-      y: window.innerHeight - 100 
+    setDragPos((pos) => ({
+      x: 24,
+      y: window.innerHeight - 100
     }));
   }, []);
 
@@ -86,18 +88,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         {/* Footer */}
         <Footer />
-      
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/688a5e08d74a47192980ddb0/1j1e7ulbq';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
+
+      <Script
+          id="tawk-to-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+              (function(){
+                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                s1.async=true;
+                s1.src='https://embed.tawk.to/688a5e08d74a47192980ddb0/1j1e7ulbq';
+                s1.charset='UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1,s0);
+              })();
+            `
+          }}
+        />
 
       </body>
     </html>
