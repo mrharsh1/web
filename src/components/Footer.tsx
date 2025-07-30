@@ -136,8 +136,10 @@ export default function Footer() {
           <div className="flex items-start gap-2 text-gray-300">
             <FaMapMarkerAlt className="mt-1 text-gray-400" />
             <div>
-              <span className="font-semibold text-white">III/12 Tikait Rai LDA Calony </span><br />
-               Rajajipuram, Lucknow 226017
+              <span className="font-semibold text-white">SCO 393, 2nd floor </span><br />
+                 
+
+                         sector - 37 D Chandigarh<
             </div>
           </div>
         </div>

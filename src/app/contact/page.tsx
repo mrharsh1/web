@@ -286,9 +286,9 @@ export default function ContactPage() {
                     <FaMapMarkerAlt className="w-5 h-5 text-blue-400 mt-1" />
                     <div>
                       <p className="font-medium text-white">Visit Us</p>
-                      <p className="text-sm text-neutral-300">III/12 Tikait Rai LDA Calony
+                      <p className="text-sm text-neutral-300">SCO 393, 2nd floor 
 
-                        <br /> Rajajipuram, Lucknow 226017</p>
+                        <br /> sector - 37 D Chandigarh</p>
                     </div>
                   </div>
                 </CardContent>
