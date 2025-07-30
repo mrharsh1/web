@@ -149,7 +149,7 @@ export default function Footer() {
           <h3 className="font-semibold text-lg mb-2">Contact & Support</h3>
           <div className="flex items-center gap-2 text-gray-300">
             <FaEnvelope className="text-gray-400" />
-            <a href="mailto:support@Bhavya Entrprises .com" className="hover:text-white transition">support@bhavyaentrprises .com</a>
+            <a href="mailto:support@bhavyaentrprises .com" className="hover:text-white transition">support@bhavyaentrprises .com</a>
           </div>
           <div className="flex items-center gap-2 text-gray-300">
             <FaPhoneAlt className="text-gray-400" />
@@ -194,4 +194,3 @@ export default function Footer() {
     </footer>
   );
 }
-
