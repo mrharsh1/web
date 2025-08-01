@@ -109,7 +109,13 @@ const stats = [
 ];
 
 // Animated Counter Component
-function AnimatedCounter({ target, duration = 2000, suffix = "" }) {
+type AnimatedCounterProps = {
+  target: number;
+  duration?: number;
+  suffix?: string;
+};
+
+function AnimatedCounter({ target, duration = 2000, suffix = "" }: AnimatedCounterProps) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
