@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     }));
   }, []);
 
-  // Drag handlers
+
   const onMouseDown = (e: React.MouseEvent) => {
     setDragging(true);
     dragOffset.current = {
