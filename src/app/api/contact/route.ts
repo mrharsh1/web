@@ -9,10 +9,12 @@ export async function POST(request: NextRequest) {
     const { name, email, phone, message, service, type = 'contact' } = body;
 
     // Debug: Log the received data
+    console.log('Received form data:', { name, email, phone, message, service, type });
 
     // Validate required fields based on type
     if (type === 'contact') {
       if (!name || !email || !phone || !message) {
+        console.log('Missing fields:', { name: !!name, email: !!email, phone: !!phone, message: !!message });
         return NextResponse.json(
           { error: 'All fields are required' },
           { status: 400 }
@@ -20,6 +22,7 @@ export async function POST(request: NextRequest) {
       }
     } else if (type === 'quote') {
       if (!name || !email || !phone || !service) {
+        console.log('Missing fields:', { name: !!name, email: !!email, phone: !!phone, service: !!service });
         return NextResponse.json(
           { error: 'Name, email, phone, and service are required' },
           { status: 400 }
@@ -46,9 +49,19 @@ export async function POST(request: NextRequest) {
     formData.append('service', service || '');
     formData.append('type', type);
 
- 
+    // Debug: Log the data being sent to Google Apps Script
+    console.log('Sending to Google Apps Script:', {
+      timestamp: new Date().toISOString(),
+      name,
+      email,
+      phone,
+      message: message || '',
+      service: service || '',
+      type
+    });
 
     // Debug: Log the actual form data string being sent
+    console.log('Form data string:', formData.toString());
 
     // Send data to Google Apps Script
     const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
@@ -61,6 +74,7 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       const errorText = await response.text();
+      console.error('Google Apps Script error:', errorText);
       return NextResponse.json(
         { error: 'Failed to save data' },
         { status: 500 }
@@ -69,6 +83,7 @@ export async function POST(request: NextRequest) {
 
     // Debug: Log successful response
     const responseText = await response.text();
+    console.log('Google Apps Script response:', responseText);
 
     return NextResponse.json(
       { 
@@ -79,6 +94,7 @@ export async function POST(request: NextRequest) {
     );
 
   } catch (error) {
+    console.error('Form submission error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

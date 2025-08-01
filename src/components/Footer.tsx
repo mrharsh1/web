@@ -125,9 +125,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         {/* Company Info */}
         <div className="flex flex-col gap-6">
-          <h2 className="text-2xl font-extrabold mb-2 tracking-tight"> <img src="/logo.png" alt="Bhavya Entrprises " width={100} height={100} /></h2>
+          <h2 className="text-2xl font-extrabold mb-2 tracking-tight"> <img src="/logo.png" alt="Bhavya Entrprises" width={100} height={100} /></h2>
           <p className="text-gray-400 text-base mb-2">
-           Bhavya Entrprises   is a creative technology company delivering modern, scalable digital solutions for businesses worldwide. We blend innovation, design, and engineering to help you grow.
+           Bhavya Entrprises  is a creative technology company delivering modern, scalable digital solutions for businesses worldwide. We blend innovation, design, and engineering to help you grow.
           </p>
         </div>
         {/* Addresses */}
@@ -136,11 +136,8 @@ export default function Footer() {
           <div className="flex items-start gap-2 text-gray-300">
             <FaMapMarkerAlt className="mt-1 text-gray-400" />
             <div>
-              <span className="font-semibold text-white">P703, Anant Raj Maceo,<br />
-                 
-
-                        <br />  Maceo Troyce, Sector 91, Gurugram, Haryana 122505
-</span>
+              <span className="font-semibold text-white">Anant Raj Maceo, Maceo Troyce, Sector 91, Gurugram, Haryana 122505</span><br />
+              
             </div>
           </div>
         </div>
@@ -149,11 +146,11 @@ export default function Footer() {
           <h3 className="font-semibold text-lg mb-2">Contact & Support</h3>
           <div className="flex items-center gap-2 text-gray-300">
             <FaEnvelope className="text-gray-400" />
-            <a href="mailto:support@bhavyaentrprises .com" className="hover:text-white transition">support@bhavyaentrprises .com</a>
+            <a href="mailto:support@bhavyaentrprises.com" className="hover:text-white transition">support@bhavyaentrprises.com</a>
           </div>
           <div className="flex items-center gap-2 text-gray-300">
             <FaPhoneAlt className="text-gray-400" />
-            <span>+91 90262 23490</span>
+            <span>+91 90262 23490</span>
           </div>
           <div className="flex items-center gap-2 text-gray-300">
             <FaHeadset className="text-gray-400" />
@@ -169,7 +166,7 @@ export default function Footer() {
         {/* Newsletter */}
         <div className="flex flex-col gap-6">
           <h3 className="font-semibold text-lg mb-2">Newsletter</h3>
-          <p className="text-gray-400 text-base">Get the latest updates, tips, and offers from Bhavya Entrprises  in your inbox.</p>
+          <p className="text-gray-400 text-base">Get the latest updates, tips, and offers from Bhavya Entrprises in your inbox.</p>
           <form className="flex flex-col sm:flex-row gap-2 mt-2" onSubmit={handleSubscribe}>
             <input
               type="email"
@@ -189,8 +186,9 @@ export default function Footer() {
         </div>
       </div>
       <div className="mt-12 border-t border-neutral-800 pt-6 text-center text-gray-500 text-sm">
-        &copy; {new Date().getFullYear()} Bhavya Entrprises . All rights reserved.
+        &copy; {new Date().getFullYear()} Bhavya Entrprises. All rights reserved.
       </div>
     </footer>
   );
 }
+

@@ -16,8 +16,8 @@ function copyToClipboard(text: string) {
 
 const CONTACT_INFO = [
   { icon: Mail, label: "Email", value: "support@bavyaentrprises.com" },
-  { icon: Phone, label: "Phone", value: "‪+91 90262 23490‬" },
-  { icon: MapPin, label: "Address", value: "6th Floor, Suncity Success Tower, Golf Course Extension Road, Sector 65, Gurgaon, Haryana 122102" },
+  { icon: Phone, label: "Phone", value: "+91 90262 23490" },
+  { icon: MapPin, label: "Address", value: "SCO 393, 2nd floor, Sector - 37 D, Chandigarh" },
 ];
 
 const SOCIALS = [
@@ -78,6 +78,7 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     // Debug: Log the form data being sent
+    console.log('Sending form data:', formData);
 
     try {
       const response = await fetch('/api/contact', {
@@ -108,6 +109,7 @@ export default function ContactPage() {
         });
       }, 3000);
     } catch (error) {
+      console.error('Form submission error:', error);
       setIsSubmitting(false);
       alert('Failed to submit form. Please try again.');
     }
@@ -265,25 +267,30 @@ export default function ContactPage() {
                     <Phone className="w-5 h-5 text-blue-400" />
                     <div>
                       <p className="font-medium text-white">Call Us</p>
-                      <p className="text-sm text-neutral-300">‪+91 90262 23490‬</p>
+                      <p className="text-sm text-neutral-300">+91 90262 23490</p>
                     </div>
                   </div>
-          
+                  <div className="flex items-center gap-2 p-3 bg-neutral-800/30 rounded-lg">
+                    <Phone className="w-5 h-5 text-blue-400" />
+                    <div>
+                      <p className="font-medium text-white">Call Us</p>
+                      <p className="text-sm text-neutral-300">+91 84229761056</p>
+                    </div>
+                  </div>
                   <div className="flex items-center gap-2 p-3 bg-neutral-800/30 rounded-lg">
                     <Mail className="w-5 h-5 text-blue-400" />
                     <div>
                       <p className="font-medium text-white">Email Us</p>
-                      <p className="text-sm text-neutral-300">support@bhavyaentrprises.com</p>
+                      <p className="text-sm text-neutral-300">support@techassistant.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-2 p-3 bg-neutral-800/30 rounded-lg">
                     <FaMapMarkerAlt className="w-5 h-5 text-blue-400 mt-1" />
                     <div>
                       <p className="font-medium text-white">Visit Us</p>
-                      <p className="text-sm text-neutral-300">P703Anant Raj Maceo, 
+                      <p className="text-sm text-neutral-300">III/12 Tikait Rai LDA Calony
 
-                        <br /> Maceo Troyce, Sector 91, <br />
-Gurugram, Haryana 122505</p>
+                        <br /> Rajajipuram, Lucknow 226017</p>
                     </div>
                   </div>
                 </CardContent>
@@ -323,14 +330,17 @@ Gurugram, Haryana 122505</p>
               <CardTitle className="text-xl text-white font-bold">Our Location</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.3686689313417!2d77.06763537651797!3d28.40813057578801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d22692a4e3faf%3A0xeb5a2617558c5e55!2sSuncity%20Success%20Tower!5e0!3m2!1sen!2sin!4v1753896555316!5m2!1sen!2sin"  width="100%"
+             
+              <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14239.299777528286!2d80.85939567147102!3d26.845519626994335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bff1ea169cc9f%3A0x6cae4b17a27fe16d!2sTikait%20Rai%20talab!5e0!3m2!1sen!2sin!4v1753892032451!5m2!1sen!2sin" 
+            
+               width="100%"
                height="400"
                style={{ border: 0 }}
                allowFullScreen
                loading="lazy"
                referrerPolicy="no-referrer-when-downgrade"
                className="w-full h-[400px]"></iframe>
-             
             </CardContent>
           </Card>
         </div>

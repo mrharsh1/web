@@ -14,6 +14,7 @@ import GlowingCards, { GlowingCard } from "@/components/lightswind/glowing-cards
 import { CometCard } from "@/components/ui/comet-card";
 // 3D ICONS FOR SERVICES
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
+import Link from "next/link";
 
 const services = [
   {
@@ -54,7 +55,7 @@ const products = [
     desc: "AI-powered workflow automation for smarter, faster business processes and decision-making.",
   },
   {
-    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=400&fit=crop&crop=center",
+    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     name: "Samvaani",
     desc: "Create original, high-quality music instantly with AI. Samvaani turns your ideas into professional soundtracks in just a few clicks.",
   },
@@ -62,6 +63,11 @@ const products = [
     image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=400&fit=crop&crop=center",
     name: "CRM",
     desc: "An intuitive customer relationship management platform designed to help businesses track leads, manage clients, and automate workflows. Simplify your sales process and build stronger customer relationships effortlessly.",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=400&fit=crop&crop=center",
+    name: "Company CRM",
+    desc: "Comprehensive customer relationship management system for businesses to manage leads, sales, and customer interactions.",
   },
 ];
 
@@ -454,20 +460,6 @@ function AnimatedProcessFlowSVG() {
 }
 
 export default function Home() {
-  // Auto-scroll to process section after 5 seconds
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const processSection = document.getElementById('process-section');
-      if (processSection) {
-        processSection.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center'
-        });
-      }
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
 
   const serviceData = [
@@ -626,16 +618,17 @@ export default function Home() {
             ))}
           </div>
           <div className="text-center">
-            <MovingBorderButton 
-              href="/services"
-              size="lg"
-              className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white"
-            >
-              View All Services
-              <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </MovingBorderButton>
+            <Link href="/services">
+              <MovingBorderButton 
+                size="lg"
+                className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white cursor-pointer"
+              >
+                View All Services
+                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </MovingBorderButton>
+            </Link>
           </div>
         </div>
       </section>
@@ -647,8 +640,8 @@ export default function Home() {
           <p className="text-lg text-neutral-300">Explore our suite of innovative products designed to boost your business productivity.</p>
         </div>
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {products.map((product, idx) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {products.slice(0, 3).map((product, idx) => (
               <div key={product.name} className="relative group">
                 {/* Moving Border Effect */}
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
@@ -678,7 +671,6 @@ export default function Home() {
                           {idx === 0 && "📊"}
                           {idx === 1 && "🤖"}
                           {idx === 2 && "🎵"}
-                          {idx === 3 && "👥"}
                         </div>
                       </div>
                     </div>
@@ -690,6 +682,19 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="text-center">
+            <Link href="/products">
+              <MovingBorderButton 
+                size="lg"
+                className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white cursor-pointer"
+              >
+                View All Products
+                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </MovingBorderButton>
+            </Link>
           </div>
         </div>
       </section>

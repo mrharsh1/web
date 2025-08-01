@@ -33,17 +33,23 @@ const products = [
     desc: "Create original, high-quality music instantly with AI. Samvaani turns your ideas into professional soundtracks in just a few clicks.",
     features: ["Real-Time Chat", "Voice & Video Calls", "End-to-End Encryption"]
   },
-    {
+  {
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=center",
     name: "School CRM",
     desc: "Comprehensive school management system for student records, attendance, grades, and administrative tasks.",
     features: ["Student Management", "Attendance Tracking", "Grade Management"]
   },
   {
-    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=400&fit=crop&crop=center",
+    image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=400&fit=crop&crop=center",
     name: "Ludo Game",
     desc: "Multiplayer online Ludo game with real-time gameplay, chat features, and tournament modes.",
     features: ["Multiplayer Mode", "Real-Time Chat", "Tournament System"]
+  },
+  {
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=400&fit=crop&crop=center",
+    name: "Company CRM",
+    desc: "Comprehensive customer relationship management system for businesses to manage leads, sales, and customer interactions.",
+    features: ["Lead Management", "Sales Pipeline", "Customer Analytics"]
   },
 ];
 
@@ -95,6 +101,12 @@ const howItWorks = [
 
 export default function ProductsPage() {
   const router = useRouter();
+  const [showDemoForm, setShowDemoForm] = useState(false);
+  const [demoFormData, setDemoFormData] = useState({
+    name: "",
+    phone: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -103,8 +115,51 @@ export default function ProductsPage() {
     product: "",
     message: ""
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmittingForm, setIsSubmittingForm] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleDemoFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setDemoFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleDemoSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      // Send form data to API
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...demoFormData,
+          email: "demo@example.com", // Default email for demo requests
+          message: "Demo request from products page",
+          type: "demo"
+        }),
+      });
+
+      if (response.ok) {
+        // Redirect to specific product section
+        window.location.href = '#marketingpro';
+        setShowDemoForm(false);
+        setDemoFormData({ name: "", phone: "" });
+      } else {
+        throw new Error('Failed to submit demo request');
+      }
+    } catch (error) {
+      console.error('Demo form submission error:', error);
+      alert('Failed to submit demo request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -149,6 +204,7 @@ export default function ProductsPage() {
         });
       }, 3000);
     } catch (error) {
+      console.error('Form submission error:', error);
       setIsSubmitting(false);
       alert('Failed to submit inquiry. Please try again.');
     }
@@ -161,9 +217,11 @@ export default function ProductsPage() {
         badge="Our Products"
         heading="Discover Our Solutions"
         subheading="Explore our range of innovative products designed to meet your business needs."
-        buttonText="Get In Touch"
-        onButtonClick={() => router.push('/products')}
+        buttonText="Get Demo"
+        onButtonClick={() => setShowDemoForm(false)}
       />
+
+
 
       {/* Product List Section */}
       <section className="py-24">
@@ -180,17 +238,17 @@ export default function ProductsPage() {
             </p>
           </motion.div>
           <StickyScroll
-            content={products.map((product) => ({
+            content={products.map((product, index) => ({
               title: product.name,
               description: product.desc,
               content: (
-                <div className="flex flex-col items-center justify-center h-full p-8">
+                <div id={product.name.toLowerCase().replace(/\s+/g, '')} className="flex flex-col items-center justify-center h-full p-8">
                   <div className="w-48 h-48 mb-8 relative">
                     <Image src={product.image} alt={product.name} fill className="rounded-2xl object-cover bg-neutral-800" />
                   </div>
                   <ul className="flex flex-wrap gap-3 justify-center mt-6">
                     {product.features.map((feature, i) => (
-                      <li key={i} className="px-4 py-2 bg-neutral-800 rounded-full text-sm text-white border border-neutral-700">
+                      <li key={i} className="px-4 py-2 bg-neutral-800/80 rounded-full text-sm text-white border border-neutral-700 backdrop-blur-sm">
                         {feature}
                       </li>
                     ))}
@@ -330,12 +388,89 @@ export default function ProductsPage() {
             <p className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto">
               Contact us for a free demo and see how our products can transform your business.
             </p>
-            <MovingBorderButton size="lg" className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white">
+            <MovingBorderButton 
+              size="lg" 
+              className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white cursor-pointer"
+              onClick={() => setShowDemoForm(true)}
+            >
               Get Demo
             </MovingBorderButton>
           </motion.div>
         </div>
       </section>
+
+      {/* Demo Form Popup */}
+      {showDemoForm && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="bg-neutral-900/95 border border-neutral-700 rounded-2xl p-8 max-w-md w-full backdrop-blur-xl"
+          >
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold text-white mb-2">Get Your Free Demo</h3>
+              <p className="text-neutral-300">Fill in your details and we'll redirect you to the product demo</p>
+            </div>
+            
+            <form onSubmit={handleDemoSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={demoFormData.name}
+                  onChange={handleDemoFormChange}
+                  required
+                  className="w-full px-4 py-3 bg-neutral-800/50 border-2 border-neutral-600 rounded-xl text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
+                  placeholder="Enter your full name"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  Phone Number *
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={demoFormData.phone}
+                  onChange={handleDemoFormChange}
+                  required
+                  className="w-full px-4 py-3 bg-neutral-800/50 border-2 border-neutral-600 rounded-xl text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+              
+              <div className="flex gap-3 pt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowDemoForm(false)}
+                  className="flex-1 px-4 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-all"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="flex-1 px-4 py-3 bg-gradient-to-br from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Submitting...
+                    </div>
+                  ) : (
+                    "Get Demo"
+                  )}
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
 
       {/* CSS Animations for Moving Borders */}
       <style jsx global>{`

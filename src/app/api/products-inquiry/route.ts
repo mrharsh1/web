@@ -46,6 +46,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (!response.ok) {
+      console.error('Google Apps Script error:', await response.text());
       return NextResponse.json(
         { error: 'Failed to save data' },
         { status: 500 }
@@ -61,6 +62,7 @@ export async function POST(request: NextRequest) {
     );
 
   } catch (error) {
+    console.error('Products inquiry error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

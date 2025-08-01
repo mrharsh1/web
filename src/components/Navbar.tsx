@@ -32,7 +32,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <span className="text-2xl font-serif font-bold text-white">
             <Link href="/"> 
-              <img src="/logo.png" alt="Bhavya Entrprises" width={80} height={60} className="w-16 h-12 sm:w-[70px] sm:h-[60px]" />
+              <img src="/logo.png" alt="Tech Assistant" width={60} height={60} className="w-12 h-12 sm:w-[60px] sm:h-[60px]" />
             </Link>
           </span>
         </div>
@@ -97,8 +97,8 @@ export default function Navbar() {
             {/* Mobile Menu Header */}
             <div className="flex items-center justify-between p-4 border-b border-neutral-700 bg-neutral-900 backdrop-blur-sm">
               <div className="flex items-center gap-2">
-                <img src="/logo.png" alt="Bhavya Entrprises" width={40} height={40} />
-                <span className="text-xl font-serif font-bold text-white">Bhavya Entrprises</span>
+                <img src="/logo.png" alt="Tech Assistant" width={40} height={40} />
+                <span className="text-xl font-serif font-bold text-white">Tech Assistant</span>
               </div>
               <button
                 onClick={closeMobileMenu}

@@ -68,6 +68,18 @@ export default function QuotePage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  // Schedule Call Form State
+  const [showScheduleForm, setShowScheduleForm] = useState(false);
+  const [scheduleFormData, setScheduleFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    preferredDate: "",
+    preferredTime: "",
+    message: ""
+  });
+  const [isScheduleSubmitting, setIsScheduleSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -75,6 +87,55 @@ export default function QuotePage() {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleScheduleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setScheduleFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleScheduleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsScheduleSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...scheduleFormData,
+          type: 'schedule_call',
+          message: `Schedule Call Request - Preferred Date: ${scheduleFormData.preferredDate}, Preferred Time: ${scheduleFormData.preferredTime}. ${scheduleFormData.message}`
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to submit schedule request');
+      }
+
+      setIsScheduleSubmitting(false);
+      setShowScheduleForm(false);
+      setScheduleFormData({
+        name: "",
+        phone: "",
+        email: "",
+        preferredDate: "",
+        preferredTime: "",
+        message: ""
+      });
+      alert('Schedule request submitted successfully! We will contact you soon.');
+    } catch (error) {
+      console.error('Schedule submission error:', error);
+      setIsScheduleSubmitting(false);
+      alert('Failed to submit schedule request. Please try again.');
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -114,6 +175,7 @@ export default function QuotePage() {
         });
       }, 3000);
     } catch (error) {
+      console.error('Quote submission error:', error);
       setIsSubmitting(false);
       alert('Failed to submit quote request. Please try again.');
     }
@@ -346,27 +408,29 @@ export default function QuotePage() {
                     <Phone className="w-5 h-5 text-blue-400" />
                     <div>
                       <p className="font-medium text-white">Call Us</p>
-                      <p className="text-sm text-neutral-300">‪+91 90262 23490‬</p>
+                      <p className="text-sm text-neutral-300">+91 90262 23490</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 p-3 bg-neutral-800/30 rounded-lg">
                     <Mail className="w-5 h-5 text-blue-400" />
                     <div>
                       <p className="font-medium text-white">Email Us</p>
-                      <p className="text-sm text-neutral-300">support@bhavyaentrprises.com</p>
+                      <p className="text-sm text-neutral-300">support@techassistant.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-2 p-3 bg-neutral-800/30 rounded-lg">
                     <FaMapMarkerAlt className="w-5 h-5 text-blue-400 mt-1" />
                     <div>
                       <p className="font-medium text-white">Visit Us</p>
-                       <p className="text-sm text-neutral-300">P703Anant Raj Maceo, 
-
-                        <br /> Maceo Troyce, Sector 91, <br />
-Gurugram, Haryana 122505</p>
+                       <p className="text-sm text-neutral-300">III/12 Tikait Rai LDA Calony
+                      
+                      <br /> Rajajipuram, Lucknow 226017</p>
                     </div>
                   </div>
-                  <button className="w-full bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white font-semibold py-3 px-4 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
+                  <button 
+                    onClick={() => setShowScheduleForm(true)}
+                    className="w-full bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white font-semibold py-3 px-4 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300"
+                  >
                     Schedule a Call
                   </button>
                 </CardContent>
@@ -397,6 +461,148 @@ Gurugram, Haryana 122505</p>
           </motion.div>
         </div>
       </section>
+
+      {/* Schedule Call Form Popup */}
+      {showScheduleForm && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="bg-neutral-900/95 border border-neutral-700 rounded-2xl p-8 max-w-md w-full backdrop-blur-xl"
+          >
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold text-white mb-2">Schedule a Call</h3>
+              <p className="text-neutral-300">Fill in your details and preferred time for a consultation call</p>
+            </div>
+            
+            <form onSubmit={handleScheduleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={scheduleFormData.name}
+                  onChange={handleScheduleFormChange}
+                  required
+                  className="w-full px-4 py-3 bg-neutral-800/50 border-2 border-neutral-600 rounded-xl text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
+                  placeholder="Enter your full name"
+                />
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                    Phone Number *
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={scheduleFormData.phone}
+                    onChange={handleScheduleFormChange}
+                    required
+                    className="w-full px-4 py-3 bg-neutral-800/50 border-2 border-neutral-600 rounded-xl text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
+                    placeholder="Enter your phone number"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={scheduleFormData.email}
+                    onChange={handleScheduleFormChange}
+                    required
+                    className="w-full px-4 py-3 bg-neutral-800/50 border-2 border-neutral-600 rounded-xl text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
+                    placeholder="Enter your email address"
+                  />
+                </div>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                    Preferred Date *
+                  </label>
+                  <input
+                    type="date"
+                    name="preferredDate"
+                    value={scheduleFormData.preferredDate}
+                    onChange={handleScheduleFormChange}
+                    required
+                    className="w-full px-4 py-3 bg-neutral-800/50 border-2 border-neutral-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                    Preferred Time *
+                  </label>
+                  <select
+                    name="preferredTime"
+                    value={scheduleFormData.preferredTime}
+                    onChange={handleScheduleFormChange}
+                    required
+                    className="w-full px-4 py-3 bg-neutral-800/50 border-2 border-neutral-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
+                  >
+                    <option value="" className="text-neutral-400 bg-neutral-800">Select time</option>
+                    <option value="09:00 AM" className="text-white bg-neutral-800">09:00 AM</option>
+                    <option value="10:00 AM" className="text-white bg-neutral-800">10:00 AM</option>
+                    <option value="11:00 AM" className="text-white bg-neutral-800">11:00 AM</option>
+                    <option value="12:00 PM" className="text-white bg-neutral-800">12:00 PM</option>
+                    <option value="01:00 PM" className="text-white bg-neutral-800">01:00 PM</option>
+                    <option value="02:00 PM" className="text-white bg-neutral-800">02:00 PM</option>
+                    <option value="03:00 PM" className="text-white bg-neutral-800">03:00 PM</option>
+                    <option value="04:00 PM" className="text-white bg-neutral-800">04:00 PM</option>
+                    <option value="05:00 PM" className="text-white bg-neutral-800">05:00 PM</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  Additional Notes
+                </label>
+                <textarea
+                  name="message"
+                  value={scheduleFormData.message}
+                  onChange={handleScheduleFormChange}
+                  rows={3}
+                  className="w-full px-4 py-3 bg-neutral-800/50 border-2 border-neutral-600 rounded-xl text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all resize-none"
+                  placeholder="Any specific topics you'd like to discuss during the call..."
+                />
+              </div>
+              
+              <div className="flex gap-3 pt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowScheduleForm(false)}
+                  className="flex-1 px-4 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-all"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isScheduleSubmitting}
+                  className="flex-1 px-4 py-3 bg-gradient-to-br from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isScheduleSubmitting ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Scheduling...
+                    </div>
+                  ) : (
+                    "Schedule Call"
+                  )}
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
     </main>
   );
 } 

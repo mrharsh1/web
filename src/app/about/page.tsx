@@ -21,6 +21,7 @@ import {
 import { Boxes } from "@/components/ui/bg-box";
 import ProductsHero from "@/components/products-hero";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
+import { useState, useEffect } from "react";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -101,18 +102,57 @@ const values = [
 ];
 
 const stats = [
-  { number: "500+", label: "Projects Completed", icon: <CheckCircle className="w-6 h-6" /> },
-  { number: "50+", label: "Team Members", icon: <Users className="w-6 h-6" /> },
-  { number: "99%", label: "Client Satisfaction", icon: <Star className="w-6 h-6" /> },
-  { number: "24/7", label: "Support Available", icon: <Zap className="w-6 h-6" /> }
+  { number: 500, label: "Projects Completed", icon: <CheckCircle className="w-6 h-6" />, suffix: "+" },
+  { number: 5, label: "Team Members", icon: <Users className="w-6 h-6" />, suffix: "+" },
+  { number: 99, label: "Client Satisfaction", icon: <Star className="w-6 h-6" />, suffix: "%" },
+  { number: 24, label: "Support Available", icon: <Zap className="w-6 h-6" />, suffix: "/7" }
 ];
+
+// Animated Counter Component
+function AnimatedCounter({ target, duration = 2000, suffix = "" }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime: number;
+    let animationFrame: number;
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentCount = Math.floor(easeOutQuart * target);
+      
+      setCount(currentCount);
+      
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [target, duration]);
+
+  return (
+    <span className="text-3xl lg:text-4xl font-bold text-white">
+      {count}{suffix}
+    </span>
+  );
+}
 
 export default function AboutPage() {
   return (
     <main className="bg-neutral-950 text-white min-h-screen">
       {/* Hero Section */}
       <ProductsHero
-        badge="About Bhavya Entrprises"
+        badge="About Tech Assistant"
         heading="Building the Future"
         subheading="We're a team of innovators, creators, and problem-solvers dedicated to transforming businesses through cutting-edge technology and exceptional design."
         buttonText={undefined}
@@ -137,8 +177,12 @@ export default function AboutPage() {
                 <div className="flex items-center justify-center mb-4 text-blue-400 w-12 h-12 mx-auto bg-blue-900/20 rounded-full">
                   {stat.icon}
                 </div>
-                <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
-                  {stat.number}
+                <div className="mb-2">
+                  <AnimatedCounter 
+                    target={stat.number} 
+                    duration={2000} 
+                    suffix={stat.suffix}
+                  />
                 </div>
                 <div className="text-neutral-400 text-sm lg:text-base">
                   {stat.label}
@@ -166,7 +210,7 @@ export default function AboutPage() {
               From Vision to Reality
             </h2>
             <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
-              Founded in 2020, Bhavya Entrprises started as a small team with big dreams. Today, we're proud to be at the forefront of digital innovation.
+              Founded in 2020, Bhavya Entrprisesstarted as a small team with big dreams. Today, we're proud to be at the forefront of digital innovation.
             </p>
           </motion.div>
 
@@ -178,8 +222,8 @@ export default function AboutPage() {
               transition={{ duration: 0.8 }}
             >
               <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="flex items-start space-x-4 py-8">
+                  <div className="w-12 h-12 bg-neutral-600 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Target className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -189,8 +233,8 @@ export default function AboutPage() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="flex items-start space-x-4 py-8">
+                  <div className="w-12 h-12 bg-neutral-600 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Award className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -218,38 +262,38 @@ export default function AboutPage() {
                 </CardHeader>
                 <CardContent className="p-6">
                   <div className="space-y-6">
-                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
-                      <div className="w-4 h-4 bg-blue-500 rounded-full shadow-lg"></div>
+                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-neutral-500/10 border border-neutral-500/20">
+                      <div className="w-4 h-4 bg-neutral-500 rounded-full shadow-lg"></div>
                       <div>
-                        <span className="text-sm font-medium text-blue-400">2020</span>
+                        <span className="text-sm font-medium text-neutral-400">2020</span>
                         <p className="text-sm text-neutral-300">Founded</p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-purple-500/10 border border-purple-500/20">
-                      <div className="w-4 h-4 bg-purple-500 rounded-full shadow-lg"></div>
+                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-neutral-500/10 border border-neutral-500/20">
+                      <div className="w-4 h-4 bg-neutral-500 rounded-full shadow-lg"></div>
                       <div>
-                        <span className="text-sm font-medium text-purple-400">2021</span>
+                        <span className="text-sm font-medium text-neutral-400">2021</span>
                         <p className="text-sm text-neutral-300">First 100 Clients</p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-green-500/10 border border-green-500/20">
-                      <div className="w-4 h-4 bg-green-500 rounded-full shadow-lg"></div>
+                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-neutral-500/10 border border-neutral-500/20">
+                      <div className="w-4 h-4 bg-neutral-500 rounded-full shadow-lg"></div>
                       <div>
-                        <span className="text-sm font-medium text-green-400">2022</span>
+                        <span className="text-sm font-medium text-neutral-400">2022</span>
                         <p className="text-sm text-neutral-300">International Expansion</p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
-                      <div className="w-4 h-4 bg-yellow-500 rounded-full shadow-lg"></div>
+                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-neutral-500/10 border border-neutral-500/20">
+                      <div className="w-4 h-4 bg-neutral-500 rounded-full shadow-lg"></div>
                       <div>
-                        <span className="text-sm font-medium text-yellow-400">2023</span>
+                        <span className="text-sm font-medium text-neutral-400">2023</span>
                         <p className="text-sm text-neutral-300">AI Innovation Hub</p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
-                      <div className="w-4 h-4 bg-red-500 rounded-full shadow-lg animate-pulse"></div>
+                    <div className="flex items-center space-x-4 p-3 rounded-lg bg-neutral-500/10 border border-neutral-500/20">
+                      <div className="w-4 h-4 bg-neutral-500 rounded-full shadow-lg animate-pulse"></div>
                       <div>
-                        <span className="text-sm font-medium text-red-400">2024</span>
+                        <span className="text-sm font-medium text-neutral-400">2024</span>
                         <p className="text-sm text-neutral-300">Future Forward</p>
                       </div>
                     </div>
@@ -384,7 +428,7 @@ export default function AboutPage() {
       </section> */}
 
       {/* Values Section */}
-      <section className="py-24">
+      {/* <section className="py-24">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 60 }}
@@ -435,7 +479,7 @@ export default function AboutPage() {
             ))}
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-r from-blue-900/20 via-purple-900/20 to-blue-900/20">
@@ -452,7 +496,7 @@ export default function AboutPage() {
             <p className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto">
             Take the first step toward building your digital presence with our proven solutions.
             </p>
-            <div className="flex flex-col gap-4 justify-center">
+            <div className="flex flex-row gap-4 justify-center">
               <MovingBorderButton size="lg" className="bg-gradient-to-br from-blue-900/40 via-neutral-950 to-pink-900/30 hover:from-blue-800/50 hover:to-pink-800/40 text-white">
                 Get Started
               </MovingBorderButton>
